@@ -1,0 +1,111 @@
+.sleeveContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 40%;
+    position: relative;
+    background-color: #ff0000;
+  }
+  
+  .sleeve::before {
+    content: url("/paper-texture-2.svg");
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .sleeve {
+    width: 300px;
+    height: 400px;
+    background-color: #f8edd9; /* Light blue-gray color */
+    border-radius: 3px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    position: relative;  /* added for proper stacking */
+  }
+  
+  .flap::before {
+    content: url("/paper-texture.svg");
+    position: absolute;
+  }
+  
+  .flap {
+    width: 100%;
+    height: 100%;
+    background-color: #f8edd9; /* Slightly lighter than sleeve */
+    clip-path: polygon(0 100%, 100% 100%, 100% 0, 80% 0, 0 calc(100% - 50px));
+    z-index: 3;  /* raised to be on top of pictures */
+    border-radius: 3px;
+  }
+  
+  .flapShadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+    z-index: 2;
+  }
+  
+  .photoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: #de0000;
+  }
+  
+  .photo img {
+    
+    height: 20%;
+    width: 20%;
+  
+  }
+
+  .pictureStack {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;  /* between sleeve background and flap */
+    overflow: visible;
+  }
+  
+  .pictureItem {
+    position: absolute;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    height: 80%;
+    background-color: #faf4e7;
+    padding: 16px;
+    filter: sepia(20%);
+    content: url("/paper-texture.svg");
+  }
+  
+  .pictureItem:nth-child(1) {
+    top: 10px;
+    left: 10px;
+    transform: rotate(-5deg);
+  }
+  
+  .pictureItem:nth-child(2) {
+    top: 20px;
+    left: 20px;
+    transform: rotate(3deg);
+  }
+  
+  .pictureItem:nth-child(3) {
+    top: 30px;
+    left: 30px;
+    transform: rotate(-2deg);
+  }

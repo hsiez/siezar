@@ -1,0 +1,201 @@
+.cardContainer {
+    background-color: #fdf9f0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.card {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  width: 800px;
+  height: 500px;
+}
+
+.cardFront {
+  background-color: #f8edd9;
+  border-radius: 3px;
+  width: 100%;
+  height: 100%;
+}
+.cardFront::before {
+  content: url("/paper-texture.svg");
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.cardFront__content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: .25fr .75fr;
+  color: transparent;
+  text-shadow: 0 0 1px rgba(0,0,0,0.9);
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+}
+
+.cardHeader {
+  display: flex;
+  grid-column: 1;
+  grid-row: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: #b4c2cb;
+}
+
+.cardContent {
+  display: flex;
+  grid-column: 1;
+  grid-row: 2;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: inset 1px 0 2px 0 rgba(0,0,0,.5), inset -1px 0 2px 0 rgba(0,0,0,.5), inset 0 1px 2px 0 rgba(0,0,0,.5);
+
+}
+
+/* Updated underline space for Field NOTES h1 by reducing padding-bottom from 4px to 2px */
+.cardHeader h1 {
+  color: #f8edd9;
+  display: inline-block;
+  padding-bottom: 2px;
+  font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
+  letter-spacing: 36px;
+  word-spacing: 24px;
+  font-weight: 200;
+  text-transform: uppercase;
+  flex:1;
+}
+.cardHeaderUnder {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+}
+
+.cardHeaderUnderGlobes {
+  grid-column: 2 / 5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+}
+
+.cardHeaderUnderBoxesLeft {
+  grid-column: 1;
+  grid-row: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cardHeaderUnderBoxesRight {
+  grid-column: 5;
+  grid-row: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.cardHeaderBox {
+  background-color: #f8edd9;
+  width: 80%;
+  height: 40%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  box-shadow: inset 2px 0 2px 0 rgba(0,0,0,.5), inset -2px 0 2px 0 rgba(0,0,0,.5), inset 0 2px 2px 0 rgba(0,0,0,.5);
+
+}
+
+.boxCornerTopLeft {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  box-shadow: inset 0 3px 0 0 rgba(0,0,0,.7), inset 3px 0 0 0 rgba(0,0,0,.7);
+  top: 0;
+  left: 0;
+}
+
+.boxCornerTopRight {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  right: 0;
+  box-shadow: inset 0 3px 0 0 rgba(0,0,0,.7), inset -3px 0 0 0 rgba(0,0,0,.7);
+}
+
+.boxCornerBottomLeft {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  bottom: 0;
+  left: 0;
+  box-shadow: inset 0 -3px 0 0 rgba(0,0,0,.7), inset 3px 0 0 0 rgba(0,0,0,.7);
+}
+
+.boxCornerBottomRight {
+  position: absolute;
+  background-color: rgba(0,0,0,.8);
+  width: 16px;
+  height: 16px;
+  bottom: 0;
+  right: 0;
+}
+
+.date {
+  font-family: "Grape Nuts", cursive;
+  font-size: 14px;
+  color: #000000;
+  letter-spacing: 3px;
+}
+
+.cardContentDescription {
+  font-family: "Grape Nuts", cursive;
+  font-size: 32px;
+  color: #000000;
+  letter-spacing: 3px;
+  text-shadow: 0 0 1px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+.underline {
+  text-underline-offset: 8px;
+  text-decoration-thickness: 3px;
+}
+
+.location {
+  font-family: "Grape Nuts", cursive;
+  font-size: 32px;
+  color: #000000;
+  letter-spacing: 3px;
+  text-shadow: 0 0 1px rgba(0,0,0,0.5);
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

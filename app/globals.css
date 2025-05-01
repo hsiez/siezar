@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -5,11 +7,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #fefcf5;
     --foreground: #ededed;
   }
 }
-
+ 
 html,
 body {
   max-width: 100vw;
@@ -39,4 +41,9 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+/* Utility class for applying 'Grape Nuts' font selectively */
+.grape-nuts {
+  font-family: 'Grape Nuts', cursive;
 }
