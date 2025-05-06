@@ -21,7 +21,7 @@
 
 .title {
   font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   color: #000;
 }
 

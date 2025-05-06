@@ -3,15 +3,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 48px;
-  gap: 56px;
+  background-color: #fffdf9;
 }
+
+
 .main {
-  gap: 48px;
+  gap: 88px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 48px;
+  max-width: 1600px;
 }
 
 .section {
@@ -19,8 +22,30 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 75dvh;
   width: 100%;
+  height: 75dvh;
+}
+
+.sectionHorizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 16px;
+    max-width: 100%;
+
+  }
+  .section {
+    flex-direction: column;
+    max-height: none;
+    align-items: center;
+    gap: 32px; /* Add some gap for column layout */
+  }
 }
 
 .smallSection {
@@ -32,8 +57,7 @@
 }
 
 .paragraph {
-  width: 40%;
-  height: 100%;
+  min-width: 30%;
   display: flex;
   align-items: start;
   justify-content: start;
@@ -43,6 +67,19 @@
   font-size: 1rem;
   font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
   padding-right: 32px;
+  padding-top: 24px;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .paragraph {
+    width: 100%;
+    padding-right: 0;
+    align-items: center;
+    text-align: left;
+    padding: 32px;
+
+  }
 }
 
 .photosContainer {
@@ -51,11 +88,25 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: fit-content;
+  flex: 1;
   height: 100%;
   background-color: #fdf9f0;
   padding: 24px;
   border-radius: 3px;
+}
+
+.photosContainerHorizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  height: 100%;
+  background-color: #fdf9f0;
+  padding: 24px;
+  border-radius: 3px;
+  width: 100%;
 }
 
 .photoRow {
@@ -63,7 +114,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: fit-content;
   height: 50%;
   gap: 8px;
   width: 100%;
@@ -84,16 +134,27 @@
 }
 
 .photo {
-  flex: 1;
-  height: 100%;
-  width: 100%;
+  max-height: 250px;
+  width: auto;
   opacity: 0.05;
   filter: grayscale(100%);
   transition: filter 300ms ease-in, opacity 300ms ease-in;
   will-change: filter, opacity;
   pointer-events: none;
   display: block;
+
+  .img {
+    max-inline-size: 100%;
+    display: block;
+  }
 }
+
+@media (max-width: 768px) {
+  .photo {
+    max-height: 160px;
+  }
+}
+
 
 .photo::after {
   content: url("/paper-texture.svg");
@@ -109,7 +170,7 @@
 .photoCaption {
   font-family: "Grape Nuts", cursive;
   font-size: 1.2rem;
-  color: #3d3c3c;
+  color: #626262;
   letter-spacing: 2px;
   font-weight: bold;
   z-index: 2;
@@ -155,4 +216,89 @@
   height: 100%;
   color: #000;
   margin-bottom: 48px;
+}
+
+/* Carousel Styles */
+.carouselContainer {
+  display: flex;
+  align-items: center; /* Vertically center items and buttons */
+  justify-content: space-between; /* Space out buttons and track */
+  width: 100%;
+  overflow: hidden; /* Hide parts of side images that might overflow */
+  gap: var(--space-md); /* Gap between buttons and track */
+  padding: var(--space-lg) 0; /* Add some padding */
+  background-color: #fdf9f0;
+}
+
+.carouselTrack {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Center the group of three */
+  gap: 16px; /* Gap between photo items */
+  flex-grow: 1; /* Allow track to take available space */
+  transition: transform 300ms ease-in-out; /* Smooth transition for potential future sliding */
+}
+
+.carouselButton {
+  background: none;
+  border: none;
+  font-size: var(--font-size-3xl);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: var(--space-sm);
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.carouselButton:hover {
+  color: var(--color-text-primary);
+}
+
+/* Override photoItem styles slightly for carousel context */
+.photoItem.centerPhotoItem {
+  transform: scale(1.1); /* Make center item slightly larger */
+  z-index: 10; /* Ensure center item is on top */
+   /* Keep existing polaroid styles */
+}
+
+.photoItem.sidePhotoItem {
+  transform: scale(0.8); /* Make side items smaller */
+  opacity: 0.6; /* Make side items dimmer */
+   /* Keep existing polaroid styles */
+   /* The undeveloped look is handled by the default .photo style */
+}
+
+.photoItem.sidePhotoItem .photo {
+ /* Default .photo styles (grayscale, low opacity) apply here */
+ /* No need to override unless specific changes are needed for side items */
+}
+
+/* Triggered styles for the center photo */
+.photoItem.triggeredPhoto .photo {
+  filter: grayscale(0) saturate(1); /* Fully developed */
+  opacity: 1;
+}
+
+/* Optional: Adjust photo sizes specifically for carousel */
+.centerPhoto {
+  max-height: 300px; /* Larger max height for center */
+}
+
+.sidePhoto {
+  max-height: 200px; /* Smaller max height for sides */
+}
+
+/* Responsive adjustments for carousel */
+@media (max-width: 768px) {
+  .carouselTrack {
+    gap: var(--space-sm); /* Reduce gap on smaller screens */
+  }
+  .centerPhoto {
+    max-height: 200px;
+  }
+  .sidePhoto {
+    max-height: 150px;
+  }
+   .carouselButton {
+    font-size: var(--font-size-2xl);
+   }
 }

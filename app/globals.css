@@ -1,14 +1,98 @@
 @import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
 
 :root {
-  --background: #ffffff;
+  /* Color Palette (Light Mode) */
+  --background: #fefcf5;
   --foreground: #171717;
+  --color-primary: #007bff; /* Example Blue */
+  --color-secondary: #6c757d; /* Example Gray */
+  --color-accent: #28a745;  /* Example Green */
+  --color-text-primary: var(--foreground);
+  --color-text-secondary: #4a4a4a;
+  --color-border: #dee2e6;
+  --color-neutral-100: #f8f9fa;
+  --color-neutral-300: #dee2e6;
+  --color-neutral-500: #adb5bd;
+  --color-neutral-700: #495057;
+  --color-neutral-900: #212529;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;  /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-md: 1rem;     /* 16px (base) */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem;  /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem;  /* 36px */
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.75;
+
+  /* Spacing (Margins, Padding) */
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-2xl: 3rem;    /* 48px */
+  --space-3xl: 4rem;    /* 64px */
+
+  /* Sizes (Width, Height) */
+  --size-full: 100%;
+  --size-half: 50%;
+  --size-auto: auto;
+  /* Add specific component sizes if needed, e.g., --size-button-md: 40px; */
+
+  /* Opacity */
+  --opacity-10: 0.1;
+  --opacity-25: 0.25;
+  --opacity-50: 0.5;
+  --opacity-75: 0.75;
+  --opacity-90: 0.9;
+  --opacity-100: 1;
+
+  /* Borders */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-width: 1px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+
+  /* Secondary font (example) */
+  --secondary-font-size: 1.2rem; /* Kept from original */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #fefcf5;
-    --foreground: #ededed;
+    /* Color Palette (Dark Mode) */
+    --background: #--background: #fefcf5;; /* Darker background */
+    --foreground: #ededed; /* Lighter foreground */
+    --color-primary: #3f9eff; /* Brighter blue */
+    --color-secondary: #8a959e; /* Lighter gray */
+    --color-accent: #48d172;  /* Brighter green */
+    --color-text-primary: var(--foreground);
+    --color-text-secondary: #b0b0b0;
+    --color-border: #444444;
+    --color-neutral-100: #212529;
+    --color-neutral-300: #495057;
+    --color-neutral-500: #adb5bd;
+    --color-neutral-700: #dee2e6;
+    --color-neutral-900: #f8f9fa;
+
+    /* Other variables usually remain the same, unless specific dark mode adjustments are needed */
   }
 }
  

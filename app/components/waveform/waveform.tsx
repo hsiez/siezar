@@ -325,10 +325,10 @@ export default function Waveform({
     <div className={styles.waveformContainer}>
       <div className={styles.titleContainer}>
         <div className={styles.title}>
-          <p style={{ fontSize: '1rem' }}>
+          <p style={{ fontSize: '1rem', fontWeight: "600" }}>
             <b>{currentSong.title || "Unknown Title"}</b>
           </p>
-          <p style={{ fontSize: '0.8rem' }}>{currentSong.artist || "Unknown Artist"}</p>
+          <p style={{ fontSize: '1rem' }}>{currentSong.artist || "Unknown Artist"}</p>
         </div>
         <div className={styles.controls}>
            {/* Playlist Navigation Buttons */} 
