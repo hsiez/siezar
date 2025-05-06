@@ -27,7 +27,7 @@ export default function CDMX() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <section className={styles.section}>
+        <section className={styles.section + " " + styles.fieldNoteSection}>
           <FieldNoteCard location="CDMX" dates={["04/02/2025", "04/06/2025"]} />
         </section>
         <section className={styles.section}>
@@ -129,11 +129,11 @@ export default function CDMX() {
             <div className={styles.photoRow}>
               <div className={`${styles.photoItem} ${activePhoto === 1 ? styles.triggeredPhoto : ""}`}>
                 <Image src={niceCoffee} alt="Photo 1"  className={styles.photo}/>
-                <span className={styles.photoCaption}>Nice Day Coffee</span>
+                <span className={styles.photoCaption}>Nice Day</span>
               </div>
               <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
                 <Image src={castle2} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Castle Garden</span>
+                <span className={styles.photoCaption}>Castle</span>
               </div>
               <div className={`${styles.photoItem} ${activePhoto === 3 ? styles.triggeredPhoto : ""}`}>
                 <Image src={lardo} alt="Photo 3" className={styles.photo} objectFit="contain"/>
@@ -197,7 +197,7 @@ export default function CDMX() {
               </div>
               <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
                 <Image src={plaza} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Plaza Janeiro</span>
+                <span className={styles.photoCaption}>Plz Janeiro</span>
               </div>
               <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
                 <Image src={xinu} alt="Photo 2" className={styles.photo}/>

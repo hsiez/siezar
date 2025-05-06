@@ -42,18 +42,11 @@
   }
   .section {
     flex-direction: column;
-    max-height: none;
     align-items: center;
     gap: 32px; /* Add some gap for column layout */
+    padding-top: var(--space-sm);
+    height: auto; /* Changed from fixed height */
   }
-}
-
-.smallSection {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
 }
 
 .paragraph {
@@ -71,42 +64,16 @@
   height: 100%;
 }
 
-@media (max-width: 768px) {
-  .paragraph {
-    width: 100%;
-    padding-right: 0;
-    align-items: center;
-    text-align: left;
-    padding: 32px;
-
-  }
-}
-
 .photosContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  flex: 1;
-  height: 100%;
+  height: auto; /* Changed from 100% */
   background-color: #fdf9f0;
   padding: 24px;
   border-radius: 3px;
-}
-
-.photosContainerHorizontal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex: 1;
-  height: 100%;
-  background-color: #fdf9f0;
-  padding: 24px;
-  border-radius: 3px;
-  width: 100%;
 }
 
 .photoRow {
@@ -146,12 +113,6 @@
   .img {
     max-inline-size: 100%;
     display: block;
-  }
-}
-
-@media (max-width: 768px) {
-  .photo {
-    max-height: 160px;
   }
 }
 
@@ -218,87 +179,29 @@
   margin-bottom: 48px;
 }
 
-/* Carousel Styles */
-.carouselContainer {
-  display: flex;
-  align-items: center; /* Vertically center items and buttons */
-  justify-content: space-between; /* Space out buttons and track */
-  width: 100%;
-  overflow: hidden; /* Hide parts of side images that might overflow */
-  gap: var(--space-md); /* Gap between buttons and track */
-  padding: var(--space-lg) 0; /* Add some padding */
-  background-color: #fdf9f0;
-}
-
-.carouselTrack {
-  display: flex;
-  align-items: center; /* Align items vertically */
-  justify-content: center; /* Center the group of three */
-  gap: 16px; /* Gap between photo items */
-  flex-grow: 1; /* Allow track to take available space */
-  transition: transform 300ms ease-in-out; /* Smooth transition for potential future sliding */
-}
-
-.carouselButton {
-  background: none;
-  border: none;
-  font-size: var(--font-size-3xl);
-  cursor: pointer;
-  color: var(--color-text-secondary);
-  padding: var(--space-sm);
-  flex-shrink: 0; /* Prevent buttons from shrinking */
-}
-
-.carouselButton:hover {
-  color: var(--color-text-primary);
-}
-
-/* Override photoItem styles slightly for carousel context */
-.photoItem.centerPhotoItem {
-  transform: scale(1.1); /* Make center item slightly larger */
-  z-index: 10; /* Ensure center item is on top */
-   /* Keep existing polaroid styles */
-}
-
-.photoItem.sidePhotoItem {
-  transform: scale(0.8); /* Make side items smaller */
-  opacity: 0.6; /* Make side items dimmer */
-   /* Keep existing polaroid styles */
-   /* The undeveloped look is handled by the default .photo style */
-}
-
-.photoItem.sidePhotoItem .photo {
- /* Default .photo styles (grayscale, low opacity) apply here */
- /* No need to override unless specific changes are needed for side items */
-}
-
-/* Triggered styles for the center photo */
-.photoItem.triggeredPhoto .photo {
-  filter: grayscale(0) saturate(1); /* Fully developed */
-  opacity: 1;
-}
-
-/* Optional: Adjust photo sizes specifically for carousel */
-.centerPhoto {
-  max-height: 300px; /* Larger max height for center */
-}
-
-.sidePhoto {
-  max-height: 200px; /* Smaller max height for sides */
-}
-
-/* Responsive adjustments for carousel */
+/* Hide FieldNoteCard section on mobile */
 @media (max-width: 768px) {
-  .carouselTrack {
-    gap: var(--space-sm); /* Reduce gap on smaller screens */
+  .fieldNoteSection {
+    display: none;
   }
-  .centerPhoto {
-    max-height: 200px;
+  .photo {
+    max-height: 120px;
   }
-  .sidePhoto {
-    max-height: 150px;
+  .photoItem {
+    padding: 4px;
   }
-   .carouselButton {
-    font-size: var(--font-size-2xl);
-   }
+  .photoCaption {
+    font-size: .65rem;
+    letter-spacing: 1px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 400;
+    color: #222222;
+  }
+  .paragraph {
+    width: 100%;
+    padding-right: 0;
+    align-items: center;
+    text-align: left;
+    padding: var(--space-sm);
+  }
 }

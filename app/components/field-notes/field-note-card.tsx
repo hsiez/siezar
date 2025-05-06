@@ -12,7 +12,7 @@ export default function FieldNoteCard({location, dates}: {location: string, date
                 <div className={styles.cardHeaderUnder}>
                     <div className={styles.cardHeaderUnderGlobes}>
                     <img src="/globe.svg" alt="globe" className={styles.icon}/>
-                    <p>Siezar Exploration Inc.</p>
+                    <p className={styles.cardHeaderUnderGlobesText}>Siezar Exploration Inc.</p>
                     </div>
                     <div className={styles.cardHeaderUnderBoxesLeft}>
                     <div className={styles.cardHeaderBox}>
