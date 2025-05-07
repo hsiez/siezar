@@ -19,10 +19,47 @@ import xinu from "../../../public/cdmx/xinú.jpeg";
 import mue from "../../../public/cdmx/mue.jpeg";
 import gaba from "../../../public/cdmx/gaba.jpeg";
 import lucha from "../../../public/cdmx/lucha.jpeg";
+import PhotoGridDisplay, { PhotoDetail } from "../../components/field-notes/photo-grid";
 
 
 export default function CDMX() {
   const [activePhoto, setActivePhoto] = useState<number | null>(null);
+
+  const day1PhotoRows: PhotoDetail[][] = [
+    [
+      { id: 1, src: ceviche, alt: "Ceviche at Balandra", caption: "Balandra", imageClassName: styles.portrait },
+      { id: 2, src: jazzClub, alt: "Jazzatlán Capital", caption: "Jazzatlán" }
+    ],
+    [
+      { id: 3, src: tlecan, alt: "Tlecan Bar", caption: "Tlecan", objectFit: "contain" as const },
+      { id: 4, src: valle, alt: "Tacos de Valle", caption: "Tacos de Valle" }
+    ]
+  ];
+
+  const day2PhotoRowsCorrected: PhotoDetail[][] = [
+    [
+      { id: 1, src: niceCoffee, alt: "Nice Day Coffee", caption: "Nice Day" },
+      { id: 2, src: castle2, alt: "Chapultepec Castle view", caption: "Castle" },
+      { id: 3, src: lardo, alt: "Lardo Restaurant", caption: "Lardo", objectFit: "contain" as const }
+    ],
+    [
+      { id: 4, src: churro, alt: "El Moro Churros", caption: "El Moro" },
+      { id: 2, src: tono, alt: "Toño's Restaurant", caption: "Toño's" }
+    ]
+  ];
+
+  const day3PhotoRows: PhotoDetail[][] = [
+    [
+      { id: 1, src: almanegra, alt: "Almanegra Coffee", caption: "Almanegra" },
+      { id: 2, src: plaza, alt: "Plaza Rio de Janeiro", caption: "Plz Janeiro" },
+      { id: 2, src: xinu, alt: "Xinú Perfumes", caption: "Xinú" }
+    ],
+    [
+      { id: 3, src: mue, alt: "Muebles Gابه", caption: "Mue", objectFit: "contain" as const },
+      { id: 4, src: gaba, alt: "Gaba Restaurant", caption: "Gaba" },
+      { id: 2, src: lucha, alt: "Lucha Libre", caption: "Lucha" }
+    ]
+  ];
 
   return (
     <div className={styles.page}>
@@ -64,30 +101,7 @@ export default function CDMX() {
             </p>
           </div>
 
-          {/* Photo Grid */}
-          <div className={styles.photosContainer}>
-            <div className={styles.photoRow}>
-              <div className={`${styles.photoItem} ${activePhoto === 1 ? styles.triggeredPhoto : ""}`}>
-                <Image src={ceviche} alt="Photo 1"  className={styles.photo + " " + styles.portrait}/>
-                <span className={styles.photoCaption}>Balandra</span>
-              </div>
-              <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
-                <Image src={jazzClub} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Jazzatlán</span>
-              </div>
-            </div>
-
-            <div className={styles.photoRow}>
-              <div className={`${styles.photoItem} ${activePhoto === 3 ? styles.triggeredPhoto : ""}`}>
-                <Image src={tlecan} alt="Photo 3" className={styles.photo} objectFit="contain"/>
-                <span className={styles.photoCaption}>Tlecan</span>
-              </div>
-              <div className={styles.photoItem}>
-                <Image src={valle} alt="Photo 4" className={styles.photo}/>
-                <span className={styles.photoCaption}>Tacos de Valle</span>
-              </div>
-            </div>
-          </div>
+          <PhotoGridDisplay photoRows={day1PhotoRows} activePhoto={activePhoto} />
         </section>
 
         <section className={styles.section}>
@@ -124,34 +138,7 @@ export default function CDMX() {
             </p>
           </div>
 
-          {/* Photo Grid */}
-          <div className={styles.photosContainer}>
-            <div className={styles.photoRow}>
-              <div className={`${styles.photoItem} ${activePhoto === 1 ? styles.triggeredPhoto : ""}`}>
-                <Image src={niceCoffee} alt="Photo 1"  className={styles.photo}/>
-                <span className={styles.photoCaption}>Nice Day</span>
-              </div>
-              <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
-                <Image src={castle2} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Castle</span>
-              </div>
-              <div className={`${styles.photoItem} ${activePhoto === 3 ? styles.triggeredPhoto : ""}`}>
-                <Image src={lardo} alt="Photo 3" className={styles.photo} objectFit="contain"/>
-                <span className={styles.photoCaption}>Lardo</span>
-              </div>
-            </div>
-
-            <div className={styles.photoRow}>
-              <div className={styles.photoItem}>
-                <Image src={churro} alt="Photo 4" className={styles.photo}/>
-                <span className={styles.photoCaption}>El Moro</span>
-              </div>
-              <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
-                <Image src={tono} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Toño&apos;s</span>
-              </div>
-            </div>
-          </div>
+          <PhotoGridDisplay photoRows={day2PhotoRowsCorrected} activePhoto={activePhoto} />
         </section>
 
         <section className={styles.section}>
@@ -188,38 +175,7 @@ export default function CDMX() {
             </p>
           </div>
 
-          {/* Photo Grid */}
-          <div className={styles.photosContainer}>
-            <div className={styles.photoRow}>
-              <div className={`${styles.photoItem} ${activePhoto === 1 ? styles.triggeredPhoto : ""}`}>
-                <Image src={almanegra} alt="Photo 1"  className={styles.photo}/>
-                <span className={styles.photoCaption}>Almanegra</span>
-              </div>
-              <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
-                <Image src={plaza} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Plz Janeiro</span>
-              </div>
-              <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
-                <Image src={xinu} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Xinú</span>
-              </div>
-            </div>
-
-            <div className={styles.photoRow}>
-              <div className={`${styles.photoItem} ${activePhoto === 3 ? styles.triggeredPhoto : ""}`}>
-                <Image src={mue} alt="Photo 3" className={styles.photo} objectFit="contain"/>
-                <span className={styles.photoCaption}>Mue</span>
-              </div>
-              <div className={styles.photoItem}>
-                <Image src={gaba} alt="Photo 4" className={styles.photo}/>
-                <span className={styles.photoCaption}>Gaba</span>
-              </div>
-              <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
-                <Image src={lucha} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Lucha</span>
-              </div>
-            </div>
-          </div>
+          <PhotoGridDisplay photoRows={day3PhotoRows} activePhoto={activePhoto} />
         </section>
 
         <section className={styles.section}>
@@ -256,30 +212,7 @@ export default function CDMX() {
             </p>
           </div>
 
-          {/* Photo Grid */}
-          <div className={styles.photosContainer}>
-            <div className={styles.photoRow}>
-              <div className={`${styles.photoItem} ${activePhoto === 1 ? styles.triggeredPhoto : ""}`}>
-                <Image src={ceviche} alt="Photo 1"  className={styles.photo + " " + styles.portrait}/>
-                <span className={styles.photoCaption}>Balandra</span>
-              </div>
-              <div className={`${styles.photoItem} ${activePhoto === 2 ? styles.triggeredPhoto : ""}`}>
-                <Image src={jazzClub} alt="Photo 2" className={styles.photo}/>
-                <span className={styles.photoCaption}>Jazzatlán</span>
-              </div>
-            </div>
-
-            <div className={styles.photoRow}>
-              <div className={`${styles.photoItem} ${activePhoto === 3 ? styles.triggeredPhoto : ""}`}>
-                <Image src={tlecan} alt="Photo 3" className={styles.photo} objectFit="contain"/>
-                <span className={styles.photoCaption}>Tlecan</span>
-              </div>
-              <div className={styles.photoItem}>
-                <Image src={valle} alt="Photo 4" className={styles.photo}/>
-                <span className={styles.photoCaption}>Tacos de Valle</span>
-              </div>
-            </div>
-          </div>
+          <PhotoGridDisplay photoRows={day1PhotoRows} activePhoto={activePhoto} />
         </section>
 
         <section className={styles.smallSection}>

@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 75dvh;
+  height: 100dvh;
 }
 
 .sectionHorizontal {
@@ -60,107 +60,17 @@
   font-size: 1rem;
   font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
   padding-right: 32px;
-  padding-top: 24px;
   height: 100%;
 }
 
-.photosContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: auto; /* Changed from 100% */
-  background-color: #fdf9f0;
-  padding: 24px;
-  border-radius: 3px;
-}
+/* Styles related to photosContainer, photoRow, photoItem, photo, photoCaption, 
+   and their variations like :hover, :nth-child, and .triggeredPhoto 
+   have been moved to photo-grid.module.css */
 
-.photoRow {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 50%;
-  gap: 8px;
-  width: 100%;
-}
-
-.photoItem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: fit-content;
-  height: 100%;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  background-image: url("/paper-texture-2.svg");
-  background-color: rgb(255, 252, 242);
-  padding: 12px;
-  gap: 8px;
-}
-
-.photo {
-  max-height: 250px;
-  width: auto;
-  opacity: 0.05;
-  filter: grayscale(100%);
-  transition: filter 300ms ease-in, opacity 300ms ease-in;
-  will-change: filter, opacity;
-  pointer-events: none;
-  display: block;
-
-  .img {
-    max-inline-size: 100%;
-    display: block;
-  }
-}
-
-
-.photo::after {
-  content: url("/paper-texture.svg");
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: inset 0 0 50px 20px rgb(0, 0, 0);
-  pointer-events: none;
-}
-
-.photoCaption {
-  font-family: "Grape Nuts", cursive;
-  font-size: 1.2rem;
-  color: #626262;
-  letter-spacing: 2px;
-  font-weight: bold;
-  z-index: 2;
-  width: 100%;
-  text-align: center;
-}
-
-.photoItem:nth-child(1) {
-  transform: rotate(.4deg);
-}
-
-.photoItem:nth-child(2) {
-  transform: rotate(.4deg);
-}
-
-.photoItem:hover .photo {
-  filter: grayscale(0) saturate(.75);
-  opacity: 1;
-}
-
-/* ADDED new classes for hover trigger effect */
+/* ADDED new classes for hover trigger effect - triggerWord remains here */
 .triggerWord {
   cursor: pointer;
   text-decoration: underline;
-}
-
-.triggeredPhoto .photo {
-  filter: grayscale(0) saturate(1);
-  opacity: 1;
 }
 
 
@@ -184,20 +94,9 @@
   .fieldNoteSection {
     display: none;
   }
-  .photo {
-    max-height: 120px;
-  }
-  .photoItem {
-    padding: 4px;
-  }
-  .photoCaption {
-    font-size: .65rem;
-    letter-spacing: 1px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 400;
-    color: #222222;
-  }
-  .paragraph {
+  /* Mobile styles for .photo, .photoItem, .photoCaption were moved to photo-grid.module.css */
+  
+  .paragraph { /* This paragraph style under media query remains */
     width: 100%;
     padding-right: 0;
     align-items: center;
