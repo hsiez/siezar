@@ -2,7 +2,6 @@
 import styles from "./page.module.css";
 import FieldNoteCard from "@/app/components/field-notes/field-note-card";
 import { useState } from "react";
-import Waveform from "@/app/components/waveform/waveform";
 import ceviche from "../../../public/cdmx/ceviche.jpeg";
 import jazzClub from "../../../public/cdmx/jazz-club.jpeg";
 import tlecan from "../../../public/cdmx/tlecan.jpeg";
