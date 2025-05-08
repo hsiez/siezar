@@ -1,7 +1,6 @@
 "use client";
 import styles from "./page.module.css";
 import FieldNoteCard from "@/app/components/field-notes/field-note-card";
-import Image from "next/image";
 import { useState } from "react";
 import Waveform from "@/app/components/waveform/waveform";
 import ceviche from "../../../public/cdmx/ceviche.jpeg";
@@ -20,6 +19,8 @@ import mue from "../../../public/cdmx/mue.jpeg";
 import gaba from "../../../public/cdmx/gaba.jpeg";
 import lucha from "../../../public/cdmx/lucha.jpeg";
 import PhotoGridDisplay, { PhotoDetail } from "../../components/field-notes/photo-grid";
+import AudioWidget from "../../components/field-notes/audio-widget/audio-widget";
+
 
 
 export default function CDMX() {
@@ -64,6 +65,7 @@ export default function CDMX() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        <AudioWidget />
         <section className={styles.section + " " + styles.fieldNoteSection}>
           <FieldNoteCard location="CDMX" dates={["04/02/2025", "04/06/2025"]} />
         </section>
@@ -213,15 +215,6 @@ export default function CDMX() {
           </div>
 
           <PhotoGridDisplay photoRows={day1PhotoRows} activePhoto={activePhoto} />
-        </section>
-
-        <section className={styles.smallSection}>
-            <div className={styles.waveformContainer}>
-              <h1 className={styles.title}>
-                      Sounds Collected in the Field
-              </h1>
-              <Waveform/>
-            </div>
         </section>
       </main>
     </div>

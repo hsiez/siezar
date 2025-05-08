@@ -1,0 +1,206 @@
+/* audio-widget.module.css */
+.container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 60px; /* Initial size for the circle */
+  height: 60px; /* Initial size for the circle */
+  border-radius: 50%; /* Makes it a circle */
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: width 200ms ease-in-out, height 200ms ease-in-out, border-radius 200ms ease-in-out;
+  overflow: hidden; /* Ensures content doesn't spill during transition */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.containerExpanded {
+  width: 400px; /* Expanded width */
+  height: 200px; /* Expanded height */
+  border-radius: 8px; /* Rounded corners for the widget */
+}
+
+.playButton {
+  color: white;
+  font-size: 24px; /* Adjust as needed for play icon */
+  opacity: 1;
+  transition: opacity 100ms ease-out;
+  position: absolute; /* To allow fading in/out in place */
+}
+
+.playButtonHidden {
+  opacity: 0;
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.widgetContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around; /* Distribute content within the widget */
+  width: 100%;
+  height: 100%;
+  color: white;
+  opacity: 0;
+  transition: opacity 100ms ease 100ms; /* 100ms delay, 100ms fade-in */
+  position: absolute; /* To allow fading in/out in place */
+  padding: 8px 0px;
+}
+
+.widgetContentVisible {
+  opacity: 1;
+}
+
+.songInfo {
+  text-align: left;
+  width: 100%;
+  padding-left: var(--space-md);
+}
+
+.songTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.artistName {
+  font-size: var(--font-size-sm);
+  color: #ccc;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Adjust as needed */
+  padding: 0 16px;
+  gap: 16px;
+}
+
+.controlButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 32px; /* Adjust icon sizes */
+  cursor: pointer;
+  padding: 0; /* Removed padding, will use fixed size and flex centering */
+  width: 40px; /* Added fixed width */
+  height: 40px; /* Added fixed height */
+  display: inline-flex; /* Added for centering content */
+  align-items: center; /* Added for centering content */
+  justify-content: center; /* Added for centering content */
+  line-height: 1; /* Added for consistent icon vertical alignment */
+}
+
+.controlButton:hover {
+  color: #aaa;
+}
+
+/* Example Play Icon (using text for simplicity, consider SVG or icon font) */
+.playIcon::before {
+  content: '▶'; /* Simple play symbol */
+}
+
+/* Example Back Icon */
+.backIcon::before {
+  content: '⏮';
+}
+
+/* Example Next Icon */
+.nextIcon::before {
+  content: '⏭';
+}
+
+/* Example Pause Icon (if you want to toggle play/pause) */
+.pauseIcon::before {
+  content: '⏸';
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #818181;
+  font-size: var(--font-size-md); /* Standardize font size */
+  cursor: pointer;
+  line-height: 1; /* Adjust line-height for better alignment */
+}
+
+.closeButton:hover {
+  color: #aaa;
+}
+
+.closeButton::before {
+  content: '✕'; /* Simple 'X' close symbol */
+}
+
+.noteTitle {
+  font-size: var(--font-size-md);
+  color: #818181;
+  line-height: 1; /* Ensure consistent line-height */
+}
+
+.waveformDisplay {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 90%; /* Match controls width or adjust as needed */
+  font-size: 0.8em;
+  color: #818181;
+}
+
+.bottomContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 360px; /* Match controls width or adjust as needed */
+  font-size: 0.8em;
+  color: #ccc;
+}
+
+.currentTime {
+  /* Styles for current time */
+}
+
+.duration {
+  /* Styles for duration */
+}
+
+.waveformCanvas {
+  display: block; /* From waveform.module.css */
+ /* From waveform.module.css - light background for the canvas */
+  /* padding: 16px; */ /* Padding might be too much for the small widget canvas */
+  border-radius: 4px; /* Slightly rounded corners for the canvas */
+  /* width: 100%; /* Ensure it takes the width from its parent .waveformDisplay or props */
+  /* height: 100%; */ /* Ensure it takes the height from its parent .waveformDisplay or props */
+  padding: 8px 3px;
+}
+
+.statusMessage {
+  /* Styles for loading/error messages, similar to .loading/.error in waveform.module.css */
+  /* Position this within .waveformDisplay if canvas is hidden */
+  color: #555;
+  font-size: 0.9em;
+  padding: 10px;
+  text-align: center;
+  width: 100%; /* Take full width of the waveformDisplay area */
+}
+
+.errorMessage {
+  color: #e74c3c; /* Red for errors */
+}
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
