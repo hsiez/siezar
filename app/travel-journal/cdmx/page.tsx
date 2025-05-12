@@ -1,7 +1,5 @@
-"use client";
 import styles from "./page.module.css";
 import FieldNoteCard from "@/app/components/field-notes/field-note-card";
-import { useState } from "react";
 import ceviche from "../../../public/cdmx/ceviche.jpeg";
 import jazzClub from "../../../public/cdmx/jazz-club.jpeg";
 import tlecan from "../../../public/cdmx/tlecan.jpeg";
@@ -17,13 +15,33 @@ import xinu from "../../../public/cdmx/xinú.jpeg";
 import mue from "../../../public/cdmx/mue.jpeg";
 import gaba from "../../../public/cdmx/gaba.jpeg";
 import lucha from "../../../public/cdmx/lucha.jpeg";
-import PhotoGridDisplay, { PhotoDetail } from "../../components/field-notes/photo-grid";
+import { PhotoDetail } from "../../components/field-notes/photo-grid/photo-grid";
 import AudioWidget from "../../components/field-notes/audio-widget/audio-widget";
+import { Metadata } from 'next';
+import Entries from "../../components/field-notes/entries/entries";
 
 
+export const metadata: Metadata = {
+  title: "CDMX Travel Journal",
+  description: "A travel journal detailing a trip to Mexico City (CDMX).",
+  icons: {
+    icon: "/globe-white.svg", // Replace with your favicon path
+  },
+  openGraph: {
+    images: [
+      { 
+        url: "/cdmx/og.jpeg", // Replace with your Open Graph image path
+        alt: "CDMX Travel Journal Open Graph Image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/cdmx/open-graph.png"], // Replace with your Twitter image path
+  },
+};
 
 export default function CDMX() {
-  const [activePhoto, setActivePhoto] = useState<number | null>(null);
 
   const day1PhotoRows: PhotoDetail[][] = [
     [
@@ -65,156 +83,10 @@ export default function CDMX() {
     <div className={styles.page}>
       <main className={styles.main}>
         <AudioWidget />
-        <section className={styles.section + " " + styles.fieldNoteSection}>
+        <section className={styles.sectionSmaller}>
           <FieldNoteCard location="CDMX" dates={["04/02/2025", "04/06/2025"]} />
         </section>
-        <section className={styles.section}>
-          <div className={styles.paragraph}> 
-            <h2>
-              Day 1 <br/>
-            </h2>
-            <p>
-              Airport - Uber - Airbnb. I immediately feel like time is slipping away. So much to do, so much to see.
-              <br/>
-              <br/>
-              Haylee and I start off at <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(1)} onMouseLeave={() => setActivePhoto(null)}>Balandra</span> in Roma Norte.
-              We Order the Tiger milk ceviche, house ceviche with mango, and pineapple citrus juice (2 refills lol).
-              The food is delicious. I wish I could order more. Not enough stomach real estate.
-            </p>
-
-            <p>
-              After Balandra, we make our way to <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(2)} onMouseLeave={() => setActivePhoto(null)}>Jazzatlán Capital</span> for a concert. We arrive a bit early, so we talk and people watch.
-              The place is vibrantly alive.
-              <br/>
-              <br/>
-
-              The band starts.
-              <br/>
-              The drummer is totally in it. A smile breaks through at times. I am witnessing someone in their element. I feel lucky.
-              <br/>
-              <br/>
-              <br/>
-              Tlecan?
-            </p>
-
-            <p>
-              <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(3)} onMouseLeave={() => setActivePhoto(null)}>Tlecan</span> is easy to miss. The entrance is an unassuming door with a tiny sign. No vacancy at the L-shaped bar. ......
-            </p>
-          </div>
-
-          <PhotoGridDisplay photoRows={day1PhotoRows} activePhoto={activePhoto} />
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.paragraph}> 
-            <h2>
-              Day 2 <br/>
-            </h2>
-            <p>
-              Airport - Uber - Airbnb. I immediately feel like time is slipping away. So much to do, so much to see.
-              <br/>
-              <br/>
-              Haylee and I start off at <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(1)} onMouseLeave={() => setActivePhoto(null)}>Balandra</span> in Roma Norte.
-              We Order the Tiger milk ceviche, house ceviche with mango, and pineapple citrus juice (2 refills lol).
-              The food is delicious. I wish I could order more. Not enough stomach real estate.
-            </p>
-
-            <p>
-              After Balandra, we make our way to <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(2)} onMouseLeave={() => setActivePhoto(null)}>Jazzatlán Capital</span> for a concert. We arrive a bit early, so we talk and people watch.
-              The place is vibrantly alive.
-              <br/>
-              <br/>
-
-              The band starts.
-              <br/>
-              The drummer is totally in it. A smile breaks through at times. I am witnessing someone in their element. I feel lucky.
-              <br/>
-              <br/>
-              <br/>
-              Tlecan?
-            </p>
-
-            <p>
-              <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(3)} onMouseLeave={() => setActivePhoto(null)}>Tlecan</span> is easy to miss. The entrance is an unassuming door with a tiny sign. No vacancy at the L-shaped bar. ......
-            </p>
-          </div>
-
-          <PhotoGridDisplay photoRows={day2PhotoRowsCorrected} activePhoto={activePhoto} />
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.paragraph}> 
-            <h2>
-              Day 3 <br/>
-            </h2>
-            <p>
-              Airport - Uber - Airbnb. I immediately feel like time is slipping away. So much to do, so much to see.
-              <br/>
-              <br/>
-              Haylee and I start off at <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(1)} onMouseLeave={() => setActivePhoto(null)}>Balandra</span> in Roma Norte.
-              We Order the Tiger milk ceviche, house ceviche with mango, and pineapple citrus juice (2 refills lol).
-              The food is delicious. I wish I could order more. Not enough stomach real estate.
-            </p>
-
-            <p>
-              After Balandra, we make our way to <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(2)} onMouseLeave={() => setActivePhoto(null)}>Jazzatlán Capital</span> for a concert. We arrive a bit early, so we talk and people watch.
-              The place is vibrantly alive.
-              <br/>
-              <br/>
-
-              The band starts.
-              <br/>
-              The drummer is totally in it. A smile breaks through at times. I am witnessing someone in their element. I feel lucky.
-              <br/>
-              <br/>
-              <br/>
-              Tlecan?
-            </p>
-
-            <p>
-              <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(3)} onMouseLeave={() => setActivePhoto(null)}>Tlecan</span> is easy to miss. The entrance is an unassuming door with a tiny sign. No vacancy at the L-shaped bar. ......
-            </p>
-          </div>
-
-          <PhotoGridDisplay photoRows={day3PhotoRows} activePhoto={activePhoto} />
-        </section>
-
-        <section className={styles.section}>
-          <div className={styles.paragraph}> 
-            <h2>
-              Day 1 <br/>
-            </h2>
-            <p>
-              Airport - Uber - Airbnb. I immediately feel like time is slipping away. So much to do, so much to see.
-              <br/>
-              <br/>
-              Haylee and I start off at <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(1)} onMouseLeave={() => setActivePhoto(null)}>Balandra</span> in Roma Norte.
-              We Order the Tiger milk ceviche, house ceviche with mango, and pineapple citrus juice (2 refills lol).
-              The food is delicious. I wish I could order more. Not enough stomach real estate.
-            </p>
-
-            <p>
-              After Balandra, we make our way to <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(2)} onMouseLeave={() => setActivePhoto(null)}>Jazzatlán Capital</span> for a concert. We arrive a bit early, so we talk and people watch.
-              The place is vibrantly alive.
-              <br/>
-              <br/>
-
-              The band starts.
-              <br/>
-              The drummer is totally in it. A smile breaks through at times. I am witnessing someone in their element. I feel lucky.
-              <br/>
-              <br/>
-              <br/>
-              Tlecan?
-            </p>
-
-            <p>
-              <span className={styles.triggerWord} onMouseEnter={() => setActivePhoto(3)} onMouseLeave={() => setActivePhoto(null)}>Tlecan</span> is easy to miss. The entrance is an unassuming door with a tiny sign. No vacancy at the L-shaped bar. ......
-            </p>
-          </div>
-
-          <PhotoGridDisplay photoRows={day1PhotoRows} activePhoto={activePhoto} />
-        </section>
+        <Entries day1PhotoRows={day1PhotoRows} day2PhotoRowsCorrected={day2PhotoRowsCorrected} day3PhotoRows={day3PhotoRows} day4PhotoRows={day1PhotoRows} />
       </main>
     </div>
   );

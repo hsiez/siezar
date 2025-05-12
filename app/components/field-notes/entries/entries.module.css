@@ -1,0 +1,68 @@
+
+.section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100dvh;
+    }
+
+
+@media (max-width: 768px) {
+    .section {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px; /* Add some gap for column layout */
+        padding-top: var(--space-sm);
+        height: auto; /* Changed from fixed height */
+    }
+}
+
+.paragraph {
+    max-width: 40%;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    color: #000;
+    gap: 16px;
+    font-size: 1rem;
+    font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
+    padding-right: 32px;
+    height: 100%;
+}
+
+/* Styles related to photosContainer, photoRow, photoItem, photo, photoCaption, 
+    and their variations like :hover, :nth-child, and .triggeredPhoto 
+    have been moved to photo-grid.module.css */
+
+/* ADDED new classes for hover trigger effect - triggerWord remains here */
+.triggerWord {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.title {
+    font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
+    font-size: 1.2rem;
+    height: 100%;
+    color: #000;
+    margin-bottom: 48px;
+}
+
+/* Hide FieldNoteCard section on mobile */
+@media (max-width: 768px) {
+    .fieldNoteSection {
+        display: none;
+    }
+    /* Mobile styles for .photo, .photoItem, .photoCaption were moved to photo-grid.module.css */
+
+    .paragraph { /* This paragraph style under media query remains */
+        width: 100%;
+        padding-right: 0;
+        align-items: center;
+        text-align: left;
+        padding: var(--space-sm);
+    }
+}
