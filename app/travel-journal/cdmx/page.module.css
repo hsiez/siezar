@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   padding: 48px;
-  max-width: 1680px;
+  width: 100%;
 }
 
 .section {
@@ -55,6 +55,12 @@
     gap: 32px; /* Add some gap for column layout */
     padding-top: var(--space-sm);
     height: auto; /* Changed from fixed height */
+  }
+}
+
+@media (min-width: 1920px) {
+  .main {
+    max-width: 1680px;
   }
 }
 

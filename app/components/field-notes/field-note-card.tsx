@@ -11,8 +11,8 @@ export default function FieldNoteCard({location, dates}: {location: string, date
                 <h1 className={styles.cardHeader__title}>FIELD NOTES</h1>
                 <div className={styles.cardHeaderUnder}>
                     <div className={styles.cardHeaderUnderGlobes}>
-                    <img src="/globe.svg" alt="globe" className={styles.icon}/>
-                    <p className={styles.cardHeaderUnderGlobesText}>Siezar Exploration Inc.</p>
+                        <img src="/globe.svg" alt="globe" className={styles.icon}/>
+                        <p className={styles.cardHeaderUnderGlobesText}>Siezar Exploration Inc.</p>
                     </div>
                     <div className={styles.cardHeaderUnderBoxesLeft}>
                     <div className={styles.cardHeaderBox}>

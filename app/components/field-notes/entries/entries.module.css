@@ -6,7 +6,7 @@
     justify-content: space-between;
     width: 100%;
     height: 100dvh;
-    }
+}
 
 
 @media (max-width: 768px) {
@@ -20,7 +20,7 @@
 }
 
 .paragraph {
-    max-width: 40%;
+    min-width: 40%;
     display: flex;
     align-items: start;
     justify-content: start;
@@ -40,7 +40,11 @@
 /* ADDED new classes for hover trigger effect - triggerWord remains here */
 .triggerWord {
     cursor: pointer;
-    text-decoration: underline;
+    box-shadow: 0 0 1px 0 #95835b;
+    border-radius: 3px;
+    background-color: var(--vintage-paper-color);
+    color: #503c10;
+    padding: 0px 2px;
 }
 
 .title {

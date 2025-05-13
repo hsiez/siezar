@@ -33,7 +33,7 @@
 }
 
 .photo {
-  max-height: 300px;
+  max-height: 250px;
   width: auto;
   opacity: 0.05;
   filter: grayscale(100%);
@@ -41,6 +41,12 @@
   will-change: filter, opacity;
   pointer-events: none;
   display: block;
+}
+
+@media (min-width: 1920px) {
+  .photo {
+    max-height: 300px;
+  }
 }
 
 /* Note: The nested .img class from the original page.module.css was:
