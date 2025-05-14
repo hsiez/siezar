@@ -20,6 +20,7 @@
   border-radius: 3px;
   width: 100%;
   height: 100%;
+  position: relative;
 }
 .cardFront::before {
   content: url("/paper-texture.svg");
@@ -227,7 +228,7 @@
   }
 
   .location {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
   }
 
   .date {
@@ -235,7 +236,8 @@
   }
 
   .cardHeaderUnderGlobes {
-    gap: 3px;
+    gap: 8px;
+    flex-direction: column;
   }
 
   .cardHeaderUnderGlobesText {
@@ -255,4 +257,29 @@
     background-repeat: no-repeat;
     /* Inherits position, width, and height from the base .cardFront::before rule */
   }
+
+  .cardHeaderUnderBoxesLeft {
+    display: none;
+  }
+
+  .boxCornerTopLeft {
+    width: 8px;
+    height: 8px;
+  }
+
+  .boxCornerTopRight {
+    width: 8px;
+    height: 8px;
+  }
+
+  .boxCornerBottomLeft {
+    width: 8px;
+    height: 8px;
+  }
+
+  .boxCornerBottomRight {
+    width: 8px;
+    height: 8px;
+  }
+
 }

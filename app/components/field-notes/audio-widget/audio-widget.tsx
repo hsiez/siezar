@@ -78,7 +78,8 @@ const formatTime = (seconds: number): string => {
 };
 
 const PLACEHOLDER_COLOR = '#d3d3d3'; // Light grey for placeholder bars
-const CANVAS_WIDTH = 360;
+const INITIAL_CANVAS_WIDTH = 360; // Renamed from CANVAS_WIDTH
+const MOBILE_CANVAS_WIDTH = 280; // Width for mobile
 const CANVAS_HEIGHT = 24;
 const BAR_WIDTH = 1;
 const BAR_PADDING = 1;
@@ -108,6 +109,7 @@ const AudioWidget: React.FC = () => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
+  const [canvasWidth, setCanvasWidth] = useState<number>(INITIAL_CANVAS_WIDTH);
 
   const currentSong = playlist[currentTrackIndex];
   const audioUrl = currentSong?.url;
@@ -161,6 +163,23 @@ const AudioWidget: React.FC = () => {
       context.fillRect(markerX, 0, 2, drawHeight);
     }
   }, []); // BAR_WIDTH, BAR_PADDING, BAR_COLOR are constants now
+
+
+  // Effect to adjust canvas width based on screen size
+  useEffect(() => {
+    const checkScreenSize = () => {
+      if (window.innerWidth < 768) {
+        setCanvasWidth(MOBILE_CANVAS_WIDTH);
+      } else {
+        setCanvasWidth(INITIAL_CANVAS_WIDTH);
+      }
+    };
+
+    checkScreenSize(); // Initial check
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
 
   // Effect for loading waveform JSON and setting audio source (adapted from waveform.tsx)
@@ -362,7 +381,7 @@ const AudioWidget: React.FC = () => {
               
               <canvas
                 ref={canvasRef}
-                width={CANVAS_WIDTH}
+                width={canvasWidth}
                 height={CANVAS_HEIGHT}
                 onClick={handleCanvasClick}
                 className={styles.waveformCanvas} // Add class for styling

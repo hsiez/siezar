@@ -5,7 +5,7 @@
   right: 16px;
   width: 56px; /* Initial size for the circle */
   height: 56px; /* Initial size for the circle */
-  border-radius: 50%; /* Makes it a circle */
+  border-radius: 16px;
   background-color: #333;
   display: flex;
   align-items: center;
@@ -20,7 +20,21 @@
   width: 400px; /* Expanded width */
   height: 200px; /* Expanded height */
   border-radius: 8px; /* Rounded corners for the widget */
+  right: 16px;
 }
+
+@media (max-width: 768px) {
+  .containerExpanded {
+    width: 80%;
+    display: flex;
+  }
+
+  .container {
+    right: 0px;
+    border-radius: 16px 0px 0px 16px;
+  }
+}
+
 
 .playButton {
   color: white;
@@ -46,7 +60,25 @@
   opacity: 0;
   transition: opacity 100ms ease 100ms; /* 100ms delay, 100ms fade-in */
   position: absolute; /* To allow fading in/out in place */
-  padding: 8px 0px;
+  padding: 8px 16px;
+}
+
+@media (max-width: 768px) {
+  .widgetContent {
+    padding: 12px 12px;
+    justify-content: space-between;
+  }
+  .waveformDisplay {
+    width: 280px; /* Adjust this width as needed for mobile */
+  }
+  .waveformCanvas {
+    /* The width attribute on the canvas element itself will be controlled by JS.
+       This CSS width: 100% ensures it fits its parent (.waveformDisplay) */
+    width: 100%; 
+  }
+  .bottomContainer {
+    width: 280px; /* Match waveformDisplay width on mobile */
+  }
 }
 
 .widgetContentVisible {
@@ -56,7 +88,6 @@
 .songInfo {
   text-align: left;
   width: 100%;
-  padding-left: var(--space-md);
 }
 
 .songTitle {
@@ -74,7 +105,6 @@
   align-items: center;
   justify-content: center;
   width: 100%; /* Adjust as needed */
-  padding: 0 16px;
   gap: 16px;
 }
 
@@ -148,6 +178,9 @@
   align-items: center;
 }
 
+@media (max-width: 768px) {
+}
+
 .timeContainer {
   display: flex;
   justify-content: space-between;
@@ -201,6 +234,5 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 16px;
   margin-bottom: 16px;
 }
