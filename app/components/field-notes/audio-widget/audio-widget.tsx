@@ -403,18 +403,21 @@ const AudioWidget: React.FC = () => {
                   onClick={handlePrevious}
                   disabled={loading}
                   aria-label="Previous song"
+                  type="button"
                 />
                 <button 
                   className={`${styles.controlButton} ${playPauseIconClass}`} 
                   onClick={togglePlayPause}
                   disabled={loading || !!error || !currentSong} // Disable if no song or error
                   aria-label={isPlaying ? "Pause" : "Play"}
+                  type="button"
                 />
                 <button 
                   className={`${styles.controlButton} ${styles.nextIcon}`} 
                   onClick={handleNext}
                   disabled={loading}
                   aria-label="Next song"
+                  type="button"
                 />
               </div>
             </div>
