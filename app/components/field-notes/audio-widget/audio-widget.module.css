@@ -3,8 +3,8 @@
   position: fixed;
   bottom: 16px;
   right: 16px;
-  width: 56px; /* Initial size for the circle */
-  height: 56px; /* Initial size for the circle */
+  width: 48px; /* Initial size for the circle */
+  height: 48px; /* Initial size for the circle */
   border-radius: 16px;
   background-color: #333;
   display: flex;
@@ -121,6 +121,8 @@
   align-items: center; /* Added for centering content */
   justify-content: center; /* Added for centering content */
   line-height: 1; /* Added for consistent icon vertical alignment */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .controlButton:hover {
