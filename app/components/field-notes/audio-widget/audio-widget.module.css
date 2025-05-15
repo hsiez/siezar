@@ -122,26 +122,31 @@
 
 .controlButton:hover {
   color: #aaa;
+  --webkit-appearance: none;
 }
 
 /* Example Play Icon (using text for simplicity, consider SVG or icon font) */
 .playIcon::before {
   content: '▶'; /* Simple play symbol */
+  --webkit-appearance: none;
 }
 
 /* Example Back Icon */
 .backIcon::before {
   content: '⏮';
+  --webkit-appearance: none;
 }
 
 /* Example Next Icon */
 .nextIcon::before {
   content: '⏭';
+  --webkit-appearance: none;
 }
 
 /* Example Pause Icon (if you want to toggle play/pause) */
 .pauseIcon::before {
   content: '⏸';
+  --webkit-appearance: none;
 }
 
 .closeButton {
