@@ -4,8 +4,14 @@
   align-items: center;
   justify-content: center;
   background-color: #fffdf9;
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
+.page::-webkit-scrollbar {
+  display: block !important; /* Chrome, Safari and Opera */
+}
 
 .main {
   gap: 56px;

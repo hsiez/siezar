@@ -20,7 +20,7 @@
 }
 
 .paragraph {
-    min-width: 40%;
+    width: 40%;
     display: flex;
     align-items: start;
     justify-content: start;

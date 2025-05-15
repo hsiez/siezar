@@ -2,10 +2,10 @@
 .container {
   position: fixed;
   bottom: 16px;
-  right: 16px;
+  right: 0px;
   width: 48px; /* Initial size for the circle */
   height: 48px; /* Initial size for the circle */
-  border-radius: 16px;
+  border-radius: 8px 0px 0px 8px;
   background-color: #333;
   display: flex;
   align-items: center;
@@ -14,24 +14,18 @@
   transition: width 200ms ease-in-out, height 200ms ease-in-out, border-radius 200ms ease-in-out;
   overflow: hidden; /* Ensures content doesn't spill during transition */
   z-index: 1000; /* Ensure it's above other content */
+
 }
 
 .containerExpanded {
   width: 400px; /* Expanded width */
   height: 200px; /* Expanded height */
-  border-radius: 8px; /* Rounded corners for the widget */
-  right: 16px;
 }
 
 @media (max-width: 768px) {
   .containerExpanded {
     width: 80%;
     display: flex;
-  }
-
-  .container {
-    right: 0px;
-    border-radius: 16px 0px 0px 16px;
   }
 }
 
