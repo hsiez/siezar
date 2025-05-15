@@ -118,7 +118,6 @@
   justify-content: center; /* Added for centering content */
   line-height: 1; /* Added for consistent icon vertical alignment */
   -webkit-appearance: none;
-  appearance: none;
 }
 
 .controlButton:hover {
