@@ -134,3 +134,8 @@ a {
 .grape-nuts {
   font-family: 'Grape Nuts', cursive;
 }
+
+.button {
+  --webkit-appearance: none;
+  appearance: none;
+}
