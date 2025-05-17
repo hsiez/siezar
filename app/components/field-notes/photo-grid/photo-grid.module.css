@@ -110,6 +110,7 @@ in the components. */
 @media (max-width: 768px) {
   .photosContainer {
     padding-top: 24px;
+    minwidth: 100%;
   }
 
   .photo {

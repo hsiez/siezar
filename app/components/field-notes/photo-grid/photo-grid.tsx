@@ -30,6 +30,7 @@ export default function PhotoGridDisplay({ activePhoto, photoRows }: PhotoGridDi
                 alt={photoDetail.alt}
                 className={`${gridStyles.photo} ${photoDetail.imageClassName || ""}`}
                 objectFit={photoDetail.objectFit}
+                loading="eager"
                 // width and height are intrinsic from StaticImageData unless 'fill' is used
                 // If 'fill' is used, parent div (photoItem) might need position:relative and dimensions.
               />

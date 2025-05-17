@@ -37,13 +37,6 @@
     max-width: 100%;
 
   }
-  .section {
-    flex-direction: column;
-    align-items: center;
-    gap: 32px; /* Add some gap for column layout */
-    padding-top: var(--space-sm);
-    height: auto; /* Changed from fixed height */
-  }
 }
 
 @media (min-width: 1920px) {
@@ -90,20 +83,4 @@
   height: 100%;
   color: #000;
   margin-bottom: 48px;
-}
-
-/* Hide FieldNoteCard section on mobile */
-@media (max-width: 768px) {
-  .fieldNoteSection {
-    display: none;
-  }
-  /* Mobile styles for .photo, .photoItem, .photoCaption were moved to photo-grid.module.css */
-  
-  .paragraph { /* This paragraph style under media query remains */
-    width: 100%;
-    padding-right: 0;
-    align-items: center;
-    text-align: left;
-    padding: var(--space-sm);
-  }
 }
