@@ -1,11 +1,13 @@
 .photosContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: end;
+  justify-content: end;
   gap: 8px;
-  height: auto; /* Changed from 100% */
+  height: 100%;
   padding: 24px;
+  min-width: 60%;
+  padding-top: 200px;
 }
 
 .photoRow {
@@ -106,6 +108,10 @@ in the components. */
 
 /* Styles for mobile from the original media query */
 @media (max-width: 768px) {
+  .photosContainer {
+    padding-top: 24px;
+  }
+
   .photo {
     max-height: 120px;
   }

@@ -62,7 +62,7 @@ export default function CDMX() {
     ],
     [
       { id: 4, src: churro, alt: "El Moro Churros", caption: "El Moro" },
-      { id: 2, src: tono, alt: "Toño's Restaurant", caption: "Toño's" }
+      { id: 5, src: tono, alt: "Toño's Restaurant", caption: "Toño's" }
     ]
   ];
 
@@ -75,7 +75,7 @@ export default function CDMX() {
     [
       { id: 3, src: mue, alt: "Muebles Gابه", caption: "Mue", objectFit: "contain" as const },
       { id: 4, src: gaba, alt: "Gaba Restaurant", caption: "Gaba" },
-      { id: 2, src: lucha, alt: "Lucha Libre", caption: "Lucha" }
+      { id: 5, src: lucha, alt: "Lucha Libre", caption: "Lucha" }
     ]
   ];
 

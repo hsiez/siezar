@@ -2,10 +2,8 @@
 .section {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
-    width: 100%;
-    height: 100dvh;
 }
 
 
@@ -30,7 +28,6 @@
     font-size: 1rem;
     font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
     padding-right: 32px;
-    height: 100%;
 }
 
 /* Styles related to photosContainer, photoRow, photoItem, photo, photoCaption, 
