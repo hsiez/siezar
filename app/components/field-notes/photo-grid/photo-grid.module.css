@@ -2,12 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: end;
-  justify-content: end;
+  justify-content: center;
   gap: 8px;
-  height: 100%;
-  padding: 24px;
+  min-height: 100%;
   min-width: 60%;
-  padding-top: 200px;
 }
 
 .photoRow {
@@ -15,7 +13,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 50%;
   gap: 8px;
   width: 100%;
 }
@@ -26,7 +23,6 @@
   justify-content: center;
   flex-direction: column;
   width: fit-content;
-  height: 100%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   background-image: url("/paper-texture-2.svg");
   background-color: rgb(255, 252, 242);
@@ -35,7 +31,7 @@
 }
 
 .photo {
-  max-height: 250px;
+  max-height: 275px;
   width: auto;
   opacity: 0.05;
   filter: grayscale(100%);

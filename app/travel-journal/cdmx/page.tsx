@@ -4,17 +4,28 @@ import ceviche from "../../../public/cdmx/ceviche.jpeg";
 import jazzClub from "../../../public/cdmx/jazz-club.jpeg";
 import tlecan from "../../../public/cdmx/tlecan.jpeg";
 import valle from "../../../public/cdmx/valle.jpeg";
+import valle2 from "../../../public/cdmx/valle2.jpeg";
 import niceCoffee from "../../../public/cdmx/nice-day-coffee.jpeg";
 import castle2 from "../../../public/cdmx/castle-2.jpeg";
+import garden from "../../../public/cdmx/castle-garden.jpeg";
+import hallway from "../../../public/cdmx/stained-glass-hallway.jpeg";
 import lardo from "../../../public/cdmx/lardo.jpeg";
+import lardo2 from "../../../public/cdmx/lardo2.jpeg";
 import churro from "../../../public/cdmx/churro.jpeg";
 import tono from "../../../public/cdmx/tono.jpeg";
 import almanegra from "../../../public/cdmx/almanegra.jpeg";
 import plaza from "../../../public/cdmx/plaza-rio-de-janeiro.jpeg";
 import xinu from "../../../public/cdmx/xinú.jpeg";
+import xinu2 from "../../../public/cdmx/xinu2.jpeg";
 import mue from "../../../public/cdmx/mue.jpeg";
+import mue1 from "../../../public/cdmx/museum1.jpeg";
+import mue2 from "../../../public/cdmx/museum2.jpeg";
 import gaba from "../../../public/cdmx/gaba.jpeg";
+import gabaFish from "../../../public/cdmx/fish.jpeg";
+import gabaLengua from "../../../public/cdmx/lengua.jpeg";
 import lucha from "../../../public/cdmx/lucha.jpeg";
+import dep from "../../../public/cdmx/dep.jpeg";
+import cortado from "../../../public/cdmx/cortado.jpeg";
 import { PhotoDetail } from "../../components/field-notes/photo-grid/photo-grid";
 import AudioWidget from "../../components/field-notes/audio-widget/audio-widget";
 import { Metadata } from 'next';
@@ -54,28 +65,51 @@ export default function CDMX() {
     ]
   ];
 
-  const day2PhotoRowsCorrected: PhotoDetail[][] = [
+  const day2PhotoRows: PhotoDetail[][] = [
     [
       { id: 1, src: niceCoffee, alt: "Nice Day Coffee", caption: "Nice Day" },
+    ],
+    [
       { id: 2, src: castle2, alt: "Chapultepec Castle view", caption: "Castle" },
-      { id: 3, src: lardo, alt: "Lardo Restaurant", caption: "Lardo", objectFit: "contain" as const }
+      { id: 3, src: hallway, alt: "Stain glass hallway", caption: "Hallway" },
+      { id: 4, src: garden, alt: "Castle garden", caption: "Garden" }
+    ],
+    [
+      { id: 5, src: lardo, alt: "Lardo Restaurant", caption: "Lardo", objectFit: "contain" as const },
+      { id: 6, src: lardo2, alt: "Lardo Restaurant", caption: "Lardo" }
     ],
     [
       { id: 4, src: churro, alt: "El Moro Churros", caption: "El Moro" },
       { id: 5, src: tono, alt: "Toño's Restaurant", caption: "Toño's" }
+    ],
+    [
+      { id: 6, src: dep, alt: "Departamento", caption: "Departamento" },
+      { id: 7, src: valle2, alt: "Tacos de Valle", caption: "Tacos de Valle" }
     ]
   ];
 
   const day3PhotoRows: PhotoDetail[][] = [
     [
       { id: 1, src: almanegra, alt: "Almanegra Coffee", caption: "Almanegra" },
-      { id: 2, src: plaza, alt: "Plaza Rio de Janeiro", caption: "Plz Janeiro" },
-      { id: 2, src: xinu, alt: "Xinú Perfumes", caption: "Xinú" }
+      { id: 2, src: cortado, alt: "Cortado", caption: "Cortado" },
+      { id: 3, src: plaza, alt: "Plaza Rio de Janeiro", caption: "Plz Janeiro" },
     ],
     [
-      { id: 3, src: mue, alt: "Muebles Gابه", caption: "Mue", objectFit: "contain" as const },
-      { id: 4, src: gaba, alt: "Gaba Restaurant", caption: "Gaba" },
-      { id: 5, src: lucha, alt: "Lucha Libre", caption: "Lucha" }
+      { id: 4, src: xinu2, alt: "Xinú Entrance", caption: "Xinú" },
+      { id: 5, src: xinu, alt: "Xinú Store", caption: "Xinú" }
+    ],
+    [
+      { id: 6, src: mue, alt: "Museo Nacional de Antropología", caption: "sun stone", objectFit: "contain" as const },
+      { id: 7, src: mue1, alt: "Museo Nacional de Antropología", caption: "courtyard" },
+      { id: 8, src: mue2, alt: "Museo Nacional de Antropología", caption: "courtyard 2" }
+    ],
+    [
+      { id: 4, src: gaba, alt: "Gaba Salad", caption: "Tomato Salad" },
+      { id: 5, src: gabaFish, alt: "Gaba Fish", caption: "Catch of Day" },
+      { id: 6, src: gabaLengua, alt: "Gaba Lengua", caption: "Lengua Carpaccio" },
+    ],
+    [
+      { id: 7, src: lucha, alt: "Lucha Libre", caption: "Lucha" }
     ]
   ];
 
@@ -86,7 +120,7 @@ export default function CDMX() {
         <section className={styles.sectionSmaller}>
           <FieldNoteCard location="CDMX" dates={["04/02/2025", "04/06/2025"]} />
         </section>
-        <Entries day1PhotoRows={day1PhotoRows} day2PhotoRowsCorrected={day2PhotoRowsCorrected} day3PhotoRows={day3PhotoRows} day4PhotoRows={day1PhotoRows} />
+        <Entries day1PhotoRows={day1PhotoRows} day2PhotoRows={day2PhotoRows} day3PhotoRows={day3PhotoRows} day4PhotoRows={day1PhotoRows} />
       </main>
     </div>
   );
