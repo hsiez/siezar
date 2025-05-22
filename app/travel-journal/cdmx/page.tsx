@@ -26,6 +26,19 @@ import gabaLengua from "../../../public/cdmx/lengua.jpeg";
 import lucha from "../../../public/cdmx/lucha.jpeg";
 import dep from "../../../public/cdmx/dep.jpeg";
 import cortado from "../../../public/cdmx/cortado.jpeg";
+import eseCafe1 from "../../../public/cdmx/ese-cafe1.jpeg";
+import eseCafe2 from "../../../public/cdmx/ese-cafe2.jpeg";
+import xuxu from "../../../public/cdmx/xuxu.jpeg";
+import lib1 from "../../../public/cdmx/lib1.jpeg";
+import lib2 from "../../../public/cdmx/lib2.jpeg";
+import lib3 from "../../../public/cdmx/lib3.jpeg";
+import mercado from "../../../public/cdmx/mercado.jpeg";
+import pargot1 from "../../../public/cdmx/pargot1.jpeg";
+import pargot2 from "../../../public/cdmx/pargot2.jpeg";
+import pargot3 from "../../../public/cdmx/pargot3.jpeg";
+import plazalc from "../../../public/cdmx/plazalc.jpeg";
+import tokyoBar from "../../../public/cdmx/tokyobar.jpeg";
+import dept2 from "../../../public/cdmx/dept2.jpeg";
 import { PhotoDetail } from "../../components/field-notes/photo-grid/photo-grid";
 import AudioWidget from "../../components/field-notes/audio-widget/audio-widget";
 import { Metadata } from 'next';
@@ -113,6 +126,40 @@ export default function CDMX() {
     ]
   ];
 
+  const day4PhotoRows: PhotoDetail[][] = [
+    [
+      { id: 1, src: eseCafe1, alt: "Ese Cafe", caption: "Ese Cafe" },
+      { id: 2, src: eseCafe2, alt: "Ese Cafe", caption: "Ese Cafe" }
+    ],
+    [
+      { id: 3, src: xuxu, alt: "Xuxu", caption: "Xuxu" },
+    ],
+    [
+      { id: 4, src: lib1, alt: "Libreria", caption: "Libreria" },
+      { id: 5, src: lib2, alt: "Libreria", caption: "Libreria" },
+      { id: 6, src: lib3, alt: "Libreria", caption: "Libreria" }
+    ],
+    [
+      { id: 7, src: mercado, alt: "Mercado", caption: "Mercado" }
+    ],
+    [
+      { id: 8, src: pargot1, alt: "Pargot", caption: "Pargot" },
+      { id: 9, src: pargot2, alt: "Pargot", caption: "Pargot" },
+      { id: 10, src: pargot3, alt: "Pargot", caption: "Pargot" }
+    ],
+    [
+      { id: 11, src: plazalc, alt: "Plaza Lazaro Cardenas", caption: "Plaza Lazaro Cardenas" }
+    ],
+    [
+      { id: 12, src: tokyoBar, alt: "Tokyo Bar", caption: "Tokyo Bar" },
+    ],
+    [
+      { id: 13, src: dept2, alt: "Departamento", caption: "Departamento" }
+    ]
+
+
+  ]
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -120,7 +167,7 @@ export default function CDMX() {
         <section className={styles.sectionSmaller}>
           <FieldNoteCard location="CDMX" dates={["04/02/2025", "04/06/2025"]} />
         </section>
-        <Entries day1PhotoRows={day1PhotoRows} day2PhotoRows={day2PhotoRows} day3PhotoRows={day3PhotoRows} day4PhotoRows={day1PhotoRows} />
+        <Entries day1PhotoRows={day1PhotoRows} day2PhotoRows={day2PhotoRows} day3PhotoRows={day3PhotoRows} day4PhotoRows={day4PhotoRows} />
       </main>
     </div>
   );
