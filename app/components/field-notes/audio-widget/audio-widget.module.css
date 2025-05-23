@@ -39,6 +39,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .playButtonHidden {
@@ -120,6 +121,7 @@
   line-height: 1; /* Added for consistent icon vertical alignment */
   -webkit-appearance: none;
   appearance: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .controlButton:hover {
