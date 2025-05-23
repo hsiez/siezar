@@ -119,9 +119,6 @@
   align-items: center; /* Added for centering content */
   justify-content: center; /* Added for centering content */
   line-height: 1; /* Added for consistent icon vertical alignment */
-  -webkit-appearance: none;
-  appearance: none;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .controlButton:hover {
@@ -162,7 +159,7 @@
 }
 
 .closeButton::before {
-  content: '✕'; /* Simple 'X' close symbol */
+  content: '⏭'; /* Simple 'X' close symbol */
 }
 
 .noteTitle {
