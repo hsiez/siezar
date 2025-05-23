@@ -31,11 +31,17 @@
 
 
 .playButton {
-  color: white;
-  font-size: 24px; /* Adjust as needed for play icon */
+  color: white; /* Sets default SVG fill color */
   opacity: 1;
   transition: opacity 100ms ease-out;
-  position: absolute; /* To allow fading in/out in place */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Fill the .container */
+  height: 100%; /* Fill the .container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -110,56 +116,31 @@
   background: none;
   border: none;
   color: white;
-  font-size: 32px; /* Adjust icon sizes */
   cursor: pointer;
-  padding: 0; /* Removed padding, will use fixed size and flex centering */
-  width: 40px; /* Added fixed width */
-  height: 40px; /* Added fixed height */
-  display: inline-flex; /* Added for centering content */
-  align-items: center; /* Added for centering content */
-  justify-content: center; /* Added for centering content */
-  line-height: 1; /* Added for consistent icon vertical alignment */
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .controlButton:hover {
   color: #aaa;
 }
 
-/* Example Play Icon (using text for simplicity, consider SVG or icon font) */
-.playIcon::before {
-  content: '▶'; /* Simple play symbol */
-}
-
-/* Example Back Icon */
-.backIcon::before {
-  content: '⏮';
-}
-
-/* Example Next Icon */
-.nextIcon::before {
-  content: '⏭';
-}
-
-/* Example Pause Icon (if you want to toggle play/pause) */
-.pauseIcon::before {
-  content: '⏸';
-}
+/* SVG icons are now used in the component directly */
 
 .closeButton {
   background: none;
   border: none;
   color: #818181;
-  font-size: var(--font-size-md); /* Standardize font size */
+  font-size: var(--font-size-md);
   cursor: pointer;
-  line-height: 1; /* Adjust line-height for better alignment */
 }
 
 .closeButton:hover {
   color: #aaa;
-}
-
-.closeButton::before {
-  content: '⏭'; /* Simple 'X' close symbol */
 }
 
 .noteTitle {

@@ -86,6 +86,37 @@ const BAR_PADDING = 1;
 const BAR_COLOR = '#fcf7ed'; // For waveform bars
 // const CANVAS_BG_COLOR = '#fcf7ed'; // Background for canvas, can be set in CSS
 
+// SVG Icon Components
+const PlayIcon = ({ size = 32, color = "currentColor" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 5V19L19 12L8 5Z" />
+  </svg>
+);
+
+const PauseIcon = ({ size = 32, color = "currentColor" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 19H10V5H6V19ZM14 5V19H18V5H14Z" />
+  </svg>
+);
+
+const NextIcon = ({ size = 32, color = "currentColor" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 18L14.5 12L6 6V18ZM16 6V18H18V6H16Z" />
+  </svg>
+);
+
+const PreviousIcon = ({ size = 32, color = "currentColor" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 6L9.5 12L18 18V6ZM8 6V18H6V6H8Z" />
+  </svg>
+);
+
+const CloseIcon = ({ size = 24, color = "currentColor" }) => ( // Adjusted size for close icon
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" />
+  </svg>
+);
+
 // Function to generate simple placeholder data (moved from waveform.tsx)
 const generatePlaceholderData = (numberOfBars: number): number[] => {
   const data = [];
@@ -338,7 +369,7 @@ const AudioWidget: React.FC = () => {
   };
 
   // Determine which icon to show for the main play/pause button
-  const playPauseIconClass = isPlaying ? styles.pauseIcon : styles.playIcon;
+  // const playPauseIconClass = isPlaying ? styles.pauseIcon : styles.playIcon; // Will be replaced by direct component usage
 
   return (
     <div
@@ -349,7 +380,8 @@ const AudioWidget: React.FC = () => {
         className={`${styles.playButton} ${isExpanded ? styles.playButtonHidden : ''}`}
       >
         {/* This is the initial play button icon for the collapsed state */}
-        <span className={styles.playIcon}></span> 
+        {/* <span className={styles.playIcon}></span> */}
+        <PlayIcon size={32} /> 
       </div>
 
       <div
@@ -366,6 +398,7 @@ const AudioWidget: React.FC = () => {
               className={styles.closeButton}
               onClick={toggleExpansion}
               aria-label="Close widget">
+                <CloseIcon />
               </button>
             </div>
             
@@ -403,13 +436,17 @@ const AudioWidget: React.FC = () => {
                   onClick={handlePrevious}
                   disabled={loading}
                   aria-label="Previous song"
-                />
+                >
+                  <PreviousIcon />
+                </button>
                 <button 
-                  className={`${styles.controlButton} ${playPauseIconClass}`} 
+                  className={`${styles.controlButton}`} // Removed playPauseIconClass
                   onClick={togglePlayPause}
                   disabled={loading || !!error || !currentSong} // Disable if no song or error
                   aria-label={isPlaying ? "Pause" : "Play"}
-                />
+                >
+                  {isPlaying ? <PauseIcon /> : <PlayIcon />}
+                </button>
                 <button 
                   className={`${styles.controlButton} ${styles.nextIcon}`} 
                   onClick={handleNext}
@@ -419,7 +456,9 @@ const AudioWidget: React.FC = () => {
                     WebkitAppearance: 'none',
                     MozAppearance: 'none',
                   }}
-                />
+                >
+                  <NextIcon />
+                </button>
               </div>
             </div>
           </>
