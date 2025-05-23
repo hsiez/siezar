@@ -16,13 +16,14 @@
     color: #000;
     margin-bottom: 0px;
     font-weight: var(--font-weight-extrabold);
+    text-align: center;
 }
 .subEntry {
     display: flex;
     flex-direction: row;
     align-items: stretch;
     justify-content: space-between;
-    gap: 32px;
+    gap: 16px;
 }
 
 .subEntryTitle {
@@ -35,14 +36,15 @@
 @media (max-width: 768px) {
     .section {
         width: 100%;
-        gap: 32px;
+        gap: 160px;
         padding-top: var(--space-sm);
     }
 
     .subEntry {
         flex-direction: column;
         align-items: center;
-        gap: 32px;
+        justify-content: center;
+        gap: 16px;
     }
 }
 

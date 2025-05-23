@@ -37,6 +37,7 @@
   transition: opacity 100ms ease-out;
   position: absolute; /* To allow fading in/out in place */
   -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
 }
 
