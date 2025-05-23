@@ -1,10 +1,13 @@
 import styles from "./page.module.css";
 import FieldNoteCard from "@/app/components/field-notes/field-note-card";
 import ceviche from "../../../public/cdmx/ceviche.jpeg";
+import bigBite from "../../../public/cdmx/haylee-bigbite.jpeg";
+import panaderiaRosetta from "../../../public/cdmx/panaderiarosetta.jpeg";
 import jazzClub from "../../../public/cdmx/jazz-club.jpeg";
 import tlecan from "../../../public/cdmx/tlecan.jpeg";
-import valle from "../../../public/cdmx/valle.jpeg";
 import valle2 from "../../../public/cdmx/valle2.jpeg";
+import valleOutside from "../../../public/cdmx/valle-outside.jpeg";
+import valleSelfie from "../../../public/cdmx/valle-selfie.jpeg";
 import niceCoffee from "../../../public/cdmx/nice-day-coffee.jpeg";
 import castle2 from "../../../public/cdmx/castle-2.jpeg";
 import garden from "../../../public/cdmx/castle-garden.jpeg";
@@ -39,6 +42,9 @@ import pargot3 from "../../../public/cdmx/pargot3.jpeg";
 import plazalc from "../../../public/cdmx/plazalc.jpeg";
 import tokyoBar from "../../../public/cdmx/tokyobar.jpeg";
 import dept2 from "../../../public/cdmx/dept2.jpeg";
+import dripCoffee from "../../../public/cdmx/dripcafe.jpeg";
+import yellowMonkey from "../../../public/cdmx/yellowmonkey.jpeg";
+import book from "../../../public/cdmx/book.jpeg";
 import { PhotoDetail } from "../../components/field-notes/photo-grid/photo-grid";
 import AudioWidget from "../../components/field-notes/audio-widget/audio-widget";
 import { Metadata } from 'next';
@@ -70,11 +76,21 @@ export default function CDMX() {
   const day1PhotoRows: PhotoDetail[][] = [
     [
       { id: 1, src: ceviche, alt: "Ceviche at Balandra", caption: "Balandra", imageClassName: styles.portrait },
-      { id: 2, src: jazzClub, alt: "Jazzatlán Capital", caption: "Jazzatlán" }
+      { id: 2, src: bigBite, alt: "Big Bite", caption: "Big Bite" }
     ],
     [
-      { id: 3, src: tlecan, alt: "Tlecan Bar", caption: "Tlecan", objectFit: "contain" as const },
-      { id: 4, src: valle, alt: "Tacos de Valle", caption: "Tacos de Valle" }
+      { id: 4, src: panaderiaRosetta, alt: "Panaderia Rosetta", caption: "Rosetta" }
+    ],
+    [
+      { id: 3, src: jazzClub, alt: "Jazzatlán Capital", caption: "Jazzatlán" }
+    ],
+    
+    [
+      { id: 4, src: tlecan, alt: "Tlecan Bar", caption: "Tlecan", objectFit: "contain" as const },
+    ],
+    [
+      { id: 5, src: valleOutside, alt: "Tacos de Valle", caption: "Tacos de Valle" },
+      { id: 6, src: valleSelfie, alt: "Tacos de Valle", caption: "Tacos de Valle" }
     ]
   ];
 
@@ -156,8 +172,16 @@ export default function CDMX() {
     [
       { id: 13, src: dept2, alt: "Departamento", caption: "Departamento" }
     ]
+  ]
 
-
+  const day5PhotoRows: PhotoDetail[][] = [
+    [
+      { id: 1, src: dripCoffee, alt: "Drip Coffee", caption: "Drip Coffee" },
+      { id: 2, src: yellowMonkey, alt: "Yellow Monkey", caption: "Yellow Monkey" },
+    ],
+    [
+      { id: 3, src: book, alt: "Book", caption: "Book" }
+    ]
   ]
 
   return (
@@ -167,7 +191,7 @@ export default function CDMX() {
         <section className={styles.sectionSmaller}>
           <FieldNoteCard location="CDMX" dates={["04/02/2025", "04/06/2025"]} />
         </section>
-        <Entries day1PhotoRows={day1PhotoRows} day2PhotoRows={day2PhotoRows} day3PhotoRows={day3PhotoRows} day4PhotoRows={day4PhotoRows} />
+        <Entries day1PhotoRows={day1PhotoRows} day2PhotoRows={day2PhotoRows} day3PhotoRows={day3PhotoRows} day4PhotoRows={day4PhotoRows} day5PhotoRows={day5PhotoRows} />
       </main>
     </div>
   );
