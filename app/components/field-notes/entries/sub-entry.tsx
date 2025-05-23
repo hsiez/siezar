@@ -7,18 +7,16 @@ interface SubEntryProps {
     title: string;
     content: ReactNode;
     photoRows: PhotoDetail[][];
-    activePhoto: number | null;
-    onPhotoHover: (index: number | null) => void;
 }
 
-export default function SubEntry({ title, content, photoRows, activePhoto, onPhotoHover }: SubEntryProps) {
+export default function SubEntry({ title, content, photoRows}: SubEntryProps) {
     return (
         <div className={styles.subEntry}>
             <div className={styles.paragraph}>
                 <h3 className={styles.subEntryTitle}>{title}</h3>
                 <div>{content}</div>
             </div>
-            <PhotoGridDisplay photoRows={photoRows} activePhoto={activePhoto} />
+            <PhotoGridDisplay photoRows={photoRows} />
         </div>
     );
 } 

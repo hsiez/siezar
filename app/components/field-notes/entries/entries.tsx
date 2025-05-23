@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./entries.module.css";
-import { useState } from "react";
 import SubEntry from "./sub-entry";
 import { PhotoDetail } from "../photo-grid/photo-grid";
 
@@ -12,11 +11,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
     day4PhotoRows: PhotoDetail[][],
     day5PhotoRows: PhotoDetail[][]
 }) {
-    const [activePhotoRow1, setActivePhotoRow1] = useState<number | null>(null);
-    const [activePhotoRow2, setActivePhotoRow2] = useState<number | null>(null);
-    const [activePhotoRow3, setActivePhotoRow3] = useState<number | null>(null);
-    const [activePhotoRow4, setActivePhotoRow4] = useState<number | null>(null);
-    const [activePhotoRow5, setActivePhotoRow5] = useState<number | null>(null);
+    
     return (
         <div className={styles.container}>
             <section className={styles.section}>
@@ -31,8 +26,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day1PhotoRows.slice(0, 1)}
-                    activePhoto={activePhotoRow1}
-                    onPhotoHover={setActivePhotoRow1}
                 />
 
                 <SubEntry       
@@ -43,8 +36,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day1PhotoRows.slice(1, 2)}
-                    activePhoto={activePhotoRow1}
-                    onPhotoHover={setActivePhotoRow1}
                 />
 
                 <SubEntry
@@ -56,8 +47,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day1PhotoRows.slice(2, 3)}
-                    activePhoto={activePhotoRow1}
-                    onPhotoHover={setActivePhotoRow1}
                 />
                 <SubEntry
                     title="Tlecan"
@@ -67,8 +56,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day1PhotoRows.slice(3, 4)}
-                    activePhoto={activePhotoRow1}
-                    onPhotoHover={setActivePhotoRow1}
                 />
 
                 <SubEntry
@@ -79,8 +66,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day1PhotoRows.slice(4, 5)}
-                    activePhoto={activePhotoRow1}
-                    onPhotoHover={setActivePhotoRow1}
                 />
             </section>
 
@@ -94,9 +79,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                             <p>Digital nomads scatter the patio. Some families having breakfast. Chill vibe.</p>
                         </div>
                     }
-                    photoRows={[day2PhotoRows[0]]}
-                    activePhoto={activePhotoRow2}
-                    onPhotoHover={setActivePhotoRow2}
+                    photoRows={day2PhotoRows.slice(0, 1)}
                 />
                 <SubEntry
                     title="Bosque De Chapultepec"
@@ -108,8 +91,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day2PhotoRows.slice(1, 2)}
-                    activePhoto={activePhotoRow2}
-                    onPhotoHover={setActivePhotoRow2}
                 />
                 <SubEntry
                     title="Lunch at Lardo"
@@ -120,8 +101,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day2PhotoRows.slice(2, 3)}
-                    activePhoto={activePhotoRow2}
-                    onPhotoHover={setActivePhotoRow2}
                 />
                 <SubEntry
                     title="Evening Delights"
@@ -132,8 +111,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day2PhotoRows.slice(3, 4)}
-                    activePhoto={activePhotoRow2}
-                    onPhotoHover={setActivePhotoRow2}
                 />
                 <SubEntry
                     title="Night Out"
@@ -144,8 +121,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day2PhotoRows.slice(4, 5)}
-                    activePhoto={activePhotoRow2}
-                    onPhotoHover={setActivePhotoRow2}
                 />
             </section>
 
@@ -160,8 +135,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day3PhotoRows.slice(0, 1)}
-                    activePhoto={activePhotoRow3}
-                    onPhotoHover={setActivePhotoRow3}
                 />
                 <SubEntry
                     title="Shopping in Roma Norte"
@@ -173,8 +146,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day3PhotoRows.slice(1, 2)}
-                    activePhoto={activePhotoRow3}
-                    onPhotoHover={setActivePhotoRow3}
                 />
                 <SubEntry
                     title="Lunch at Café Nin"
@@ -184,8 +155,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={[]}
-                    activePhoto={activePhotoRow3}
-                    onPhotoHover={setActivePhotoRow3}
                 />
 
                 <SubEntry
@@ -199,8 +168,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day3PhotoRows.slice(2, 3)}
-                    activePhoto={activePhotoRow3}
-                    onPhotoHover={setActivePhotoRow3}
                 />
 
                 <SubEntry
@@ -211,8 +178,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day3PhotoRows.slice(3, 4)}
-                    activePhoto={activePhotoRow3}
-                    onPhotoHover={setActivePhotoRow3}
                 />
 
                 <SubEntry
@@ -226,8 +191,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day3PhotoRows.slice(4, 5)}
-                    activePhoto={activePhotoRow3}
-                    onPhotoHover={setActivePhotoRow3}
                 />
 
                 <SubEntry
@@ -246,8 +209,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                       </div>
                   }
                   photoRows={[]}
-                  activePhoto={null}
-                  onPhotoHover={() => {}}
                 />      
             </section>
 
@@ -265,8 +226,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day4PhotoRows.slice(0, 1)}
-                    activePhoto={activePhotoRow4}
-                    onPhotoHover={setActivePhotoRow4}
                 />
                 <SubEntry
                     title="Brunch at Xuxu"
@@ -276,8 +235,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day4PhotoRows.slice(1, 2)}
-                    activePhoto={activePhotoRow4}
-                    onPhotoHover={setActivePhotoRow4}
                 />
 
                 <SubEntry
@@ -291,8 +248,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day4PhotoRows.slice(2, 3)}
-                    activePhoto={activePhotoRow4}
-                    onPhotoHover={setActivePhotoRow4}
                 />
 
                 <SubEntry
@@ -304,8 +259,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day4PhotoRows.slice(3, 4)}
-                    activePhoto={activePhotoRow4}
-                    onPhotoHover={setActivePhotoRow4}
                 />
 
                 <SubEntry
@@ -319,8 +272,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day4PhotoRows.slice(4, 5)}
-                    activePhoto={activePhotoRow4}
-                    onPhotoHover={setActivePhotoRow4}
                 />
 
                 <SubEntry
@@ -338,8 +289,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day4PhotoRows.slice(5, 6)}
-                    activePhoto={activePhotoRow4}
-                    onPhotoHover={setActivePhotoRow4}
                 />
 
                 <SubEntry
@@ -366,8 +315,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day4PhotoRows.slice(6, 7)}
-                    activePhoto={activePhotoRow4}
-                    onPhotoHover={setActivePhotoRow4}
                 />
 
                 <SubEntry
@@ -391,8 +338,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day4PhotoRows.slice(7, 8)}
-                    activePhoto={activePhotoRow4}
-                    onPhotoHover={setActivePhotoRow4}
                 />
             </section>
 
@@ -417,8 +362,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day5PhotoRows.slice(0, 1)}
-                    activePhoto={activePhotoRow5}
-                    onPhotoHover={setActivePhotoRow5}
                 />
                 <SubEntry
                     title="Slice of Life"
@@ -441,8 +384,6 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         </div>
                     }
                     photoRows={day5PhotoRows.slice(1, 2)}
-                    activePhoto={activePhotoRow5}
-                    onPhotoHover={setActivePhotoRow5}
                 />
             </section>
         </div>

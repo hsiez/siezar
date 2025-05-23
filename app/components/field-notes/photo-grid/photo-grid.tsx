@@ -11,11 +11,10 @@ export interface PhotoDetail {
 }
 
 interface PhotoGridDisplayProps {
-  activePhoto: number | null;
   photoRows: Array<Array<PhotoDetail>>;
 }
 
-export default function PhotoGridDisplay({ activePhoto, photoRows }: PhotoGridDisplayProps) {
+export default function PhotoGridDisplay({photoRows }: PhotoGridDisplayProps) {
   return (
     <div className={gridStyles.photosContainer}>
       {photoRows.map((row, rowIndex) => (
@@ -23,7 +22,7 @@ export default function PhotoGridDisplay({ activePhoto, photoRows }: PhotoGridDi
           {row.map((photoDetail) => (
             <div
               key={photoDetail.id + "_" + photoDetail.caption} // Assuming IDs are unique within this grid instance
-              className={`${gridStyles.photoItem} ${activePhoto === photoDetail.id ? gridStyles.triggeredPhoto : ""}`}
+              className={`${gridStyles.photoItem}`}
             >
               <Image
                 src={photoDetail.src}
