@@ -415,6 +415,10 @@ const AudioWidget: React.FC = () => {
                   onClick={handleNext}
                   disabled={loading}
                   aria-label="Next song"
+                  style={{
+                    WebkitAppearance: 'none',
+                    MozAppearance: 'none',
+                  }}
                 />
               </div>
             </div>
