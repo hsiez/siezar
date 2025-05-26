@@ -50,7 +50,7 @@ const playlist: Song[] = [
     waveform: "/cdmx/sounds/waveforms/do_you_do.json", 
   },
   {
-    title: "Cumbia de los Ferrocarriles Et Trencitos",
+    title: "Cumbia de los Ferrocarriles",
     artist: "Los Askis",
     url: "/cdmx/sounds/cumbia_de_los_ferrocarriles.mp3",
     waveform: "/cdmx/sounds/waveforms/cumbia_de_los_ferrocarriles.json",

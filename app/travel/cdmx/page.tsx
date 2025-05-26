@@ -86,11 +86,11 @@ export default function CDMX() {
     ],
     
     [
-      { id: 4, src: tlecan, alt: "Tlecan Bar", caption: "Tlecan", objectFit: "contain" as const },
+      { id: 4, src: tlecan, alt: "Tlecan Bar", caption: "Tlecan" },
     ],
     [
       { id: 5, src: valleOutside, alt: "Tacos de Valle", caption: "Tacos de Valle" },
-      { id: 6, src: valleSelfie, alt: "Tacos de Valle", caption: "Tacos de Valle" }
+      { id: 6, src: valleSelfie, alt: "Tacos de Valle", caption: "selfie" }
     ]
   ];
 
@@ -104,7 +104,7 @@ export default function CDMX() {
       { id: 4, src: garden, alt: "Castle garden", caption: "Garden" }
     ],
     [
-      { id: 5, src: lardo, alt: "Lardo Restaurant", caption: "Lardo", objectFit: "contain" as const },
+      { id: 5, src: lardo, alt: "Lardo Restaurant", caption: "Lardo" },
       { id: 6, src: lardo2, alt: "Lardo Restaurant", caption: "Lardo" }
     ],
     [
@@ -113,7 +113,7 @@ export default function CDMX() {
     ],
     [
       { id: 6, src: dep, alt: "Departamento", caption: "Departamento" },
-      { id: 7, src: valle2, alt: "Tacos de Valle", caption: "Tacos de Valle" }
+      { id: 7, src: valle2, alt: "Tacos de Valle", caption: "Valle" }
     ]
   ];
 
@@ -128,14 +128,14 @@ export default function CDMX() {
       { id: 5, src: xinu, alt: "Xinú Store", caption: "Xinú" }
     ],
     [
-      { id: 6, src: mue, alt: "Museo Nacional de Antropología", caption: "sun stone", objectFit: "contain" as const },
+      { id: 6, src: mue, alt: "Museo Nacional de Antropología", caption: "sun stone"},
       { id: 7, src: mue1, alt: "Museo Nacional de Antropología", caption: "courtyard" },
       { id: 8, src: mue2, alt: "Museo Nacional de Antropología", caption: "courtyard 2" }
     ],
     [
       { id: 4, src: gaba, alt: "Gaba Salad", caption: "Tomato Salad" },
       { id: 5, src: gabaFish, alt: "Gaba Fish", caption: "Catch of Day" },
-      { id: 6, src: gabaLengua, alt: "Gaba Lengua", caption: "Lengua Carpaccio" },
+      { id: 6, src: gabaLengua, alt: "Gaba Lengua", caption: "Carpaccio" },
     ],
     [
       { id: 7, src: lucha, alt: "Lucha Libre", caption: "Lucha" }
