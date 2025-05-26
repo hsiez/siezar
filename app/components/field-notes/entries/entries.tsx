@@ -112,7 +112,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         <div>
                             <p>We leave the castle in a hurry to make a reservation at <u>Lardo</u>. We wait still. <br /><br /></p>
                             <p>Group after group tries their luck with the host for a walk-in table. Some are too pushy.<br /><br /></p>
-                            <p>The food was ...good. The best part was the beet juice; it wasn't on the menu. I feel no urge to go back.</p>
+                            <p>The food was ...good. The best part was the beet juice; it wasn&apos;t on the menu. I feel no urge to go back.</p>
                         </div>
                     }
                     photoRows={day2PhotoRows.slice(2, 3)}
