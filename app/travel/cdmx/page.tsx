@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/cdmx/open-graph.png"], // Replace with your Twitter image path
+    images: ["/cdmx/og.jpeg"], // Replace with your Twitter image path
   },
 };
 
