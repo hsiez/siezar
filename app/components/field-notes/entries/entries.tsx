@@ -45,7 +45,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                     content={
                         <div>
                             <p>We make our way to Jazzatlán Capital for a jazz show. We arrive a bit early, so we talk and people watch. <br />
-                            The place is vibrantly alive. They guy at the table next to us has a loud infectious laugh. <br /><br /></p>
+                            The place is vibrantly alive. The guy at the table next to us has a loud infectious laugh. <br /><br /></p>
                             <p>The band starts. The drummer is totally in it. A smile breaks through at times. I am witnessing someone in their element. I feel lucky.</p>
 
                         </div>
@@ -122,7 +122,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                     content={
                         <div>
                             <p>Churros are on the brain. It&apos;s a dessert before dinner kind of night. <br /> <br /> </p>
-                            <p><u>EL Morro</u> churros are worth the hype. Crispy on the outside, soft on the inside. I&apos;m left wanting more.<br /><br /></p>
+                            <p><u>EL Moro</u> churros are worth the hype. Crispy on the outside, soft on the inside. I&apos;m left wanting more.<br /><br /></p>
                             <p>For dinner, we head to <em>La Casa de Toño</em>. The Pozole HITS and the Guisado Sopes are phenomenal. Tastes like my mom made them.</p>
                         </div>
                     }
@@ -150,7 +150,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                     content={
                         <div>
                             <p>Almanegra is today&apos;s cortado provider. The staff is super friendly; we chat for a while about the cafe passport booklets. <br /><br /><em>&quot;I can&apos;t stamp your real passport!&quot;</em><br /><br />The coffee is memorable.<br /> <br /> </p>
-                            <p>We start our walk to the shoppes in Roma Norte. <br /><br /> </p>
+                            <p>We start our walk to the shops in Roma Norte. <br /><br /> </p>
                             <p>The path leads us through <em>Plaza De Janerio</em>. Lots of people passing through, lots of people lounging around.<br /> <br /> </p>
                             <p>There&apos;s a gang of cute off-leash dogs cooling off in the fountain. We stop and watch them play for a while.</p>
                         </div>
