@@ -24,14 +24,25 @@ export default function PhotoGridDisplay({photoRows }: PhotoGridDisplayProps) {
               key={photoDetail.id + "_" + photoDetail.caption} // Assuming IDs are unique within this grid instance
               className={`${gridStyles.photoItem}`}
             >
-              <Image
+              {/* <Image
                 src={photoDetail.src}
                 alt={photoDetail.alt}
                 className={`${gridStyles.photo} ${photoDetail.imageClassName || ""}`}
                 objectFit={photoDetail.objectFit}
-                loading="eager"
+                loading="lazy"
                 // width and height are intrinsic from StaticImageData unless 'fill' is used
                 // If 'fill' is used, parent div (photoItem) might need position:relative and dimensions.
+              /> */}
+
+              <Image
+                src={photoDetail.src}
+                alt={photoDetail.alt}
+                width={photoDetail.src.width}
+                height={photoDetail.src.height}
+                className={`${gridStyles.photo} ${photoDetail.imageClassName || ""}`}
+                loading="lazy"
+                sizes="(max-width: 768px) 160px, 275px"
+                style={{ objectFit: photoDetail.objectFit || 'cover' }}
               />
               <span className={gridStyles.photoCaption}>{photoDetail.caption}</span>
             </div>
