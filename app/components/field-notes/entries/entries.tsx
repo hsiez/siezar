@@ -324,7 +324,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                         <div>
                             <p>
                                 The night before, we secured a reservation at Tokyo Music Bar. It&apos;s around the corner from our Airbnb.
-                                It&apos;s pretty early so the place is sparsely populated. The bar is almost full, but only one table is occupied.
+                                The night is early so the place is sparsely populated. The bar has some action, but only one table is occupied.
                             </p>
                             <p>
                                 We are seated at a table near a couple who is absolutely going at it. Full on make out session. No lack of passion. <br /><br />
@@ -349,15 +349,16 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                     content={
                         <div>
                             <p>
-                                It&apos;s Saturday night so we pay a cover. We head to the 3rd floor rooftop but this time it&apos;s overcrowded.
-                                The second floor has its own bar and dance floor. The crowd is more manageable so we stay.
+                                It&apos;s Saturday night so we pay a cover. <br /><br />  We head to the 3rd floor rooftop but this time it&apos;s overcrowded.
+                                The second floor has its own bar and dance floor. The crowd is more manageable so we stay. <br /><br />
                             </p>
                             <p>
-                                We grab a drink and make our way into the crowd. After a couple of songs, we are at the front. The DJ puts on an amazing set. Mostly funk and Latin disco.
-                                The set design of the DJ booth is pretty sick. It looks like a recording studio with a pyramid skylight with dynamic lighting.
+                                We grab a drink and make our way into the crowd. After a couple of songs, we are at the front. <br /><br />
+                                The DJ puts on an amazing set. Mostly funk and Latin disco. <br /><br />
+                                The set design of the DJ booth is so cozy. Dynamic lighting on the pyramid skylight is the clear highlight. <br /><br />
                             </p>
                             <p>
-                               A group of douchy guys are trying to get people&apos;s attention from the VIP section. They eventually get kicked out for getting too close to the DJ booth. They get laughed at.
+                               A group of douchy guys are trying to get people&apos;s attention from the VIP section. They eventually get kicked out for getting too close to the DJ booth. The crowd cheers. <br /><br />
                             </p>
                             <p>
                                 We leave around 1am. Exhausted from dancing. We head home and call it a night.
@@ -394,19 +395,19 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                     title="Slice of Life"
                     content={
                         <div>
-                            <p>An older gentleman is sitting in my seat. <br></br>
-                                &quot;I&apos;m so sorry, my wife usually books the aisle seat for me. I have a bad back and need the extra room.&quot;<br></br>
+                            <p>An older gentleman is sitting in my seat.<br /><br />
+                                <em>&quot;I&apos;m so sorry, my wife usually books me the aisle seat. I need the extra room for my bad back.&quot;</em><br /><br />
                             </p>
-                            <p>He eventually moves to the empty row across the aisle. <br></br> </p>
-                            <p>We get to chatting. He tells me he&apos;s an author. He&apos;s heading back home to Seattle to start a book tour.<br></br> </p>
-                            <p>We switch back and forth between Spanish and English talking about his origin story. This is his first time solo authoring a book.</p>
+                            <p>He eventually moves to the empty row across the aisle. The plane is prepared for takeoff.<br /><br /> </p>
+                            <p>The man sparkes up a conversation. He&apos;s an author on the way back home to start a book tour.  This is his first time solo authoring a book. He hands me a sample copy.<br /><br /> </p>
+                            <p>We switch back and forth between Spanish and English talking about his origin story. We connect on our time spent in southern California.<br /><br /> </p>
                             <p>
-                                He mentions he&apos;s a bit hindered by his back problems but as he talked to me he was all smiles. <br/>
-                                To me this guy is a total legend. He is still doing the damn thing. In pursuit of his passion and doing so with a smile. This interaction reframes my perspective on the journey into the later years.<br/>
+                                He mentions how his back problems are limiting his ability to travel. As we talk, he&apos;s all smiles. Not a sign of unease.<br/>
+                                To me this guy is a total legend. He&apos;s still doing the damn thing. In pursuit of his passion regardless of his circumstances. This interaction reframes my perspective on the journey of life into the later years.<br/><br/>
                             </p>
 
                             <p>
-                                Wherever you are ODILÓN VARGAS, I salute you. Good luck on the book release.
+                                Wherever you are Odilón Vargas, I salute you. Good luck on the book release.
                             </p>
                         </div>
                     }
