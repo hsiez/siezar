@@ -37,8 +37,8 @@ export default function PhotoGridDisplay({photoRows }: PhotoGridDisplayProps) {
               <Image
                 src={photoDetail.src}
                 alt={photoDetail.alt}
-                width={photoDetail.src.width}
-                height={photoDetail.src.height}
+                width={200}
+                height={275}
                 className={`${gridStyles.photo} ${photoDetail.imageClassName || ""}`}
                 loading="lazy"
                 sizes="(max-width: 768px) 160px, 275px"
