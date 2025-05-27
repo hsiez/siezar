@@ -84,14 +84,6 @@ in the components. */
   text-align: center;
 }
 
-.photoItem:nth-child(1) {
-  transform: rotate(.4deg);
-}
-
-.photoItem:nth-child(2) {
-  transform: rotate(.4deg);
-}
-
 .photoItem:hover .photo {
   filter: grayscale(0) saturate(.75);
   opacity: 1;
