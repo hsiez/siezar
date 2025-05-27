@@ -27,6 +27,7 @@
   background-image: url("/paper-texture-2.svg");
   background-color: rgb(255, 252, 242);
   padding: 12px;
+  gap: 8px;
 }
 
 .photo {
