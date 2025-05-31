@@ -15,7 +15,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
     return (
         <div className={styles.container}>
             <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>April 2, 2025 - Day 1</h2>
+                <h2 className={styles.sectionTitle}>Day 1 - April 2, 2025 </h2>
                 <SubEntry
                     title="Arrival & Balandra"
                     content={
@@ -82,7 +82,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
             </section>
 
             <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>April 3, 2025 - Day 2</h2>
+                <h2 className={styles.sectionTitle}>Day 2 - April 3, 2025</h2>
                 <SubEntry
                     title="Morning Coffee"
                     content={
@@ -144,7 +144,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
             </section>
 
             <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>April 4, 2025 - Day 3</h2>
+                <h2 className={styles.sectionTitle}>Day 3 - April 4, 2025</h2>
                 <SubEntry
                     title="Coffee and Morning Stroll"
                     content={
@@ -240,7 +240,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
             </section>
 
             <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>April 5, 2025 - Day 4</h1>
+                <h1 className={styles.sectionTitle}>Day 4 - April 5, 2025</h1>
                 <SubEntry
                     title="Ese Café"
                     content={
@@ -370,7 +370,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
             </section>
 
             <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>April 6, 2025 - Day 5</h1>
+                <h1 className={styles.sectionTitle}>Day 5 - April 6, 2025</h1>
                 <SubEntry
                     title="Morning Ritual"
                     content={
