@@ -84,12 +84,7 @@ in the components. */
   text-align: center;
 }
 
-.photoItem:hover .photo {
-  filter: grayscale(0) saturate(.75);
-  opacity: 1;
-}
-
-.triggeredPhoto .photo { /* This class is added to .photoItem when triggered */
+.inView .photo {
   filter: grayscale(0) saturate(1);
   opacity: 1;
 }
