@@ -4,6 +4,7 @@ import styles from "./entries.module.css";
 import SubEntry from "./sub-entry";
 import { PhotoDetail } from "../photo-grid/photo-grid";
 
+
 export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, day4PhotoRows, day5PhotoRows }: {
     day1PhotoRows: PhotoDetail[][],
     day2PhotoRows: PhotoDetail[][],
@@ -195,7 +196,7 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                     title="Dinner at Gaba"
                     content={
                         <div>
-                            <p>The space is a long rentangle with three sections. We are seated in the middle section. <br /><br /></p>
+                            <p>The space is a long rectangle with three sections. We are seated in the middle section. <br /><br /></p>
                             <p>The fatigue and dehydration from walking around all day is hitting hard.<br /><br /></p>
                             <p>The staff is quick to get us started. We take their recommendation and order a salad, appetizer, and main.<br /><br /></p>
                             <p>I&apos;m blown away by the tomato salad. Simple ingredients plated beautifully and jam packed with flavor. The creamy dressing is insane.<br /><br /></p>
