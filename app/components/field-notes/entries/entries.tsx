@@ -3,6 +3,7 @@
 import styles from "./entries.module.css";
 import SubEntry from "./sub-entry";
 import { PhotoDetail } from "../photo-grid/photo-grid";
+import RatingTable from "../table/table";
 
 
 export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, day4PhotoRows, day5PhotoRows }: {
@@ -12,6 +13,13 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
     day4PhotoRows: PhotoDetail[][],
     day5PhotoRows: PhotoDetail[][]
 }) {
+
+    const tableRows = [
+        { name: "Tacos de Valle", location: "Oaxaca", rating: 4.5 },
+        { name: "Tacos de Valle", location: "Oaxaca", rating: 4.5 },
+        { name: "Tacos de Valle", location: "Oaxaca", rating: 4.5 },
+        { name: "Tacos de Valle", location: "Oaxaca", rating: 4.5 },   
+    ]
     
     return (
         <div className={styles.container}>
@@ -414,6 +422,10 @@ export default function Entries({ day1PhotoRows, day2PhotoRows, day3PhotoRows, d
                     }
                     photoRows={day5PhotoRows.slice(1, 2)}
                 />
+            </section>
+            <section className={styles.section}>
+                <h1 className={styles.sectionTitle}>Field Notes</h1>
+                <RatingTable title="Coffee Log" rows={tableRows} />
             </section>
         </div>
     );

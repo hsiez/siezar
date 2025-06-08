@@ -1,0 +1,172 @@
+.tableContainer {
+    margin-bottom: 48px;
+    width: 60%;
+    background-color: #b4c2cb;
+    padding: 24px;
+    border-radius: 3px;
+    position: relative;
+}
+
+.tableContainer:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/paper-texture.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 1;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.tableHeader {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.tableTitle {
+    font-family: "Courier New", "VT323", "Roboto Mono", monospace;
+    font-size: 1.4rem;
+    color: #2C1810;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 1px rgba(0,0,0,0.5);
+    padding-left: 16px;
+    font-weight: 400;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+.table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    font-family: "Courier New", "VT323", "Roboto Mono", monospace;
+    background-color: #b4c2cb;
+    border-radius: 3px;
+    position: relative;
+    margin-bottom: 32px;
+    margin-top: 32px;
+}
+
+.headerCell {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 1rem;
+    color: #276a94c9;
+    border-right: 1px solid #276a94c9;
+    border-bottom: 1px solid #276a94c9;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    text-shadow: 0 0 1px rgba(0,0,0,0.9);
+}
+.tableBody {
+    width: 10%;
+}
+
+.headerCell:last-child {
+    border-right: none;
+}
+.dataRow {
+    border-bottom: 1px solid #276a94c9;
+    background-color: transparent;
+    width: 100%;
+}
+
+.dataRow:last-child {
+    border-bottom: none;
+}
+
+
+.dataCell {
+    padding: 10px 16px;
+    font-size: 1rem;
+    color: #2C1810;
+    border-right: 1px solid #276a94c9;
+    position: relative;
+    z-index: 2;
+    line-height: 1.4;
+    text-shadow: 0 0 1px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0px 0 0 #276a94c9;
+}
+
+.dataCell:last-child {
+    border-right: none;
+}
+.ratingCell {
+    padding: 10px 16px;
+    color: #2C1810;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 0 1px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0px 0 0 #276a94c9;
+}
+.rating {
+    display: inline-block;
+    color: #2C1810;
+    padding: 2px 6px;
+    font-size: 1rem;
+    text-shadow: 0 0 1px rgba(0,0,0,0.5);
+}
+
+.tableFooter {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 6px;
+}
+
+.tableFooterText {
+    font-family: "Courier New", "VT323", "Roboto Mono", monospace;
+    font-size: 0.8rem;
+    color: #276a94c9;
+    text-shadow: 0 0 1px rgba(0,0,0,0.5);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .tableContainer {
+        padding: 16px;
+    }
+    .table {
+        font-size: 0.7rem;
+    }
+    .table::before {
+        content: ""; /* Override the default content */
+        background-image: url("/paper-texture.svg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .headerCell,
+    .dataCell,
+    .ratingCell {
+        padding: 8px 12px;
+    }
+    .headerCell {
+        font-size: 0.65rem;
+    }
+    .dataCell,
+    .ratingCell {
+        font-size: 0.7rem;
+    }
+    .rating {
+        font-size: 0.65rem;
+        padding: 1px 3px;
+    }
+}
