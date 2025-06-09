@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-sm);
   min-height: 100%;
 }
 
@@ -13,7 +13,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-sm);
   width: 100%;
 }
 
@@ -26,16 +26,16 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   background-image: url("/paper-texture-2.svg");
   background-color: rgb(255, 252, 242);
-  padding: 12px;
-  gap: 8px;
+  padding: var(--space-sm);
+  gap: var(--space-sm);
 }
 
 .photo {
   max-height: 275px;
   width: auto;
-  opacity: 0.05;
+  opacity: var(--opacity-10);
   filter: grayscale(100%);
-  transition: filter 300ms ease-in, opacity 300ms ease-in;
+  transition: filter var(--transition-normal), opacity var(--transition-normal);
   will-change: filter, opacity;
   pointer-events: none;
   display: block;
@@ -75,10 +75,10 @@ in the components. */
 
 .photoCaption {
   font-family: "Grape Nuts", cursive;
-  font-size: 1.2rem;
+  font-size: var(--font-size-xl);
   color: #626262;
   letter-spacing: 2px;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   z-index: 2;
   width: 100%;
   text-align: center;
@@ -86,15 +86,14 @@ in the components. */
 
 .inView .photo {
   filter: grayscale(0) saturate(1);
-  opacity: 1;
+  opacity: var(--opacity-100);
 }
 
 /* Styles for mobile from the original media query */
 @media (max-width: 768px) {
   .photosContainer {
-    padding-top: 24px;
+    padding-top: var(--space-lg);
     min-width: 100%;
-    
   }
 
   .photoRow {
@@ -106,13 +105,13 @@ in the components. */
     max-height: 160px;
   }
   .photoItem {
-    padding: 4px;
+    padding: var(--space-xs);
   }
   .photoCaption {
-    font-size: .65rem;
+    font-size: var(--font-size-sm);
     letter-spacing: 1px;
     font-family: 'Courier New', Courier, monospace;
-    font-weight: 400;
+    font-weight: var(--font-weight-normal);
     color: #222222;
   }
 } 

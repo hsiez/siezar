@@ -1,0 +1,158 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Refactoring UI - Development Rules
+
+## Design System Configuration
+
+### Typography Personality
+- **Elegant**: Use serif fonts
+- **Playful**: Use rounded sans-serif fonts  
+- **Professional/Plain**: Use neutral sans-serif fonts
+
+### Border Radius Consistency
+- **Playful**: Round borders
+- **Professional**: Minimal to no border radius
+- **NEVER MIX** border radius styles within the same interface
+
+### System Requirements
+Create constrained option sets for:
+- Font size (8-10 options max)
+- Font weight 
+- Line height
+- Color (8-10 shades per color)
+- Margin/Padding
+- Width/Height
+- Box shadows
+- Border radius/width
+- Opacity
+
+here is a good example
+
+/* Font Sizes */
+  --font-size-xs: 0.75rem;  /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-md: 1rem;     /* 16px (base) */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem;  /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem;  /* 36px */
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.75;
+
+  /* Spacing (Margins, Padding) */
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-2xl: 3rem;    /* 48px */
+  --space-3xl: 4rem;    /* 64px */
+
+  /* Sizes (Width, Height) */
+  --size-full: 100%;
+  --size-half: 50%;
+  --size-auto: auto;
+  /* Add specific component sizes if needed, e.g., --size-button-md: 40px; */
+
+  /* Opacity */
+  --opacity-10: 0.1;
+  --opacity-25: 0.25;
+  --opacity-50: 0.5;
+  --opacity-75: 0.75;
+  --opacity-90: 0.9;
+  --opacity-100: 1;
+
+  /* Borders */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-width: 1px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+
+  /* Secondary font (example) */
+  --secondary-font-size: 1.2rem; /* Kept from original */
+
+- set in global.css and use these as variables in css modules
+
+## Visual Hierarchy Rules
+
+### Text Emphasis Hierarchy
+1. **Primary content**: Dark color, normal weight (400-500)
+2. **Secondary content**: Grey color, normal weight
+3. **Tertiary content**: Light grey color, normal weight
+
+### Emphasis Techniques (in order of preference)
+1. Use font weight (600-700) instead of larger font sizes
+2. Use softer colors to de-emphasize instead of smaller text
+3. For colored backgrounds: reduce contrast by choosing colors closer to background (never use grey text on colored backgrounds)
+
+### Content Labeling
+- Avoid labels when data type is self-explanatory (phone numbers, prices, emails)
+- Combine labels with data when necessary
+- Use labels for scannable/technical information where users expect them
+
+### Document vs Visual Hierarchy
+- Section titles should act as supportive labels, not attention-grabbing headings
+- Choose HTML elements for semantic purposes, style for visual hierarchy
+- Don't let element choice dictate styling decisions
+
+## Visual Balance
+
+### Contrast Compensation
+- **Icons with text**: Reduce icon contrast with lighter colors if icon appears too emphasized
+- **Borders**: If 1px border is too harsh with dark colors but too light with light colors, increase to 2px with softer color
+
+## Action Hierarchy
+
+### Button Styling by Priority
+- **Primary actions**: Solid, high-contrast background colors
+- **Secondary actions**: Outline styles or lower-contrast backgrounds  
+- **Tertiary actions**: Link styling (discoverable but unobtrusive)
+- **Destructive actions**: Treat as secondary unless main page objective, then use confirmation step with primary red button
+
+## Layout and Spacing
+
+### Spacing Approach
+- Start with excessive padding/margins, reduce gradually
+- Avoid linear scales - use exponential/proportional scaling
+- Ensure no two spacing values are closer than 25% apart
+- Consider context - small variances matter more in buttons than cards
+
+### Layout Strategy
+- **Think in columns**: Split unbalanced content into columns instead of increasing width
+- **Use fixed sizes** for navigation and key components
+- **Use percentages** only for elements that should scale
+- **Grid systems**: Don't let grids override optimal component sizes
+
+### Responsive Sizing Rules
+- Large elements should shrink faster than small elements on smaller screens
+- Reduce size contrast between elements on small screens
+- **Button padding**: Make large buttons generous, small buttons tight (non-proportional scaling)
+- Fine-tune spacing rather than maintaining strict ratios
+
+## Implementation Checklist
+- [ ] Establish typography personality and stick to it
+- [ ] Create constrained design system with 8-10 options per property
+- [ ] Implement 3-tier content hierarchy (dark/grey/light grey)
+- [ ] Style actions by priority (primary/secondary/tertiary)
+- [ ] Start with generous spacing, refine down
+- [ ] Use fixed widths for key components
+- [ ] Test responsive behavior with non-linear scaling

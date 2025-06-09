@@ -12,7 +12,7 @@
 
 .sectionTitle {
     font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
-    font-size: 1.2rem;
+    font-size: var(--font-size-xl);
     color: #000;
     margin-bottom: 0px;
     font-weight: var(--font-weight-extrabold);
@@ -23,12 +23,12 @@
     flex-direction: row;
     align-items: stretch;
     justify-content: space-between;
-    gap: 16px;
+    gap: var(--space-md);
 }
 
 .subEntryTitle {
     font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
-    font-size: 1rem;
+    font-size: var(--font-size-md);
     color: #000;
     font-weight: var(--font-weight-bold);
     text-align: left;
@@ -46,7 +46,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 16px;
+        gap: var(--space-md);
     }
 }
 
@@ -57,10 +57,10 @@
     justify-content: start;
     flex-direction: column;
     color: #000;
-    gap: 16px;
-    font-size: 1rem;
+    gap: var(--space-md);
+    font-size: var(--font-size-md);
     font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
-    padding-right: 32px;
+    padding-right: var(--space-xl);
 }
 
 /* Styles related to photosContainer, photoRow, photoItem, photo, photoCaption, 
@@ -71,18 +71,18 @@
 .triggerWord {
     cursor: pointer;
     box-shadow: 0 0 1px 0 #95835b;
-    border-radius: 3px;
+    border-radius: var(--border-radius-sm);
     background-color: var(--vintage-paper-color);
     color: #503c10;
-    padding: 0px 2px;
+    padding: 0px var(--space-xs);
 }
 
 .title {
     font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
-    font-size: 1.2rem;
+    font-size: var(--font-size-xl);
     height: 100%;
     color: #000;
-    margin-bottom: 48px;
+    margin-bottom: var(--space-3xl);
 }
 
 /* Hide FieldNoteCard section on mobile */

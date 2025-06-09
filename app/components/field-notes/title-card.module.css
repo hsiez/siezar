@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 1px 0 #c5c2bb;
-    padding: 64px 0px;
+    padding: var(--space-3xl) 0px;
 }
   
 .card {
@@ -18,7 +18,7 @@
 
 .cardFront {
   background-color: #f8edd9;
-  border-radius: 3px;
+  border-radius: var(--border-radius-sm);
   width: 100%;
   height: 100%;
   position: relative;
@@ -37,7 +37,7 @@
   text-shadow: 0 0 1px rgba(0,0,0,0.9);
   height: 100%;
   width: 100%;
-  padding: 12px;
+  padding: var(--space-sm);
 }
 
 .cardHeader {
@@ -47,7 +47,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 3px;
+  border-radius: var(--border-radius-sm);
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   background-color: #b4c2cb;
@@ -61,18 +61,17 @@
   align-items: center;
   justify-content: center;
   box-shadow: inset 1px 0 2px 0 rgba(0,0,0,.5), inset -1px 0 2px 0 rgba(0,0,0,.5), inset 0 1px 2px 0 rgba(0,0,0,.5);
-
 }
 
 /* Updated underline space for Field NOTES h1 by reducing padding-bottom from 4px to 2px */
 .cardHeader h1 {
   color: #f8edd9;
   display: inline-block;
-  padding-bottom: 2px;
+  padding-bottom: var(--space-xs);
   font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
   letter-spacing: 36px;
-  word-spacing: 24px;
-  font-weight: 200;
+  word-spacing: var(--space-lg);
+  font-weight: var(--font-weight-normal);
   text-transform: uppercase;
   flex:1;
 }
@@ -81,7 +80,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   height: 100%;
   width: 100%;
-  padding: 12px;
+  padding: var(--space-sm);
 }
 
 .cardHeaderUnderGlobes {
@@ -91,12 +90,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: var(--space-md);
 }
 
 .icon {
-  width: 48px;
-  height: 48px;
+  width: var(--space-3xl);
+  height: var(--space-3xl);
 }
 
 .cardHeaderUnderBoxesLeft {
@@ -108,7 +107,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-sm);
 }
 
 .cardHeaderUnderBoxesRight {
@@ -120,23 +119,21 @@
   position: relative;
 }
 
-
 .cardHeaderBox {
   background-color: #f8edd9;
   width: fit-content;
   height: fit-content;
-  padding: 2px 6px;
+  padding: var(--space-xs) var(--space-sm);
   display: flex;
   align-items: end;
   justify-content: center;
   box-shadow: inset 2px 0 2px 0 rgba(0,0,0,.5), inset -2px 0 2px 0 rgba(0,0,0,.5), inset 0 2px 2px 0 rgba(0,0,0,.5);
-
 }
 
 .boxCornerTopLeft {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: var(--space-md);
+  height: var(--space-md);
   box-shadow: inset 0 3px 0 0 rgba(0,0,0,.7), inset 3px 0 0 0 rgba(0,0,0,.7);
   top: 0;
   left: 0;
@@ -144,8 +141,8 @@
 
 .boxCornerTopRight {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: var(--space-md);
+  height: var(--space-md);
   top: 0;
   right: 0;
   box-shadow: inset 0 3px 0 0 rgba(0,0,0,.7), inset -3px 0 0 0 rgba(0,0,0,.7);
@@ -153,8 +150,8 @@
 
 .boxCornerBottomLeft {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: var(--space-md);
+  height: var(--space-md);
   bottom: 0;
   left: 0;
   box-shadow: inset 0 -3px 0 0 rgba(0,0,0,.7), inset 3px 0 0 0 rgba(0,0,0,.7);
@@ -163,22 +160,22 @@
 .boxCornerBottomRight {
   position: absolute;
   background-color: rgba(0,0,0,.8);
-  width: 16px;
-  height: 16px;
+  width: var(--space-md);
+  height: var(--space-md);
   bottom: 0;
   right: 0;
 }
 
 .date {
   font-family: "Grape Nuts", cursive;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: #000000;
   letter-spacing: 3px;
 }
 
 .cardContentDescription {
   font-family: "Grape Nuts", cursive;
-  font-size: 32px;
+  font-size: var(--font-size-4xl);
   color: #000000;
   letter-spacing: 3px;
   text-shadow: 0 0 1px rgba(0,0,0,0.5);
@@ -186,13 +183,13 @@
 }
 
 .underline {
-  text-underline-offset: 8px;
+  text-underline-offset: var(--space-sm);
   text-decoration-thickness: 3px;
 }
 
 .location {
   font-family: "Grape Nuts", cursive;
-  font-size: 32px;
+  font-size: var(--font-size-4xl);
   color: #000000;
   letter-spacing: 3px;
   text-shadow: 0 0 1px rgba(0,0,0,0.5);
@@ -216,8 +213,8 @@
   }
 
   .cardHeader h1 {
-    letter-spacing: 12px;
-    word-spacing: 8px;
+    letter-spacing: var(--space-sm);
+    word-spacing: var(--space-sm);
     font-size: var(--font-size-xl);
   }
 
@@ -238,7 +235,7 @@
   }
 
   .cardHeaderUnderGlobes {
-    gap: 8px;
+    gap: var(--space-sm);
     flex-direction: column;
   }
 
@@ -247,8 +244,8 @@
   }
 
   .icon {
-    width: 24px;
-    height: 24px;
+    width: var(--space-lg);
+    height: var(--space-lg);
   }
 
   .cardFront::before {
@@ -265,23 +262,22 @@
   }
 
   .boxCornerTopLeft {
-    width: 8px;
-    height: 8px;
+    width: var(--space-sm);
+    height: var(--space-sm);
   }
 
   .boxCornerTopRight {
-    width: 8px;
-    height: 8px;
+    width: var(--space-sm);
+    height: var(--space-sm);
   }
 
   .boxCornerBottomLeft {
-    width: 8px;
-    height: 8px;
+    width: var(--space-sm);
+    height: var(--space-sm);
   }
 
   .boxCornerBottomRight {
-    width: 8px;
-    height: 8px;
+    width: var(--space-sm);
+    height: var(--space-sm);
   }
-
 }

@@ -1,0 +1,43 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Animation & Transitions - Development Rules
+
+## Core Animation Principles
+
+### Speed Guidelines
+- **Fast animations are better** - keep them snappy
+- **Maximum duration**: 300ms for any animation
+- **Default approach**: Prioritize CSS transitions over animation libraries
+- **Library of choice**: Framer Motion (when CSS transitions aren't sufficient)
+
+## Easing Functions
+
+### CSS Easing Reference
+- **`ease-out`**: Fast start, slow down - **primary choice for most animations**
+- **`ease-in-out`**: Slow start, speed up, slow end - **use for elements already on screen**
+- **`ease`**: Starts faster and ends slower than ease-in-out - **use for hover states**
+- **`linear`**: Constant motion - **use for non-interactive elements only**
+- **`ease-in`**: Slow start then speed up - **avoid (feels sluggish)**
+
+## Timing Guidelines
+
+### Context-Specific Durations
+- **Loading animations**: Never slow - keep under 200ms
+- **Hover transitions**: 150ms (user's eyes already focused on element)
+- **Modal enter**: 200ms
+- **Modal/popover exit**: 150ms
+- **Large/full-size components**: Increase duration proportionally
+
+### Human Perception Baseline
+- **Visual reaction time**: 215ms
+- **Sweet spot range**: 200-300ms
+- **Hover interactions**: 150ms (faster due to focused attention)
+
+## Implementation Rules
+
+### CSS Transitions (Default Choice)
+
