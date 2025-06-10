@@ -1,0 +1,180 @@
+{
+  "itinerary": {
+    "coffee": [
+      {
+        "name": "Nice Day Coffee",
+        "location": "Roma Norte",
+        "rating": 4.3,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Almanegra",
+        "location": "Roma Norte", 
+        "rating": 4.4,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Ese Café",
+        "location": "Roma Norte",
+        "rating": 4.6,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Drip Cafe Especial",
+        "location": "Roma Norte",
+        "rating": 4.2,
+        "google-link": "https://maps.google.com/placeholder"
+      }
+    ],
+    "eats": [
+      {
+        "name": "Balandra",
+        "location": "Roma Norte",
+        "rating": 4.5,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Panadería Rosetta",
+        "location": "Roma Norte",
+        "rating": 4.5,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Lardo",
+        "location": "Roma Norte",
+        "rating": 3.8,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "El Moro Churros",
+        "location": "Centro Histórico",
+        "rating": 4.7,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "La Casa de Toño",
+        "location": "Roma Norte",
+        "rating": 4.4,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Gaba",
+        "location": "Roma Norte",
+        "rating": 4.8,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Xuxú",
+        "location": "Roma Norte",
+        "rating": 4.1,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Pargot",
+        "location": "Roma Norte",
+        "rating": 3.9,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Tacos de Valle",
+        "location": "Roma Norte",
+        "rating": 4.3,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Tacos El Paisa",
+        "location": "Near Arena México",
+        "rating": 4.9,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Café Nin",
+        "location": "Roma Norte",
+        "rating": 3.2,
+        "google-link": "https://maps.google.com/placeholder"
+      }
+    ],
+    "sights": [
+      {
+        "name": "Bosque De Chapultepec",
+        "location": "Chapultepec",
+        "rating": 4.6,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Museo Nacional de Antropología",
+        "location": "Chapultepec", 
+        "rating": 4.7,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Biblioteca Vasconcelos",
+        "location": "Buenavista",
+        "rating": 4.5,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Xinú",
+        "location": "Roma Norte",
+        "rating": 4.4,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Mercado San Juan",
+        "location": "Centro Histórico",
+        "rating": 4.2,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Plaza Luis Cabrera",
+        "location": "Roma Sur",
+        "rating": 4.3,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Plaza De Janeiro",
+        "location": "Roma Norte",
+        "rating": 4.1,
+        "google-link": "https://maps.google.com/placeholder"
+      }
+    ],
+    "nightlife": [
+      {
+        "name": "Tlecan",
+        "location": "Roma Norte",
+        "rating": 4.3,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Jazzatlán Capital",
+        "location": "Roma Norte",
+        "rating": 4.5,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Departamento",
+        "location": "Roma Norte",
+        "rating": 4.2,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Tokyo Music Bar",
+        "location": "Roma Norte",
+        "rating": 3.8,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Lucha Libre (Arena México)",
+        "location": "Doctores",
+        "rating": 4.6,
+        "google-link": "https://maps.google.com/placeholder"
+      },
+      {
+        "name": "Fünk",
+        "location": "Roma Norte",
+        "rating": 3.5,
+        "google-link": "https://maps.google.com/placeholder"
+      }
+    ]
+  }
+} 
