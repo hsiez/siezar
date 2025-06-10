@@ -1,0 +1,87 @@
+import styles from "./table.module.css";
+
+export interface TableRow {
+    name: string;
+    location: string;
+    rating: number;
+}
+
+type ColorTheme = "red" | "blue" | "green" | "yellow";
+
+interface RatingTableProps {
+    tableName: string;
+    headerRow: string[];
+    data: string[][];
+    color: ColorTheme;
+}
+
+// Globe SVG Component
+const GlobeIcon = ({ className, color = "currentColor" }: { className?: string; color?: string }) => (
+    <svg 
+        className={className}
+        viewBox="0 0 64 64" 
+        xmlns="http://www.w3.org/2000/svg"
+        fill={color}
+    >
+        <g>
+            <path d="M33,1.832V16.05c3.678-0.095,7.227-0.706,10.573-1.775C40.982,9.398,37.362,5.155,33,1.832z" />
+            <path d="M46.361,15.408c2.198,4.789,3.476,10.085,3.613,15.667h14c-0.245-7.968-3.396-15.202-8.439-20.675 C52.73,12.446,49.653,14.141,46.361,15.408z" />
+            <path d="M45.479,13.606c3.095-1.175,5.99-2.748,8.638-4.646c-5.278-5.051-12.278-8.312-20.035-8.811 C38.809,3.722,42.718,8.313,45.479,13.606z" />
+            <path d="M49.975,33.075c-0.153,6.246-1.736,12.134-4.438,17.354c3.153,1.134,6.117,2.66,8.846,4.508 c5.71-5.592,9.328-13.303,9.592-21.861H49.975z" />
+            <path d="M47.975,33.075H33v15.025c3.684,0.091,7.244,0.672,10.615,1.693C46.264,44.78,47.818,39.103,47.975,33.075z" />
+            <path d="M31,33.075H16.025c0.156,6.027,1.711,11.705,4.359,16.719c3.371-1.021,6.932-1.603,10.615-1.693V33.075z" />
+            <path d="M33,62.318c3.844-2.929,7.113-6.569,9.609-10.731c-3.062-0.889-6.282-1.4-9.609-1.486V62.318z" />
+            <path d="M33,31.075h14.975c-0.139-5.346-1.377-10.416-3.504-14.993C40.847,17.271,36.997,17.951,33,18.05V31.075z" />
+            <path d="M31,18.05c-3.997-0.099-7.848-0.779-11.471-1.968c-2.127,4.577-3.365,9.647-3.504,14.993H31V18.05z" />
+            <path d="M18.521,13.606c2.761-5.293,6.67-9.885,11.397-13.457c-7.757,0.499-14.757,3.76-20.035,8.812 C12.53,10.859,15.427,12.432,18.521,13.606z" />
+            <path d="M31,62.318V50.101c-3.327,0.086-6.548,0.598-9.609,1.486C23.887,55.749,27.156,59.391,31,62.318z" />
+            <path d="M44.559,52.21c-2.683,4.592-6.251,8.599-10.476,11.79c7.156-0.46,13.668-3.271,18.778-7.671 C50.293,54.639,47.512,53.244,44.559,52.21z" />
+            <path d="M19.441,52.209c-2.953,1.034-5.734,2.429-8.304,4.119c5.11,4.4,11.623,7.212,18.779,7.672 C25.692,60.809,22.124,56.802,19.441,52.209z" />
+            <path d="M14.025,33.075h-14c0.264,8.559,3.882,16.27,9.592,21.861c2.729-1.848,5.692-3.374,8.846-4.508 C15.762,45.209,14.179,39.321,14.025,33.075z" />
+            <path d="M31,1.832c-4.362,3.322-7.982,7.566-10.573,12.442c3.347,1.069,6.896,1.681,10.573,1.775V1.832z" />
+            <path d="M14.025,31.075c0.138-5.582,1.415-10.878,3.613-15.667c-3.292-1.268-6.369-2.962-9.174-5.008 c-5.043,5.473-8.194,12.707-8.439,20.675H14.025z" />
+        </g>
+    </svg>
+);
+
+export default function Table({ tableName, headerRow, data, color }: RatingTableProps) {
+    return (
+        <div className={`${styles.tableContainer} ${styles[color]}`}>
+            <div className={styles.tableHeader}>
+                <GlobeIcon className={styles.icon} color="var(--table-secondary-color)" />
+                <div className={styles.tableTitleContainer}>
+                    <h3 className={styles.tableTitle}>{tableName}</h3>
+                    <p className={styles.tableFooterText}>
+                        Siezar Exploration Inc.
+                    </p>
+                </div>
+            </div>
+            <table className={styles.table}>
+                <thead>
+                    <tr className={styles.headerRow}>
+                        {headerRow.map((header, index) => (
+                            <th key={index} className={styles.headerCell}>{header}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody className={styles.tableBody}>
+                    {data.map((row, index) => (
+                        <tr key={index} className={styles.dataRow}>
+                            {row.map((cell, cellIndex) => (
+                                <td key={cellIndex} className={cellIndex === row.length - 1 ? styles.ratingCell : styles.dataCell}>
+                                    {cellIndex === row.length - 1 ? (
+                                        <span className={styles.rating}>
+                                            {cell}/5
+                                        </span>
+                                    ) : (
+                                        cell
+                                    )}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+}

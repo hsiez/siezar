@@ -18,6 +18,17 @@
   --vintage-paper-color: #eee6d4;
   --vintage-paper-shadow: 0 0 1px 0 #c5c2bb;
 
+  --vintage-red-primary: #eb999f;
+  --vintage-red-secondary: #c14e50;
+
+  --vintage-blue-primary: #99b2d8;
+  --vintage-blue-secondary: #276a94c9;
+
+  --vintage-green-primary: #d1dabd;
+  --vintage-green-secondary: #4a956b;
+
+  --vintage-yellow-primary: #f2e297;
+  --vintage-yellow-secondary: #373737;
 
   /* Font Sizes */
   --font-size-xs: 0.75rem;  /* 12px */
