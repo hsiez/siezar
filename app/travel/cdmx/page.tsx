@@ -7,13 +7,10 @@ import Entries from "../../components/field-notes/entries/entries";
 import { validateTripData } from "./data/schema";
 import tripData from "./data/journal-entries/trip-data.json";
 import photos from "./data/photos";
-import { validateItineraryData } from "./data/itinerary/schema";
-import itineraryData from "./data/itinerary/itinerary-data.json";
 
 
 // Validate the trip data at the page level
 const validatedTripData = validateTripData(tripData);
-const validatedItineraryData = validateItineraryData(itineraryData);
 
 export const metadata: Metadata = {
   title: "CDMX Travel Journal",
