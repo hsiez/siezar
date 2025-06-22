@@ -219,10 +219,12 @@
     
   .cardContentDescription {
     font-size: var(--font-size-md);
+    padding: var(--space-sm);
   }
 
   .location {
     font-size: var(--font-size-md);
+    letter-spacing: 0;
   }
 
   .date {

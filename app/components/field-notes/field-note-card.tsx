@@ -34,7 +34,7 @@ export default function FieldNoteCard({location, dates}: {location: string, date
                 <div className={styles.cardContent}>
                 <p className={styles.cardContentDescription}>
                     <u className={styles.underline}>Not</u> a guide, <br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;just simply what I did.
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;just simply what I did.
                 </p>
                 </div>
             </div>
