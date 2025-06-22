@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: ["https://siezar.vercel.app/cdmx/og.jpeg"], // Replace with your Twitter image path
+    images: ["https://siezar.com/cdmx/og.jpeg"], // Replace with your Twitter image path
   },
 };
 
