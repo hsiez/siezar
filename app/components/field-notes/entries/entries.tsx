@@ -71,7 +71,7 @@ export default function Entries({
     };
 
     // Helper function to transform itinerary data for tables
-    const transformDataForTable = (places: any[]) => {
+    const transformDataForTable = (places: { name: string, location: string, rating: string, "google-link": string }[]) => {
         return places.map(place => ({
             name: place.name,
             location: place.location,

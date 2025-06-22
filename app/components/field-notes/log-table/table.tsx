@@ -3,7 +3,7 @@ import styles from "./table.module.css";
 export interface TableRow {
     name: string;
     location: string;
-    rating: number;
+    rating: string;
     "google-link": string;
 }
 
