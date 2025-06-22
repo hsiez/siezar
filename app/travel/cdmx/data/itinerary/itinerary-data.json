@@ -3,177 +3,177 @@
     "coffee": [
       {
         "name": "Nice Day Coffee",
-        "location": "Roma Norte",
-        "rating": 4.3,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "Cuauhtémoc",
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/Gt2j5MUnxzHbYgbw5"
       },
       {
         "name": "Almanegra",
         "location": "Roma Norte", 
-        "rating": 4.4,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/hyGkvf8C8EDYNw3TA"
       },
       {
         "name": "Ese Café",
-        "location": "Roma Norte",
-        "rating": 4.6,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "Juárez",
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/8CiFZ6tJPvLJPJpB8"
       },
       {
         "name": "Drip Cafe Especial",
         "location": "Roma Norte",
-        "rating": 4.2,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/V3AUXfrGXU6ox14h8"
+      }
+    ],
+    "sights": [
+      {
+        "name": "Bosque De Chapultepec",
+        "location": "Miguel Hidalgo",
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/JU71XQtohBu3exzj9"
+      },
+      {
+        "name": "Museo Nacional de Antropología",
+        "location": "Miguel Hidalgo", 
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/Uo6ac8xyJPNpiJVf6"
+      },
+      {
+        "name": "Biblioteca Vasconcelos",
+        "location": "Buenavista",
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/QrhogA2mxLwCwV9s5"
+      },
+      {
+        "name": "Xinú",
+        "location": "Juárez",
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/gT31sETxpQvj2Ez97"
+      },
+      {
+        "name": "Mercado San Juan",
+        "location": "Centro",
+        "rating": "pass",
+        "google-link": "https://maps.app.goo.gl/zA6gZRW3d7zYJh2W6"
+      },
+      {
+        "name": "Plaza Luis Cabrera",
+        "location": "Roma Sur",
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/rND8CXhVLazqhk5K9"
+      },
+      {
+        "name": "Plaza De Janeiro",
+        "location": "Roma Norte",
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/4n6xbcTpBywMp12d7"
       }
     ],
     "eats": [
       {
         "name": "Balandra",
         "location": "Roma Norte",
-        "rating": 4.5,
+        "rating": "repeat",
         "google-link": "https://maps.google.com/placeholder"
       },
       {
         "name": "Panadería Rosetta",
         "location": "Roma Norte",
-        "rating": 4.5,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/cP8jFH6STmrbfQcdA"
       },
       {
         "name": "Lardo",
-        "location": "Roma Norte",
-        "rating": 3.8,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "La Condesa",
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/Y3ThdSi5TTJnRPAb9"
       },
       {
         "name": "El Moro Churros",
-        "location": "Centro Histórico",
-        "rating": 4.7,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "Cuauhtémoc",
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/stKwhbU8LF4yKYGs9"
       },
       {
         "name": "La Casa de Toño",
-        "location": "Roma Norte",
-        "rating": 4.4,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "Juárez",
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/73uuUbK4nrU1o4hs5"
       },
       {
         "name": "Gaba",
-        "location": "Roma Norte",
-        "rating": 4.8,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "La Condesa",
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/PWAzHL5rFVM32mbE9"
       },
       {
         "name": "Xuxú",
-        "location": "Roma Norte",
-        "rating": 4.1,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "Renacimiento",
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/r6ubaJBfGPuSVpMSA"
       },
       {
         "name": "Pargot",
         "location": "Roma Norte",
-        "rating": 3.9,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "pass",
+        "google-link": "https://maps.app.goo.gl/nRAk9rkKyLGkgWPq6"
       },
       {
         "name": "Tacos de Valle",
         "location": "Roma Norte",
-        "rating": 4.3,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/AsfMxS4hRzKCzL4L7"
       },
       {
         "name": "Tacos El Paisa",
-        "location": "Near Arena México",
-        "rating": 4.9,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "Doctores",
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/4gPfhjhgQWFj96Lj9"
       },
       {
         "name": "Café Nin",
-        "location": "Roma Norte",
-        "rating": 3.2,
-        "google-link": "https://maps.google.com/placeholder"
-      }
-    ],
-    "sights": [
-      {
-        "name": "Bosque De Chapultepec",
-        "location": "Chapultepec",
-        "rating": 4.6,
-        "google-link": "https://maps.google.com/placeholder"
-      },
-      {
-        "name": "Museo Nacional de Antropología",
-        "location": "Chapultepec", 
-        "rating": 4.7,
-        "google-link": "https://maps.google.com/placeholder"
-      },
-      {
-        "name": "Biblioteca Vasconcelos",
-        "location": "Buenavista",
-        "rating": 4.5,
-        "google-link": "https://maps.google.com/placeholder"
-      },
-      {
-        "name": "Xinú",
-        "location": "Roma Norte",
-        "rating": 4.4,
-        "google-link": "https://maps.google.com/placeholder"
-      },
-      {
-        "name": "Mercado San Juan",
-        "location": "Centro Histórico",
-        "rating": 4.2,
-        "google-link": "https://maps.google.com/placeholder"
-      },
-      {
-        "name": "Plaza Luis Cabrera",
-        "location": "Roma Sur",
-        "rating": 4.3,
-        "google-link": "https://maps.google.com/placeholder"
-      },
-      {
-        "name": "Plaza De Janeiro",
-        "location": "Roma Norte",
-        "rating": 4.1,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "Juárez",
+        "rating": "pass",
+        "google-link": "https://maps.app.goo.gl/6t3Bxyna3VaAaWrT9"
       }
     ],
     "nightlife": [
       {
         "name": "Tlecan",
         "location": "Roma Norte",
-        "rating": 4.3,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/cjFzhzRYxn2hK6uEAr"
       },
       {
         "name": "Jazzatlán Capital",
         "location": "Roma Norte",
-        "rating": 4.5,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "good",
+        "google-link": "https://maps.app.goo.gl/hpQvnHxDGYEEPTFp9"
       },
       {
         "name": "Departamento",
         "location": "Roma Norte",
-        "rating": 4.2,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/xyEfUcLL3x2wByUx7"
       },
       {
         "name": "Tokyo Music Bar",
-        "location": "Roma Norte",
-        "rating": 3.8,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "Cuauhtémoc",
+        "rating": "pass",
+        "google-link": "https://maps.app.goo.gl/GyZzYRMYK6hggAuWA"
       },
       {
         "name": "Lucha Libre (Arena México)",
         "location": "Doctores",
-        "rating": 4.6,
-        "google-link": "https://maps.google.com/placeholder"
+        "rating": "repeat",
+        "google-link": "https://maps.app.goo.gl/2wDxeLLgAvXMSzhB7"
       },
       {
         "name": "Fünk",
-        "location": "Roma Norte",
-        "rating": 3.5,
-        "google-link": "https://maps.google.com/placeholder"
+        "location": "La Condesa",
+        "rating": "pass",
+        "google-link": "https://maps.app.goo.gl/i3F2A64oqQxgSgv4A"
       }
     ]
   }

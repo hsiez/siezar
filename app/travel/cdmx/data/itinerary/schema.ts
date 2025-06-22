@@ -4,7 +4,9 @@ import { z } from 'zod';
 export const PlaceSchema = z.object({
   name: z.string().min(1, "Name is required"),
   location: z.string().min(1, "Location is required"),
-  rating: z.number().min(0).max(5, "Rating must be between 0 and 5"),
+  rating: z.enum(["pass", "good", "repeat"], {
+    errorMap: () => ({ message: "Rating must be 'pass', 'good', or 'repeat'" })
+  }),
   "google-link": z.string().url("Must be a valid URL")
 });
 

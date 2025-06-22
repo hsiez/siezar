@@ -1,10 +1,10 @@
 .tableContainer {
-    margin-bottom: var(--space-3xl);
     width: fit-content;
     background-color: var(--table-primary-color);
     padding: var(--space-lg);
     border-radius: var(--border-radius-sm);
     position: relative;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 /* Color theme classes */
@@ -130,6 +130,17 @@
 
 .dataCell:last-child {
     border-right: none;
+}
+
+.locationCell {
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.locationCell:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
 }
 
 .ratingCell {

@@ -1,12 +1,7 @@
 .cardContainer {
-    background-color: #fdf9f0;
-    height: 100%;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 1px 0 #c5c2bb;
-    padding: var(--space-3xl) 0px;
 }
   
 .card {
@@ -90,12 +85,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .icon {
-  width: var(--space-3xl);
-  height: var(--space-3xl);
+  width: var(--space-xl);
+  height: var(--space-xl);
 }
 
 .cardHeaderUnderBoxesLeft {
@@ -175,7 +170,7 @@
 
 .cardContentDescription {
   font-family: "Grape Nuts", cursive;
-  font-size: var(--font-size-4xl);
+  font-size: var(--font-size-3xl);
   color: #000000;
   letter-spacing: 3px;
   text-shadow: 0 0 1px rgba(0,0,0,0.5);
@@ -189,7 +184,7 @@
 
 .location {
   font-family: "Grape Nuts", cursive;
-  font-size: var(--font-size-4xl);
+  font-size: var(--font-size-3xl);
   color: #000000;
   letter-spacing: 3px;
   text-shadow: 0 0 1px rgba(0,0,0,0.5);

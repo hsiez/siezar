@@ -4,6 +4,7 @@ export interface TableRow {
     name: string;
     location: string;
     rating: number;
+    "google-link": string;
 }
 
 type ColorTheme = "red" | "blue" | "green" | "yellow";
@@ -11,7 +12,7 @@ type ColorTheme = "red" | "blue" | "green" | "yellow";
 interface RatingTableProps {
     tableName: string;
     headerRow: string[];
-    data: string[][];
+    data: TableRow[];
     color: ColorTheme;
 }
 
@@ -45,6 +46,10 @@ const GlobeIcon = ({ className, color = "currentColor" }: { className?: string; 
 );
 
 export default function Table({ tableName, headerRow, data, color }: RatingTableProps) {
+    const handleLocationClick = (googleLink: string) => {
+        window.open(googleLink, '_blank');
+    };
+
     return (
         <div className={`${styles.tableContainer} ${styles[color]}`}>
             <div className={styles.tableHeader}>
@@ -67,17 +72,20 @@ export default function Table({ tableName, headerRow, data, color }: RatingTable
                 <tbody className={styles.tableBody}>
                     {data.map((row, index) => (
                         <tr key={index} className={styles.dataRow}>
-                            {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className={cellIndex === row.length - 1 ? styles.ratingCell : styles.dataCell}>
-                                    {cellIndex === row.length - 1 ? (
-                                        <span className={styles.rating}>
-                                            {cell}/5
-                                        </span>
-                                    ) : (
-                                        cell
-                                    )}
-                                </td>
-                            ))}
+                            <td className={styles.dataCell}>
+                                {row.name}
+                            </td>
+                            <td 
+                                className={`${styles.dataCell} ${styles.locationCell}`}
+                                onClick={() => handleLocationClick(row["google-link"])}
+                            >
+                                {row.location}
+                            </td>
+                            <td className={styles.ratingCell}>
+                                <span className={styles.rating}>
+                                    {row.rating}
+                                </span>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

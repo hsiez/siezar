@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 200px;
+    width: 100%;
 }
 
 .section {
@@ -77,6 +78,51 @@
     padding: 0px var(--space-xs);
 }
 
+.tablesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, auto);
+    align-items: start;
+    justify-items: center;
+    gap: var(--space-3xl);
+}
+
+.tablesGrid > *:nth-child(1),
+.tablesGrid > *:nth-child(2) {
+    align-self: end;
+}
+
+.tablesGrid > *:nth-child(3),
+.tablesGrid > *:nth-child(4) {
+    align-self: start;
+}
+
+.tablesGrid > *:nth-child(1),
+.tablesGrid > *:nth-child(3) {
+    justify-self: end;
+}
+
+.tablesGrid > *:nth-child(2),
+.tablesGrid > *:nth-child(4) {
+    justify-self: start;
+}
+
+@media (max-width: 1024px) {
+    .tablesGrid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+        justify-items: center;
+    }
+    
+    .tablesGrid > *:nth-child(1),
+    .tablesGrid > *:nth-child(2),
+    .tablesGrid > *:nth-child(3),
+    .tablesGrid > *:nth-child(4) {
+        align-self: center;
+        justify-self: center;
+    }
+}
+
 .title {
     font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
     font-size: var(--font-size-xl);
@@ -100,4 +146,63 @@
         padding: var(--space-sm);
         box-sizing: border-box;
     }
+}
+
+.toggleContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -100px;
+    position: relative;
+    gap: var(--space-md);
+}
+
+.toggleButton {
+    font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
+    font-size: var(--font-size-md);
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+    text-decoration: none;
+    position: relative;
+    opacity: 0.3;
+}
+
+.toggleButton:hover {
+    opacity: 0.7;
+}
+
+.toggleButton.active {
+    opacity: 1;
+}
+
+.toggleDivider {
+    width: 1px;
+    height: 24px;
+    background-color: #000;
+    opacity: 0.5;
+}
+
+.viewSection {
+    transition: opacity var(--transition-normal);
+}
+
+.viewSection.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.viewSection.hidden {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
 }
