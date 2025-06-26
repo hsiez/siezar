@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import FieldNoteCard from "@/app/components/field-notes/field-note-card";
+import FieldNoteCard from "@/app/components/field-notes/title-card/field-note-card";
 import { PhotoDetail } from "../../components/field-notes/photo-grid/photo-grid";
 import AudioWidget from "../../components/field-notes/audio-widget/audio-widget";
 import { Metadata } from 'next';
