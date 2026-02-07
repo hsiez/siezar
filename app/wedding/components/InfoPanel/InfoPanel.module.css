@@ -1,0 +1,197 @@
+.panel {
+  padding: var(--wedding-space-4xl) var(--wedding-space-xl);
+  border-top: 1px solid var(--wedding-border-light);
+}
+
+/* Desktop layout: hidden on mobile */
+.desktopLayout {
+  display: none;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: var(--wedding-space-3xl);
+}
+
+.content {
+  flex: 1;
+  min-height: 300px;
+}
+
+.contentInner {
+  padding-right: var(--wedding-space-xl);
+}
+
+.nav {
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .desktopLayout {
+    display: flex;
+  }
+
+  .mobileLayout {
+    display: none;
+  }
+}
+
+/* Mobile accordion */
+.mobileLayout {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.accordionItem {
+  border-bottom: 1px solid var(--wedding-border-light, #d8d4cb);
+}
+
+.accordionTrigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--wedding-space-lg) 0;
+  border: none;
+  background: transparent;
+  font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
+  font-size: var(--wedding-font-size-sm, 1rem);
+  text-transform: uppercase;
+  letter-spacing: var(--wedding-tracking-wider, 0.1em);
+  color: var(--wedding-text-muted, #8a857d);
+  cursor: pointer;
+  transition: color 150ms ease-out;
+}
+
+.accordionTrigger:hover {
+  color: var(--wedding-text-secondary, #6b665f);
+}
+
+.accordionTriggerActive {
+  color: var(--wedding-text, #4a4540);
+}
+
+.accordionContent {
+  overflow: hidden;
+}
+
+.accordionBody {
+  padding: 0 0 var(--wedding-space-xl);
+  font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
+  font-size: var(--wedding-font-size-base);
+  line-height: var(--wedding-leading-relaxed);
+  color: var(--wedding-text);
+}
+
+.title {
+  font-family: var(--wedding-font-mono);
+  font-size: var(--wedding-font-size-xs);
+  font-weight: 400;
+  letter-spacing: var(--wedding-tracking-wider);
+  text-transform: uppercase;
+  color: var(--wedding-text-muted);
+  margin: 0 0 var(--wedding-space-xl);
+}
+
+.body {
+  font-family: var(--wedding-font-mono);
+  font-size: var(--wedding-font-size-base);
+  line-height: var(--wedding-leading-relaxed);
+  color: var(--wedding-text);
+}
+
+/* Location styles */
+.venueName {
+  font-size: var(--wedding-font-size-2xl);
+  font-weight: 500;
+  margin: 0 0 var(--wedding-space-md);
+}
+
+.address {
+  color: var(--wedding-text-secondary);
+  margin: 0 0 var(--wedding-space-lg);
+}
+
+.link {
+  font-size: var(--wedding-font-size-sm);
+  color: var(--wedding-text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--wedding-transition-fast);
+}
+
+.link:hover {
+  color: var(--wedding-text);
+}
+
+/* Dress code styles */
+.dressTitle {
+  font-size: var(--wedding-font-size-2xl);
+  font-weight: 500;
+  margin: 0 0 var(--wedding-space-md);
+}
+
+.dressDescription {
+  color: var(--wedding-text-secondary);
+  margin: 0;
+}
+
+/* Itinerary styles */
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.timelineItem {
+  display: flex;
+  gap: var(--wedding-space-xl);
+  padding: var(--wedding-space-md) 0;
+  border-bottom: 1px solid var(--wedding-border-light);
+}
+
+.timelineItem:first-child {
+  padding-top: 0;
+}
+
+.timelineItem:last-child {
+  border-bottom: none;
+}
+
+.time {
+  font-size: var(--wedding-font-size-sm);
+  letter-spacing: var(--wedding-tracking-wide);
+  color: var(--wedding-text-muted);
+  min-width: 80px;
+}
+
+.event {
+  color: var(--wedding-text);
+}
+
+/* FAQ styles */
+.faqList {
+  margin: 0;
+}
+
+.faqItem {
+  padding: var(--wedding-space-md) 0;
+  border-bottom: 1px solid var(--wedding-border-light);
+}
+
+.faqItem:first-child {
+  padding-top: 0;
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+}
+
+.question {
+  font-weight: 500;
+  margin: 0 0 var(--wedding-space-sm);
+}
+
+.answer {
+  color: var(--wedding-text-secondary);
+  margin: 0;
+  font-size: var(--wedding-font-size-base);
+}

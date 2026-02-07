@@ -1,0 +1,59 @@
+/* Wedding Page Design System
+   Based on Danny Kaplan aesthetic - warm, minimal, typewriter */
+
+:root {
+  /* Colors - warm taupe/beige palette */
+  --wedding-bg: #e8e4dc;
+  --wedding-bg-alt: #dfdbd3;
+  --wedding-text: #4a4540;
+  --wedding-text-secondary: #6b665f;
+  --wedding-text-muted: #8a857d;
+  --wedding-border: #c9c4ba;
+  --wedding-border-light: #d8d4cb;
+  --wedding-accent: #7a756d;
+
+  /* Typography - monospace typewriter */
+  --wedding-font-mono: 'Courier Prime', 'Courier New', monospace;
+  --wedding-font-script: 'Pinyon Script', cursive;
+  --wedding-font-size-xs: 1rem;
+  --wedding-font-size-sm: 1rem;
+  --wedding-font-size-base: 1.0625rem;
+  --wedding-font-size-lg: 1.125rem;
+  --wedding-font-size-xl: 1.25rem;
+  --wedding-font-size-2xl: 1.5rem;
+  --wedding-font-size-3xl: 1.75rem;
+  --wedding-font-size-4xl: 2rem;
+  --wedding-font-size-5xl: 2.5rem;
+
+  /* Letter spacing */
+  --wedding-tracking-tight: -0.01em;
+  --wedding-tracking-normal: 0;
+  --wedding-tracking-wide: 0.05em;
+  --wedding-tracking-wider: 0.1em;
+  --wedding-tracking-widest: 0.2em;
+
+  /* Line height */
+  --wedding-leading-tight: 1.2;
+  --wedding-leading-normal: 1.5;
+  --wedding-leading-relaxed: 1.75;
+
+  /* Spacing */
+  --wedding-space-xs: 0.25rem;
+  --wedding-space-sm: 0.5rem;
+  --wedding-space-md: 1rem;
+  --wedding-space-lg: 1.5rem;
+  --wedding-space-xl: 2rem;
+  --wedding-space-2xl: 3rem;
+  --wedding-space-3xl: 4rem;
+  --wedding-space-4xl: 6rem;
+  --wedding-space-5xl: 8rem;
+
+  /* Transitions */
+  --wedding-transition-fast: 150ms ease-out;
+  --wedding-transition-normal: 200ms ease-out;
+  --wedding-transition-slow: 300ms ease-out;
+
+  /* Shadows */
+  --wedding-shadow-emboss: inset 0 1px 2px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+}

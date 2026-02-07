@@ -1,0 +1,14 @@
+.page {
+  min-height: 100vh;
+  background-color: var(--wedding-bg, #e8e4dc);
+  font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
+  color: var(--wedding-text, #4a4540);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

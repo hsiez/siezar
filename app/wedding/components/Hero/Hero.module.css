@@ -1,0 +1,103 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--wedding-space-4xl) var(--wedding-space-xl);
+  min-height: 80vh;
+}
+
+.headline {
+  font-family: var(--wedding-font-script);
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 400;
+  color: var(--wedding-text);
+  margin: 0 0 var(--wedding-space-2xl);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.frameContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--wedding-space-lg, 1.5rem);
+}
+
+/* Outer oval - embossed depression */
+.ovalFrame {
+  position: relative;
+  width: 280px;
+  height: 380px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow:
+    /* Debossed: shadow top-left, highlight bottom-right */
+    inset 2px 2px 4px rgba(0, 0, 0, 0.12),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.6),
+    /* Subtle outer glow */
+    1px 1px 2px rgba(255, 255, 255, 0.4),
+    -1px -1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+/* Inner oval - second ring */
+.ovalInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    inset 1.5px 1.5px 3px rgba(0, 0, 0, 0.1),
+    inset -1.5px -1.5px 3px rgba(255, 255, 255, 0.5),
+    1px 1px 2px rgba(255, 255, 255, 0.3),
+    -1px -1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.photoContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(10%) saturate(90%);
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.details {
+  margin-top: var(--wedding-space-3xl);
+  text-align: center;
+}
+
+.names {
+  font-family: var(--wedding-font-mono);
+  font-size: var(--wedding-font-size-3xl);
+  font-weight: 400;
+  letter-spacing: var(--wedding-tracking-normal);
+  color: var(--wedding-text);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.date {
+  font-family: var(--wedding-font-mono);
+  font-size: var(--wedding-font-size-sm);
+  font-weight: 400;
+  letter-spacing: var(--wedding-tracking-wide);
+  text-transform: uppercase;
+  color: var(--wedding-text-secondary);
+  margin: var(--wedding-space-lg) 0 0;
+}
