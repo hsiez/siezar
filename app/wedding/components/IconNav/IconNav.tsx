@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styles from './IconNav.module.css';
 
-export type SectionId = 'location' | 'dresscode' | 'itinerary' | 'faq';
+export type SectionId = 'location' | 'dresscode' | 'itinerary' | 'travelers' | 'rsvp' | 'faq';
 
 interface IconNavProps {
   activeSection: SectionId;
@@ -14,6 +14,8 @@ const sections: { id: SectionId; label: string }[] = [
   { id: 'location', label: 'Location' },
   { id: 'dresscode', label: 'Dress Code' },
   { id: 'itinerary', label: 'Itinerary' },
+  { id: 'travelers', label: 'Travelers' },
+  { id: 'rsvp', label: 'RSVP' },
   { id: 'faq', label: 'FAQ' },
 ];
 
@@ -31,7 +33,7 @@ export function IconNav({ activeSection, onSectionChange }: IconNavProps) {
             <motion.span
               layoutId="tab-indicator"
               className={styles.indicator}
-              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              transition={{ type: 'tween', duration: 0.3, ease: 'easeInOut' }}
             />
           )}
           {label}

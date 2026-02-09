@@ -27,8 +27,8 @@
 /* Outer oval - embossed depression */
 .ovalFrame {
   position: relative;
-  width: 280px;
-  height: 380px;
+  width: clamp(280px, 40vw, 360px);
+  height: clamp(380px, 54vw, 480px);
   border-radius: 50%;
   background: transparent;
   box-shadow:
@@ -89,15 +89,23 @@
   letter-spacing: var(--wedding-tracking-normal);
   color: var(--wedding-text);
   margin: 0;
-  text-transform: uppercase;
 }
 
 .date {
+  display: block;
   font-family: var(--wedding-font-mono);
   font-size: var(--wedding-font-size-sm);
   font-weight: 400;
   letter-spacing: var(--wedding-tracking-wide);
-  text-transform: uppercase;
   color: var(--wedding-text-secondary);
   margin: var(--wedding-space-lg) 0 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms ease-out;
+}
+
+.date:hover {
+  color: var(--wedding-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
