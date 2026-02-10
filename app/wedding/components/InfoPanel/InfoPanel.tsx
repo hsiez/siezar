@@ -1,51 +1,29 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconNav, type SectionId } from '../IconNav/IconNav';
 import styles from './InfoPanel.module.css';
 
-const VENUE_ADDRESS = '146 N Grand St, Orange, CA 92866';
-const PARKING_ADDRESS = '157 N Grand St, Orange, CA 92866';
+const VENUE_MAP_URL = 'https://maps.app.goo.gl/RCpy4sffawJxQWGC8';
+const PARKING_MAP_URL = 'https://www.google.com/maps/search/?api=1&query=157+N+Grand+St%2C+Orange%2C+CA+92866';
 
 const sections: SectionId[] = ['location', 'dresscode', 'itinerary', 'travelers', 'rsvp', 'faq'];
 
 const faqItems = [
-  { q: 'Can I bring a date/plus-one?', a: 'All invited guests will have their names included on our formal invitations. Please avoid bringing additional guests if their name is not included. Thank you in advance!' },
+  { q: 'Can I bring a date/plus-one?', a: 'All invited guests will have their names included on our formal invitations. Additional guests will not be allowed in. Thank you in advance!' },
   { q: 'Can I bring my children?', a: 'No, we\u2019ve decided to have an adults-only celebration. Thank you for making arrangements!' },
-  { q: 'Will the wedding be indoors or outdoors?', a: 'Our ceremony and cocktail hour will be hosted outdoors, followed by an indoor reception.' },
+  { q: 'Will the wedding be indoors or outdoors?', a: 'Ceremony and cocktail hour will be outdoors, followed by an indoor reception.' },
   { q: 'Are the ceremony and reception locations accessible?', a: 'Yes, both spaces are wheelchair accessible.' },
   { q: 'What time should I plan to arrive for the ceremony?', a: 'Please plan to arrive at 5:00 PM, as the ceremony will begin promptly at 5:30 PM.' },
-  { q: 'Will there be an open bar?', a: 'Yes.' },
+  { q: 'Will there be an open bar?', a: 'Yes, drink responsibly.' },
   { q: 'Do you have a registry?', a: 'We do not! Celebrating with you is what we care about most; our home is already full of love, laughter, and furniture. If you\u2019d still like to gift us a wedding present, we\u2019d greatly appreciate a contribution towards our honeymoon or house fund.' },
 ];
 
 export function InfoPanel() {
   const [activeSection, setActiveSection] = useState<SectionId>('location');
   const [openAccordion, setOpenAccordion] = useState<SectionId | null>('location');
-  const [showCopied, setShowCopied] = useState(false);
-  const [showParkingCopied, setShowParkingCopied] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  const copyAddress = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(VENUE_ADDRESS);
-      setShowCopied(true);
-      setTimeout(() => setShowCopied(false), 1500);
-    } catch {
-      // Fallback: silently fail
-    }
-  }, []);
-
-  const copyParkingAddress = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(PARKING_ADDRESS);
-      setShowParkingCopied(true);
-      setTimeout(() => setShowParkingCopied(false), 1500);
-    } catch {
-      // Fallback: silently fail
-    }
-  }, []);
 
   const content: Record<SectionId, { title: string; body: React.ReactNode }> = {
     location: {
@@ -53,89 +31,25 @@ export function InfoPanel() {
       body: (
         <>
           <p className={styles.venueName}>Grand Gimeno</p>
-          <div
-            className={styles.address}
-            onClick={copyAddress}
-            role="button"
-            aria-label="Copy address to clipboard"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {showCopied ? (
-                <motion.p
-                  key="copied"
-                  className={styles.addressTextCentered}
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  Copied to clipboard
-                </motion.p>
-              ) : (
-                <motion.p
-                  key="address"
-                  className={styles.addressText}
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  146 N Grand St<br />
-                  Orange, CA 92866
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </div>
           <a
-            href="https://maps.app.goo.gl/RCpy4sffawJxQWGC8"
-            className={styles.link}
+            href={VENUE_MAP_URL}
+            className={styles.addressLink}
             target="_blank"
             rel="noopener noreferrer"
           >
-            View on Map
+            146 N Grand St<br />
+            Orange, CA 92866
           </a>
           <div className={styles.parking}>
-            <p className={styles.parkingTitle}>Park here</p>
-            <div
-              className={styles.address}
-              onClick={copyParkingAddress}
-              role="button"
-              aria-label="Copy parking address to clipboard"
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                {showParkingCopied ? (
-                  <motion.p
-                    key="copied"
-                    className={styles.addressTextCentered}
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    Copied to clipboard
-                  </motion.p>
-                ) : (
-                  <motion.p
-                    key="parkingAddress"
-                    className={styles.addressText}
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    157 N Grand St<br />
-                    Orange, CA 92866
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </div>
+            <p className={styles.parkingTitle}>Parking</p>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=157+N+Grand+St%2C+Orange%2C+CA+92866"
-              className={styles.link}
+              href={PARKING_MAP_URL}
+              className={styles.addressLink}
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on Map
+              157 N Grand St<br />
+              Orange, CA 92866
             </a>
           </div>
         </>
@@ -183,19 +97,16 @@ export function InfoPanel() {
           <div className={styles.travelSection}>
             <p className={styles.travelHeading}>Nearest Airport</p>
             <p className={styles.travelName}>John Wayne Airport (SNA)</p>
-            <p className={styles.travelDetail}>
-              About a 15 minute drive to the venue.
-            </p>
           </div>
           <div className={styles.travelSection}>
             <p className={styles.travelHeading}>Where to Stay</p>
             <p className={styles.travelName}>Hotel Fera</p>
             <p className={styles.travelDetail}>
-              Located in Anaheim, CA — about 10 minutes from the venue. This is where we&apos;ll be staying.
+              Anaheim, CA
             </p>
             <p className={styles.travelName}>Hotel Ayres Orange</p>
             <p className={styles.travelDetail}>
-              Just down the street from Hotel Fera.
+              Anaheim, CA
             </p>
           </div>
         </>

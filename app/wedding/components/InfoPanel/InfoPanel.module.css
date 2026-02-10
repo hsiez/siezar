@@ -105,49 +105,24 @@
   margin: 0 0 var(--wedding-space-sm);
 }
 
-.address {
-  margin: 0 0 var(--wedding-space-lg);
-  cursor: pointer;
-  position: relative;
-  height: 3.5em;
-}
-
-.address:hover .addressText {
-  color: var(--wedding-text);
-}
-
-.addressText {
-  color: var(--wedding-text-secondary);
-  margin: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: color var(--wedding-transition-fast);
-}
-
-.addressTextCentered {
-  composes: addressText;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.link {
-  font-size: var(--wedding-font-size-sm);
+.addressLink {
+  display: block;
   color: var(--wedding-text-secondary);
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color var(--wedding-transition-fast);
+  text-decoration-color: var(--wedding-border-light);
+  margin: 0;
+  transition: color 150ms ease-out, text-decoration-color 150ms ease-out;
 }
 
-.link:hover {
+.addressLink:hover {
   color: var(--wedding-text);
+  text-decoration-color: var(--wedding-text);
 }
 
 /* Parking styles */
 .parking {
   margin-top: var(--wedding-space-xl);
-  padding-top: var(--wedding-space-lg);
-  border-top: 1px solid var(--wedding-border-light);
 }
 
 .parkingTitle {
@@ -156,7 +131,7 @@
   letter-spacing: var(--wedding-tracking-wider);
   text-transform: uppercase;
   color: var(--wedding-text-muted);
-  margin: 0 0 var(--wedding-space-lg);
+  margin: 0 0 var(--wedding-space-xs);
 }
 
 .parkingDescription {
@@ -187,15 +162,10 @@
   display: flex;
   gap: var(--wedding-space-xl);
   padding: var(--wedding-space-md) 0;
-  border-bottom: 1px solid var(--wedding-border-light);
 }
 
 .timelineItem:first-child {
   padding-top: 0;
-}
-
-.timelineItem:last-child {
-  border-bottom: none;
 }
 
 .time {
@@ -211,15 +181,11 @@
 
 /* Travelers styles */
 .travelSection {
-  padding-bottom: var(--wedding-space-xl);
   margin-bottom: var(--wedding-space-xl);
-  border-bottom: 1px solid var(--wedding-border-light);
 }
 
 .travelSection:last-child {
-  border-bottom: none;
   margin-bottom: 0;
-  padding-bottom: 0;
 }
 
 .travelHeading {
