@@ -23,7 +23,7 @@ export function Hero({ names, date, headline = 'We \'re Getting Married' }: Hero
           <div className={styles.ovalInner}>
             <div className={styles.photoContainer}>
               <Image
-                src="/wedding/wedding_placeholder.jpg"
+                src="/wedding/IMG_1996.PNG"
                 alt="Harley & Haylee"
                 fill
                 className={styles.photo}

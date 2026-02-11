@@ -99,15 +99,23 @@ export function InfoPanel() {
             <p className={styles.travelName}>John Wayne Airport (SNA)</p>
           </div>
           <div className={styles.travelSection}>
-            <p className={styles.travelHeading}>Where to Stay</p>
-            <p className={styles.travelName}>Hotel Fera</p>
-            <p className={styles.travelDetail}>
-              Anaheim, CA
-            </p>
-            <p className={styles.travelName}>Hotel Ayres Orange</p>
-            <p className={styles.travelDetail}>
-              Anaheim, CA
-            </p>
+            <p className={styles.travelHeading}>Hotel Recommendations</p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Hotel+Fera+Anaheim+CA"
+              className={styles.travelLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Hotel Fera
+            </a>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Ayres+Hotel+Orange+CA"
+              className={styles.travelLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ayres Hotel Orange
+            </a>
           </div>
         </>
       ),
@@ -117,17 +125,9 @@ export function InfoPanel() {
       body: (
         <>
           <p className={styles.comingSoon}>Coming Soon</p>
-          <div className={styles.rsvpDetails}>
-            <p className={styles.rsvpDetail}>
-              Once you have received our formal invitation, please RSVP using the website listed on the invitation.
-            </p>
-            <p className={styles.rsvpDeadline}>
-              Deadline: Friday, August 21st, 2026
-            </p>
-            <p className={styles.rsvpDetail}>
-              If you have food allergies or dietary restrictions, please include this information in your RSVP.
-            </p>
-          </div>
+          <p className={styles.rsvpDeadline}>
+            Deadline: Friday, August 21st, 2026
+          </p>
         </>
       ),
     },

@@ -208,6 +208,21 @@
   margin: 0 0 var(--wedding-space-md);
 }
 
+.travelLink {
+  display: block;
+  font-weight: 500;
+  color: var(--wedding-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--wedding-border-light);
+  margin: 0 0 var(--wedding-space-sm);
+  transition: color 150ms ease-out, text-decoration-color 150ms ease-out;
+}
+
+.travelLink:hover {
+  text-decoration-color: var(--wedding-text);
+}
+
 .travelNote {
   font-size: var(--wedding-font-size-sm);
   color: var(--wedding-text-muted);
@@ -225,9 +240,7 @@
 }
 
 .rsvpDetails {
-  margin-top: var(--wedding-space-xl);
-  padding-top: var(--wedding-space-lg);
-  border-top: 1px solid var(--wedding-border-light);
+  margin-top: var(--wedding-space-lg);
 }
 
 .rsvpDetail {
@@ -247,17 +260,12 @@
 }
 
 .faqItem {
-  border-bottom: 1px solid var(--wedding-border-light);
-}
-
-.faqItem:last-child {
-  border-bottom: none;
 }
 
 .question {
   font-weight: 400;
   margin: 0;
-  padding: var(--wedding-space-lg) 0;
+  padding: var(--wedding-space-md) 0;
   cursor: pointer;
   color: var(--wedding-text-secondary);
   transition: color 150ms ease-out;
