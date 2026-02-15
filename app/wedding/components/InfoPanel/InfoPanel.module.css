@@ -143,7 +143,7 @@
 .dressTitle {
   font-size: var(--wedding-font-size-2xl);
   font-weight: 500;
-  margin: 0 0 var(--wedding-space-md);
+  margin: 0 0 var(--wedding-space-sm);
 }
 
 .dressDescription {
@@ -181,7 +181,7 @@
 
 /* Travelers styles */
 .travelSection {
-  margin-bottom: var(--wedding-space-xl);
+  margin-bottom: var(--wedding-space-2xl);
 }
 
 .travelSection:last-child {
@@ -194,13 +194,13 @@
   letter-spacing: var(--wedding-tracking-wider);
   text-transform: uppercase;
   color: var(--wedding-text-muted);
-  margin: 0 0 var(--wedding-space-md);
+  margin: 0 0 var(--wedding-space-xs);
 }
 
 .travelName {
   font-weight: 500;
   color: var(--wedding-text);
-  margin: 0 0 var(--wedding-space-xs);
+  margin: 0;
 }
 
 .travelDetail {
@@ -228,6 +228,12 @@
   color: var(--wedding-text-muted);
   margin: var(--wedding-space-md) 0 0;
   font-style: italic;
+}
+
+@media (max-width: 639px) {
+  .accordionBody .travelSection:first-child {
+    margin-top: var(--wedding-space-md);
+  }
 }
 
 /* RSVP styles */

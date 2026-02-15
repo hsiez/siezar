@@ -14,7 +14,7 @@
   color: rgba(74, 67, 59, 0.9);
   margin: 0 0 var(--wedding-space-2xl);
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.3;
   text-shadow:
     0 1px 0 rgba(255, 255, 255, 0.65),
     0 -1px 0 rgba(0, 0, 0, 0.12),
@@ -115,4 +115,21 @@
 .date:hover {
   color: var(--wedding-text);
   text-decoration-color: var(--wedding-text);
+}
+
+@media (max-width: 640px) {
+  .headline {
+    font-size: clamp(2.6rem, 11vw, 3.4rem);
+    line-height: 1.5;
+    margin-bottom: var(--wedding-space-xl);
+  }
+
+  .names {
+    font-size: var(--wedding-font-size-2xl);
+    letter-spacing: var(--wedding-tracking-tight);
+  }
+
+  .details {
+    margin-top: var(--wedding-space-2xl);
+  }
 }
