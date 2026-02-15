@@ -234,6 +234,13 @@
   .accordionBody .travelSection:first-child {
     margin-top: var(--wedding-space-md);
   }
+
+  .venueName,
+  .dressTitle,
+  .comingSoon {
+    font-size: var(--wedding-font-size-xl);
+    line-height: 1.25;
+  }
 }
 
 /* RSVP styles */
