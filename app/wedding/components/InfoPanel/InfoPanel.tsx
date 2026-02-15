@@ -17,7 +17,7 @@ const faqItems = [
   { q: 'Are the ceremony and reception locations accessible?', a: 'Yes, both spaces are wheelchair accessible.' },
   { q: 'What time should I plan to arrive for the ceremony?', a: 'Please plan to arrive at 5:00 PM, as the ceremony will begin promptly at 5:30 PM.' },
   { q: 'Will there be an open bar?', a: 'Yes, drink responsibly.' },
-  { q: 'Do you have a registry?', a: 'We do not! Celebrating with you is what we care about most; our home is already full of love, laughter, and furniture. If you\u2019d still like to gift us a wedding present, we\u2019d greatly appreciate a contribution towards our honeymoon or house fund.' },
+  { q: 'Do you have a registry?', a: 'We do not! Our home is already full of love, laughter, and furniture. If you\u2019d still like to gift us a wedding present, we\u2019d greatly appreciate a contribution towards our honeymoon or house fund. More details will be included with our formal invitation.' },
 ];
 
 export function InfoPanel() {
@@ -61,8 +61,7 @@ export function InfoPanel() {
         <>
           <p className={styles.dressTitle}>Formal Attire</p>
           <p className={styles.dressDescription}>
-            A well-tailored suit, tuxedo, or floor-length dress.
-            Please avoid wearing shades similar to white (unless it&apos;s a dress shirt).
+            A well-tailored suit, tuxedo, ankle to floor length dress. Please avoid wearing dress colors similar to white.
           </p>
         </>
       ),
