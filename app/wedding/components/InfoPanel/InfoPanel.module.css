@@ -32,6 +32,22 @@
   .mobileLayout {
     display: none;
   }
+
+  .title {
+    padding: 0 var(--wedding-space-xl);
+    margin-bottom: var(--wedding-space-sm);
+  }
+
+  .body {
+    margin-top: 0;
+    padding: var(--wedding-space-lg) var(--wedding-space-xl);
+    background: rgba(214, 207, 193, 0.7);
+    border-radius: 30px;
+  }
+
+  .body > :last-child {
+    margin-bottom: 0;
+  }
 }
 
 /* Mobile accordion */
@@ -168,6 +184,10 @@
   padding-top: 0;
 }
 
+.timelineItem:last-child {
+  padding-bottom: 0;
+}
+
 .time {
   font-size: var(--wedding-font-size-sm);
   letter-spacing: var(--wedding-tracking-wide);
@@ -236,17 +256,22 @@
   }
 
   .venueName,
-  .dressTitle,
-  .comingSoon {
+  .dressTitle {
     font-size: var(--wedding-font-size-xl);
     line-height: 1.25;
+  }
+
+  .comingSoon {
+    font-size: var(--wedding-font-size-base);
+    line-height: var(--wedding-leading-relaxed);
+    font-weight: 400;
   }
 }
 
 /* RSVP styles */
 .comingSoon {
-  font-size: var(--wedding-font-size-2xl);
-  font-weight: 500;
+  font-size: var(--wedding-font-size-base);
+  font-weight: 400;
   color: var(--wedding-text);
   font-style: italic;
   margin: 0;

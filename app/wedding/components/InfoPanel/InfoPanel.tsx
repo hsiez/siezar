@@ -71,6 +71,10 @@ export function InfoPanel() {
       body: (
         <ul className={styles.timeline}>
           <li className={styles.timelineItem}>
+            <span className={styles.time}>5:00 PM</span>
+            <span className={styles.event}>Arrive</span>
+          </li>
+          <li className={styles.timelineItem}>
             <span className={styles.time}>5:30 PM</span>
             <span className={styles.event}>Ceremony Begins</span>
           </li>

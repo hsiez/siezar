@@ -98,6 +98,7 @@
 }
 
 .date {
+  position: relative;
   display: block;
   font-family: var(--wedding-font-mono);
   font-size: var(--wedding-font-size-sm);
@@ -111,10 +112,35 @@
   cursor: pointer;
   transition: color 150ms ease-out, text-decoration-color 150ms ease-out;
 }
+.date::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%) translateY(-2px);
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(74, 67, 59, 0.92);
+  color: #f5f0e8;
+  font-size: var(--wedding-font-size-xs);
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 80ms ease-out, transform 80ms ease-out;
+}
 
 .date:hover {
   color: var(--wedding-text);
   text-decoration-color: var(--wedding-text);
+}
+
+.date:hover::after,
+.date:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 @media (max-width: 640px) {

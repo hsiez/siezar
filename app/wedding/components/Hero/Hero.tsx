@@ -43,7 +43,8 @@ export function Hero({ names, date, headline = 'We \'re Getting Married' }: Hero
           target="_blank"
           rel="noopener noreferrer"
           className={styles.date}
-          title="Add to calendar"
+            data-tooltip="Add to calendar"
+            aria-label="Add to calendar"
         >
           {date}
         </a>
