@@ -188,7 +188,6 @@ export function InfoPanel() {
               transition={{ duration: 0.2 }}
               className={styles.contentInner}
             >
-              <h2 className={styles.title}>{content[activeSection].title}</h2>
               <div className={styles.body}>{content[activeSection].body}</div>
             </motion.div>
           </AnimatePresence>
