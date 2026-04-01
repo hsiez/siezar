@@ -87,6 +87,53 @@
 
   /* Secondary font (example) */
   --secondary-font-size: 1.2rem; /* Kept from original */
+
+  /* ── Blueprint / Technical Line Art Design System ── */
+
+  /* Surface */
+  --blueprint-bg: #e5e3de;
+  --blueprint-bg-alt: #dbd8d2;
+
+  /* Lines — hierarchy by opacity, not weight */
+  --blueprint-line-primary: #3a3a3a;
+  --blueprint-line-secondary: #8a8a8a;
+  --blueprint-line-ghost: #c5c2bc;
+
+  /* Text */
+  --blueprint-text-primary: #2e2e2e;
+  --blueprint-text-secondary: #6b6b6b;
+  --blueprint-text-tertiary: #a0a0a0;
+
+  /* Accents */
+  --blueprint-dot: #b0ada6;
+
+  /* Stroke widths */
+  --line-hairline: 0.5px;
+  --line-thin: 1px;
+  --line-regular: 1.5px;
+  --line-emphasis: 2px;
+
+  /* Blueprint typography */
+  --blueprint-font-display: var(--font-geist-sans), 'Helvetica Neue', sans-serif;
+  --blueprint-font-mono: var(--font-geist-mono), 'Courier New', monospace;
+
+  --blueprint-type-micro: 0.625rem;
+  --blueprint-type-caption: 0.75rem;
+  --blueprint-type-body: 0.875rem;
+  --blueprint-type-label: 1rem;
+  --blueprint-type-heading: 1.5rem;
+  --blueprint-type-display: 2.5rem;
+
+  --blueprint-tracking-tight: 0.02em;
+  --blueprint-tracking-normal: 0.05em;
+  --blueprint-tracking-wide: 0.12em;
+  --blueprint-tracking-ultra: 0.25em;
+
+  /* Blueprint spacing */
+  --blueprint-gutter: 2rem;
+  --blueprint-margin-page: 4rem;
+  --blueprint-section-gap: 3rem;
+  --blueprint-annotation-gap: 0.75rem;
 }
 
 @media (prefers-color-scheme: dark) {

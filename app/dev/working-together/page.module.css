@@ -1,0 +1,93 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.textBlock {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  width: 55vw;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: var(--space-3xl);
+  padding-bottom: 10%;
+  color: #7a8a99;
+}
+
+.title {
+  font-family: "Press Start 2P", "VT323", "Roboto Mono", monospace;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.scrollArea {
+  flex: 1;
+  overflow-y: auto;
+  direction: rtl;
+  scrollbar-width: thin;
+  scrollbar-color: #7a8a99 transparent;
+}
+
+.scrollArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+  background-color: #7a8a99;
+  border-radius: 3px;
+}
+
+.scrollArea > * {
+  direction: ltr;
+  padding-left: var(--space-md);
+}
+
+.fadeTop.fadeBottom {
+  mask-image: linear-gradient(to bottom, transparent, black 40px, black calc(100% - 40px), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 40px, black calc(100% - 40px), transparent);
+}
+
+.fadeTop:not(.fadeBottom) {
+  mask-image: linear-gradient(to bottom, transparent, black 40px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 40px);
+}
+
+.fadeBottom:not(.fadeTop) {
+  mask-image: linear-gradient(to bottom, black calc(100% - 40px), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 40px), transparent);
+}
+
+.paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
+
+.imageWrapper {
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+  width: 60vw;
+  height: 60vw;
+}
+
+@media (min-width: 768px) {
+  .imageWrapper {
+    width: 30vw;
+    height: 30vw;
+  }
+}

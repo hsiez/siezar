@@ -1,0 +1,11 @@
+.fadeBox {
+  background-color: white;
+  mask-image:
+    linear-gradient(to right, transparent, black var(--fade-size), black calc(100% - var(--fade-size)), transparent),
+    linear-gradient(to bottom, transparent, black var(--fade-size), black calc(100% - var(--fade-size)), transparent);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, black var(--fade-size), black calc(100% - var(--fade-size)), transparent),
+    linear-gradient(to bottom, transparent, black var(--fade-size), black calc(100% - var(--fade-size)), transparent);
+  -webkit-mask-composite: source-in;
+}

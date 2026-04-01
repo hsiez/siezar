@@ -1,0 +1,130 @@
+/* ── Runner Sprue Component ── */
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.runner {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  display: block;
+}
+
+/* Frame (outer border) */
+.frame {
+  fill: none;
+  stroke: var(--blueprint-line-primary);
+  stroke-width: 4;
+}
+
+/* Tag plate — top-left label (same color as piping) */
+.tagPlate {
+  fill: var(--blueprint-line-primary);
+  stroke: var(--blueprint-line-primary);
+  stroke-width: 2;
+}
+
+.tagLetter {
+  fill: #2d2d2d;
+  font-family: var(--blueprint-font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.tagText {
+  fill: #2d2d2d;
+  font-family: var(--blueprint-font-mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+}
+
+/* Runner channels (structural bars) */
+.channel {
+  stroke: var(--blueprint-line-primary);
+  stroke-width: 4;
+  stroke-linecap: square;
+  fill: none;
+}
+
+/* Branch stubs (shorter offshoots from channels) */
+.branch {
+  stroke: var(--blueprint-line-primary);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* Gate connections (channel → part) */
+.gate {
+  stroke: var(--blueprint-line-primary);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+/* Thin taper from pipe end to part surface (nipper clearance) */
+.gateTaper {
+  stroke: var(--blueprint-line-primary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* Channel intersection nodes */
+.node {
+  fill: var(--blueprint-line-primary);
+}
+
+/* Part bevel — wider, lighter stroke behind main outline */
+.partBevel {
+  fill: none;
+  stroke: var(--blueprint-line-ghost);
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+}
+
+/* Part shapes */
+.partShape {
+  fill: var(--blueprint-bg-alt);
+  stroke: var(--blueprint-line-primary);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+/* Part internal detail lines */
+.partDetail {
+  fill: none;
+  stroke: var(--blueprint-line-secondary);
+  stroke-width: 0.75;
+}
+
+/* Number tag background (same color as piping) */
+.numberRect {
+  fill: var(--blueprint-line-primary);
+  stroke: none;
+}
+
+/* Number tag visible edges (only sides not touching a pipe) */
+.numberEdge {
+  fill: none;
+  stroke: var(--blueprint-line-primary);
+  stroke-width: 1;
+  stroke-linecap: square;
+}
+
+.numberText {
+  fill: #2d2d2d;
+  font-family: var(--blueprint-font-mono);
+  font-size: 8px;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 480px) {
+  .runner {
+    max-width: 100%;
+  }
+}
