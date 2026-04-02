@@ -3,21 +3,28 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background-color: white;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.ready {
+  opacity: 1;
 }
 
 .textBlock {
   position: absolute;
-  top: 50%;
+  top: 42%;
   left: 35%;
   transform: translate(-50%, -50%);
   width: 55vw;
-  height: 100vh;
+  max-width: 700px;
+  height: 78vh;
   z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
   padding: var(--space-3xl);
-  padding-bottom: 10%;
   color: #7a8a99;
 }
 
@@ -26,6 +33,7 @@
   font-size: var(--font-size-xl);
   font-weight: 800;
   letter-spacing: 3px;
+  padding-left: var(--space-md);
 }
 
 .scrollArea {
@@ -83,6 +91,22 @@
   right: 40px;
   width: 60vw;
   height: 60vw;
+}
+
+
+@media (max-width: 767px) {
+  .textBlock {
+    width: 95vw;
+    height: 70vh;
+    left: 50%;
+    padding: var(--space-xl);
+  }
+
+  .imageWrapper {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media (min-width: 768px) {
