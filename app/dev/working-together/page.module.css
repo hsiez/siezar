@@ -12,19 +12,28 @@
   opacity: 1;
 }
 
+/* ── Letter frame ── */
+.letter {
+  position: absolute;
+  inset: 0;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+/* ── Text block — left side of the letter ── */
 .textBlock {
   position: absolute;
-  top: 42%;
-  left: 35%;
-  transform: translate(-50%, -50%);
-  width: 55vw;
-  max-width: 700px;
-  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
   z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
-  padding: 120px;
+  padding: 120px 0 120px 80px;
   color: #585858;
 }
 
@@ -36,8 +45,19 @@
   padding-left: var(--space-md);
 }
 
+.scrollWrapper {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  /* Extend mask area beyond the text so the fade doesn't bleed into content */
+  margin: -60px -80px;
+  padding: 60px 80px;
+}
+
 .scrollArea {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   direction: rtl;
   scrollbar-width: thin;
@@ -85,35 +105,38 @@
   line-height: 1.5;
 }
 
+/* ── Watermark image — bottom-right of the letter ── */
 .imageWrapper {
   position: absolute;
   bottom: 0;
-  right: 80px;
-  width: 60vw;
-  height: 60vw;
+  right: 0;
+  width: 320px;
+  height: 320px;
 }
 
-
+/* ── Mobile ── */
 @media (max-width: 767px) {
   .textBlock {
-    width: 95vw;
+    width: 100%;
     height: 65vh;
-    top: 35%;
-    left: 45%;
+    top: 0;
+    left: 0;
     padding: var(--space-xl);
     --fade-size: 30px !important;
   }
 
   .imageWrapper {
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 250px;
+    height: 250px;
+    right: 50%;
+    transform: translateX(50%);
   }
 }
 
-@media (min-width: 768px) {
+/* ── Large screens — image can be a bit bigger ── */
+@media (min-width: 1100px) {
   .imageWrapper {
-    width: 30vw;
-    height: 30vw;
+    width: 360px;
+    height: 360px;
   }
 }
