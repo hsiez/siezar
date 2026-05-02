@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import styles from "./page.module.css";
 import FieldNoteCard from "@/app/components/field-notes/title-card/field-note-card";
 import { PhotoDetail } from "../../components/field-notes/photo-grid/photo-grid";
@@ -152,14 +153,16 @@ export default function CDMX() {
         <section className={styles.sectionSmaller}>
           <FieldNoteCard location="CDMX" dates={["04/02/2025", "04/06/2025"]} />
         </section>
-        <Entries 
-          tripData={validatedTripData}
-          day1PhotoRows={day1PhotoRows} 
-          day2PhotoRows={day2PhotoRows} 
-          day3PhotoRows={day3PhotoRows} 
-          day4PhotoRows={day4PhotoRows} 
-          day5PhotoRows={day5PhotoRows} 
-        />
+        <Suspense fallback={null}>
+          <Entries
+            tripData={validatedTripData}
+            day1PhotoRows={day1PhotoRows}
+            day2PhotoRows={day2PhotoRows}
+            day3PhotoRows={day3PhotoRows}
+            day4PhotoRows={day4PhotoRows}
+            day5PhotoRows={day5PhotoRows}
+          />
+        </Suspense>
       </main>
     </div>
   );

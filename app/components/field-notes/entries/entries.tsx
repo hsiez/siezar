@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import styles from "./entries.module.css";
 import SubEntry from "./sub-entry";
 import { PhotoDetail } from "../photo-grid/photo-grid";
@@ -26,8 +26,22 @@ export default function Entries({
     day5PhotoRows 
 }: EntriesProps) {
     
-    // Toggle state for view switching
-    const [showItinerary, setShowItinerary] = useState(false);
+    // Toggle state for view switching, persisted in the URL
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const showItinerary = searchParams.get("view") === "itinerary";
+
+    const setView = (view: "journal" | "itinerary") => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (view === "itinerary") {
+            params.set("view", "itinerary");
+        } else {
+            params.delete("view");
+        }
+        const query = params.toString();
+        router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    };
     
     // Validate itinerary data
     let validatedData: ItineraryData | null = null;
@@ -112,14 +126,14 @@ export default function Entries({
             <div className={styles.toggleContainer}>
                 <button 
                     className={`${styles.toggleButton} ${!showItinerary ? styles.active : ''}`}
-                    onClick={() => setShowItinerary(false)}
+                    onClick={() => setView("journal")}
                 >
                     Journal
                 </button>
                 <div className={styles.toggleDivider}></div>
                 <button 
                     className={`${styles.toggleButton} ${showItinerary ? styles.active : ''}`}
-                    onClick={() => setShowItinerary(true)}
+                    onClick={() => setView("itinerary")}
                 >
                     Itinerary
                 </button>

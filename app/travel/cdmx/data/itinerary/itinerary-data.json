@@ -61,12 +61,12 @@
         "name": "Plaza Luis Cabrera",
         "location": "Roma Sur",
         "rating": "good",
-        "google-link": "https://maps.app.goo.gl/rND8CXhVLazqhk5K9"
+        "google-link": "https://maps.app.goo.gl/VnsMhFzcDbuzZ5rD7"
       },
       {
         "name": "Plaza De Janeiro",
         "location": "Roma Norte",
-        "rating": "good",
+        "rating": "repeat",
         "google-link": "https://maps.app.goo.gl/4n6xbcTpBywMp12d7"
       }
     ],
@@ -75,7 +75,7 @@
         "name": "Balandra",
         "location": "Roma Norte",
         "rating": "repeat",
-        "google-link": "https://maps.google.com/placeholder"
+        "google-link": "https://maps.app.goo.gl/opTMU8XCffmnoveB9"
       },
       {
         "name": "Panadería Rosetta",
