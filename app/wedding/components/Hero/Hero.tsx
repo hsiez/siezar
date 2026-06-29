@@ -48,6 +48,9 @@ export function Hero({ names, date, headline = 'We \'re Getting Married' }: Hero
         >
           {date}
         </a>
+        <a href="#rsvp" className={styles.rsvpButton}>
+          RSVP
+        </a>
       </div>
     </section>
   );

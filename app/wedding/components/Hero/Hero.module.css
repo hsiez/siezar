@@ -143,6 +143,38 @@
   transform: translateX(-50%) translateY(0);
 }
 
+.rsvpButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 128px;
+  min-height: 42px;
+  margin-top: var(--wedding-space-xl);
+  padding: var(--wedding-space-sm) var(--wedding-space-xl);
+  border: 1px solid var(--wedding-text);
+  border-radius: 999px;
+  background: var(--wedding-text);
+  color: var(--wedding-bg);
+  font-family: var(--wedding-font-mono);
+  font-size: var(--wedding-font-size-sm);
+  font-weight: 700;
+  letter-spacing: var(--wedding-tracking-wider);
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+}
+
+.rsvpButton:hover {
+  background: transparent;
+  color: var(--wedding-text);
+}
+
+.rsvpButton:focus-visible {
+  outline: 2px solid rgba(74, 69, 64, 0.25);
+  outline-offset: 3px;
+}
+
 @media (max-width: 640px) {
   .headline {
     font-size: clamp(2.6rem, 11vw, 3.4rem);
