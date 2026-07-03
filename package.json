@@ -6,10 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest run",
+    "wedding:rsvp:test": "vitest run lib/wedding/rsvp/repository.test.ts",
+    "wedding:rsvp:migrate": "node scripts/wedding-rsvp-migrate.mjs",
+    "wedding:rsvp:seed": "node scripts/wedding-rsvp-seed.mjs"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.4",
     "@paper-design/shaders-react": "^0.0.70",
+    "csv-parse": "^7.0.0",
     "framer-motion": "^12.33.0",
     "lucide-react": "^0.563.0",
     "next": "^15.2.8",
@@ -24,6 +30,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.9"
   }
 }

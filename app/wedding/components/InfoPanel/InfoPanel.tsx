@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconNav, type SectionId } from '../IconNav/IconNav';
+import { RsvpFlow } from '../RsvpFlow/RsvpFlow';
 import styles from './InfoPanel.module.css';
 
 const VENUE_MAP_URL = 'https://maps.app.goo.gl/RCpy4sffawJxQWGC8';
@@ -24,6 +25,22 @@ export function InfoPanel() {
   const [activeSection, setActiveSection] = useState<SectionId>('location');
   const [openAccordion, setOpenAccordion] = useState<SectionId | null>('location');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  useEffect(() => {
+    const openHashSection = () => {
+      const hash = window.location.hash.slice(1);
+      if (sections.includes(hash as SectionId)) {
+        const section = hash as SectionId;
+        setActiveSection(section);
+        setOpenAccordion(section);
+      }
+    };
+
+    openHashSection();
+    window.addEventListener('hashchange', openHashSection);
+
+    return () => window.removeEventListener('hashchange', openHashSection);
+  }, []);
 
   const content: Record<SectionId, { title: string; body: React.ReactNode }> = {
     location: {
@@ -125,14 +142,7 @@ export function InfoPanel() {
     },
     rsvp: {
       title: 'RSVP',
-      body: (
-        <>
-          <p className={styles.comingSoon}>Coming Soon</p>
-          <p className={styles.rsvpDeadline}>
-            Deadline: Friday, August 21st, 2026
-          </p>
-        </>
-      ),
+      body: <RsvpFlow />,
     },
     faq: {
       title: 'FAQ',
@@ -175,7 +185,7 @@ export function InfoPanel() {
   };
 
   return (
-    <section className={styles.panel}>
+    <section id="rsvp" className={styles.panel}>
       {/* Desktop: tabs + content */}
       <div className={styles.desktopLayout}>
         <div className={styles.content}>
