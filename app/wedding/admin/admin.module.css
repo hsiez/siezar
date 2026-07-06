@@ -1,0 +1,336 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  padding: var(--wedding-space-2xl) var(--wedding-space-xl);
+  background: var(--wedding-bg, #e8e4dc);
+  color: var(--wedding-text, #4a4540);
+  font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
+}
+
+.header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--wedding-space-xl);
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto var(--wedding-space-xl);
+  padding-bottom: var(--wedding-space-lg);
+  border-bottom: 1px solid var(--wedding-border, #c9c4ba);
+}
+
+.kicker,
+.sectionMeta,
+.statLabel,
+.secondaryText,
+.metaLabel,
+.guestGridHeader {
+  color: var(--wedding-text-muted, #8a857d);
+  font-size: var(--wedding-font-size-xs, 1rem);
+  letter-spacing: var(--wedding-tracking-wider, 0.1em);
+  text-transform: uppercase;
+}
+
+.kicker {
+  margin: 0 0 var(--wedding-space-xs);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--wedding-font-size-4xl, 2rem);
+  line-height: var(--wedding-leading-tight, 1.2);
+}
+
+.updated {
+  margin: 0;
+  color: var(--wedding-text-secondary, #6b665f);
+  font-size: var(--wedding-font-size-sm, 1rem);
+  white-space: nowrap;
+}
+
+.stats {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--wedding-space-md);
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto var(--wedding-space-2xl);
+}
+
+.stat {
+  display: grid;
+  gap: var(--wedding-space-xs);
+  min-height: 96px;
+  padding: var(--wedding-space-md);
+  border: 1px solid var(--wedding-border, #c9c4ba);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.statValue {
+  font-size: var(--wedding-font-size-3xl, 1.75rem);
+  font-weight: 700;
+  line-height: var(--wedding-leading-tight, 1.2);
+}
+
+.section {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.householdsSection {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.sectionHeader {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--wedding-space-lg);
+  margin-bottom: var(--wedding-space-md);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--wedding-font-size-2xl, 1.5rem);
+}
+
+.householdScroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid var(--wedding-border, #c9c4ba);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.householdCard {
+  border-bottom: 1px solid var(--wedding-border-light, #d8d4cb);
+}
+
+.householdCard:last-child {
+  border-bottom: 0;
+}
+
+.householdSummary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--wedding-space-lg);
+  min-height: 72px;
+  padding: var(--wedding-space-lg);
+  cursor: pointer;
+  list-style: none;
+  transition: background-color var(--wedding-transition-fast, 150ms ease-out);
+}
+
+.householdSummary::-webkit-details-marker {
+  display: none;
+}
+
+.householdSummary:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.householdSummary:focus-visible {
+  outline: 2px solid var(--wedding-text, #4a4540);
+  outline-offset: -2px;
+}
+
+.householdCard[open] .householdSummary {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.householdBody {
+  padding: 0 var(--wedding-space-lg) var(--wedding-space-lg);
+}
+
+.householdName {
+  margin: 0;
+  color: var(--wedding-text, #4a4540);
+  font-size: var(--wedding-font-size-xl, 1.25rem);
+  line-height: var(--wedding-leading-tight, 1.2);
+}
+
+.primaryText,
+.secondaryText {
+  display: block;
+}
+
+.primaryText {
+  color: var(--wedding-text, #4a4540);
+  font-weight: 700;
+}
+
+.secondaryText {
+  margin-top: var(--wedding-space-xs);
+}
+
+.householdMeta {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.75fr) minmax(150px, 0.75fr) minmax(180px, 1fr) minmax(180px, 1fr) minmax(220px, 1.25fr);
+  gap: var(--wedding-space-md);
+  margin-bottom: var(--wedding-space-lg);
+  padding-top: var(--wedding-space-md);
+  border-top: 1px solid var(--wedding-border-light, #d8d4cb);
+}
+
+.metaItem {
+  display: grid;
+  gap: var(--wedding-space-xs);
+  min-width: 0;
+}
+
+.metaValue {
+  color: var(--wedding-text-secondary, #6b665f);
+  font-size: var(--wedding-font-size-sm, 1rem);
+  line-height: var(--wedding-leading-normal, 1.5);
+  overflow-wrap: anywhere;
+}
+
+.guestGrid {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.1fr) minmax(120px, 0.5fr) minmax(220px, 1fr);
+  border-top: 1px solid var(--wedding-border-light, #d8d4cb);
+}
+
+.guestGridHeader {
+  padding: var(--wedding-space-sm) var(--wedding-space-md);
+  border-bottom: 1px solid var(--wedding-border-light, #d8d4cb);
+  font-weight: 700;
+}
+
+.guestRow {
+  display: contents;
+}
+
+.guestRow > div {
+  min-width: 0;
+  padding: var(--wedding-space-md);
+  border-bottom: 1px solid var(--wedding-border-light, #d8d4cb);
+  color: var(--wedding-text-secondary, #6b665f);
+  font-size: var(--wedding-font-size-sm, 1rem);
+  line-height: var(--wedding-leading-normal, 1.5);
+  overflow-wrap: anywhere;
+}
+
+.guestRow:last-child > div {
+  border-bottom: 0;
+}
+
+.status {
+  display: inline-flex;
+  min-width: 96px;
+  justify-content: center;
+  padding: var(--wedding-space-xs) var(--wedding-space-sm);
+  border: 1px solid currentColor;
+  font-size: var(--wedding-font-size-xs, 1rem);
+  font-weight: 700;
+  letter-spacing: var(--wedding-tracking-wide, 0.05em);
+  line-height: var(--wedding-leading-tight, 1.2);
+  text-transform: uppercase;
+}
+
+.submitted,
+.attending {
+  color: #3f6f56;
+}
+
+.declined {
+  color: #8a514a;
+}
+
+.pending {
+  color: var(--wedding-text-muted, #8a857d);
+}
+
+.guestSummary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wedding-space-xs) var(--wedding-space-sm);
+}
+
+.guestSummary span {
+  white-space: nowrap;
+}
+
+@media (max-width: 980px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .updated {
+    white-space: normal;
+  }
+
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: var(--wedding-space-xl) var(--wedding-space-md);
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat {
+    min-height: 88px;
+  }
+
+  .sectionHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--wedding-space-xs);
+  }
+
+  .householdCard {
+    padding: 0;
+  }
+
+  .householdSummary {
+    flex-direction: column;
+    gap: var(--wedding-space-md);
+    padding: var(--wedding-space-md);
+  }
+
+  .householdBody {
+    padding: 0 var(--wedding-space-md) var(--wedding-space-md);
+  }
+
+  .householdMeta,
+  .guestGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .guestGridHeader {
+    display: none;
+  }
+
+  .guestRow {
+    display: grid;
+    gap: var(--wedding-space-xs);
+    padding: var(--wedding-space-md) 0;
+    border-bottom: 1px solid var(--wedding-border-light, #d8d4cb);
+  }
+
+  .guestRow:last-child {
+    border-bottom: 0;
+  }
+
+  .guestRow > div {
+    padding: 0;
+    border-bottom: 0;
+  }
+}

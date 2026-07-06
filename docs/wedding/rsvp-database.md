@@ -24,6 +24,15 @@ TURSO_DATABASE_URL=libsql://...
 TURSO_AUTH_TOKEN=...
 ```
 
+The private admin page at `/wedding/admin` is protected with HTTP Basic Auth:
+
+```bash
+WEDDING_ADMIN_USERNAME=...
+WEDDING_ADMIN_PASSWORD=...
+```
+
+If either admin credential is missing, `/wedding/admin` returns 404 instead of rendering.
+
 The migration and seed scripts load `.env.local` automatically, so pulled Vercel env vars are available without wrapping commands in `vercel env run`.
 
 ## Vercel Turso Setup
@@ -148,3 +157,7 @@ Content-Type: application/json
 Submissions are latest-write-wins. Every submission also inserts a `rsvp_events` row for history.
 
 Dietary fields only apply to people marked `attending`. The server clears `vegetarian_meal`, `nut_allergy`, `meal_choice`, and `dietary_notes` for people marked `declined`.
+
+## Admin
+
+Visit `/wedding/admin` with the configured admin username and password to see household submission status, guest attendance, and dietary totals. The page reads directly from the RSVP database server-side and is not indexed.
