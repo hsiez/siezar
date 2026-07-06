@@ -58,6 +58,28 @@ describe('RSVP repository', () => {
     await expect(repository.findReservationByPhone('5551234567')).resolves.toBeNull();
   });
 
+  it('lists reservations with admin-only RSVP details', async () => {
+    const reservations = await repository.listRsvpReservationsForAdmin();
+
+    expect(reservations).toHaveLength(2);
+    expect(reservations[0]).toMatchObject({
+      id: 'INV-002',
+      householdName: 'Editable Guest Test',
+      rsvpStatus: 'pending',
+      phoneNumbers: ['+19499225770'],
+    });
+    expect(reservations[1]).toMatchObject({
+      id: 'INV-001',
+      householdName: 'Paul & Lisa Dizon',
+      rsvpStatus: 'pending',
+      phoneNumbers: ['+19093422583', '+19095185980'],
+    });
+    expect(reservations[1].people.map((person) => person.displayName)).toEqual([
+      'Paul Dizon',
+      'Lisa Dizon',
+    ]);
+  });
+
   it('submits every person on a reservation and logs the event', async () => {
     const reservation = await repository.submitReservationRsvp({
       phone: '9499225770',

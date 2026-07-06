@@ -22,6 +22,15 @@ export type RsvpReservation = {
   people: ReservationPerson[];
 };
 
+export type AdminRsvpReservation = RsvpReservation & {
+  sourceNumber: string | null;
+  mailingAddress: string | null;
+  deliveryMethod: string;
+  deliveryNotes: string | null;
+  adminNotes: string | null;
+  phoneNumbers: string[];
+};
+
 export class RsvpError extends Error {
   constructor(
     message: string,
@@ -211,6 +220,69 @@ export async function submitReservationRsvp(input: SubmitRequest): Promise<RsvpR
   return reservation;
 }
 
+export async function listRsvpReservationsForAdmin(): Promise<AdminRsvpReservation[]> {
+  const db = getRsvpDb();
+  const reservationsResult = await db.execute({
+    sql: `SELECT
+        id,
+        source_number,
+        household_name,
+        mailing_address,
+        delivery_method,
+        delivery_notes,
+        rsvp_status,
+        submitted_at,
+        admin_notes
+      FROM reservations
+      ORDER BY
+        CASE WHEN submitted_at IS NULL THEN 1 ELSE 0 END ASC,
+        submitted_at DESC,
+        household_name ASC`,
+    args: [],
+  });
+
+  const peopleResult = await db.execute({
+    sql: `SELECT
+        id,
+        reservation_id,
+        display_name,
+        name_editable,
+        rsvp_status,
+        meal_choice,
+        vegetarian_meal,
+        nut_allergy,
+        dietary_notes
+      FROM reservation_people
+      ORDER BY reservation_id ASC, sort_order ASC, display_name ASC`,
+    args: [],
+  });
+
+  const phonesResult = await db.execute({
+    sql: `SELECT reservation_id, phone_e164
+      FROM reservation_phones
+      ORDER BY reservation_id ASC, phone_e164 ASC`,
+    args: [],
+  });
+
+  const peopleByReservation = groupRowsByString(peopleResult.rows, 'reservation_id');
+  const phonesByReservation = groupRowsByString(phonesResult.rows, 'reservation_id');
+
+  return reservationsResult.rows.map((row) => {
+    const id = String(row.id);
+    const reservation = mapReservation(row, peopleByReservation.get(id) ?? []);
+
+    return {
+      ...reservation,
+      sourceNumber: stringOrNull(row.source_number),
+      mailingAddress: stringOrNull(row.mailing_address),
+      deliveryMethod: String(row.delivery_method || 'mail'),
+      deliveryNotes: stringOrNull(row.delivery_notes),
+      adminNotes: stringOrNull(row.admin_notes),
+      phoneNumbers: (phonesByReservation.get(id) ?? []).map((phoneRow) => String(phoneRow.phone_e164)),
+    };
+  });
+}
+
 function mapReservation(reservationRow: Row, peopleRows: Row[]): RsvpReservation {
   return {
     id: String(reservationRow.id),
@@ -228,6 +300,17 @@ function mapReservation(reservationRow: Row, peopleRows: Row[]): RsvpReservation
       dietaryNotes: stringOrNull(row.dietary_notes),
     })),
   };
+}
+
+function groupRowsByString(rows: Row[], key: string): Map<string, Row[]> {
+  const groupedRows = new Map<string, Row[]>();
+
+  for (const row of rows) {
+    const groupKey = String(row[key]);
+    groupedRows.set(groupKey, [...(groupedRows.get(groupKey) ?? []), row]);
+  }
+
+  return groupedRows;
 }
 
 function normalizeRsvpStatus(value: unknown): ReservationPerson['rsvpStatus'] {
