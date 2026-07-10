@@ -111,6 +111,11 @@
      where % would resolve against height. On tall/wide screens the px cap
      wins instead. */
   --env-w: min(560px, calc(88vw - 10px), 58svh);
+  /* how far the card is lifted off the envelope's bottom edge. Shared by the
+     cardSlot offset AND the card's height so the card's top always tucks
+     BELOW the envelope's top edge (offset + height <= envelope height) —
+     otherwise its white rounded top pokes out above the sleeve. */
+  --card-inset: calc(var(--env-w) * 0.055);
 
   position: relative;
   width: var(--env-w);
@@ -190,7 +195,7 @@
   left: 50%;
   /* lifted off the scene's bottom clip edge so the open-state lift shadow has
      room to render instead of being sheared flat */
-  bottom: calc(var(--env-w) * 0.055);
+  bottom: var(--card-inset);
   z-index: 2;
   width: calc(var(--env-w) * 0.917);
   transform: translateX(-50%); /* closed: tucked in the pocket */
@@ -217,8 +222,10 @@
   /* FIXED height (not min/max) so the card stays the same size on every step —
      the note step's short content no longer shrinks it. Sized to the envelope's
      own height (taller on mobile via --env-ratio); larger households scroll
-     inside the card rather than growing it. */
-  height: calc(var(--env-w) / var(--env-ratio, 1.408) - var(--env-w) * 0.03);
+     inside the card rather than growing it. Subtract the card-inset (its lift
+     off the bottom) plus a small buffer so the top clears the envelope's top
+     edge rather than poking out above the sleeve. */
+  height: calc(var(--env-w) / var(--env-ratio, 1.408) - var(--card-inset) - var(--env-w) * 0.02);
   overflow: auto;
   padding: var(--wedding-space-lg) var(--wedding-space-xl);
   border-radius: 3px 3px 4px 4px;
