@@ -174,7 +174,9 @@
 .cardSlot {
   position: absolute;
   left: 50%;
-  bottom: calc(var(--env-w) * 0.008);
+  /* lifted off the scene's bottom clip edge so the open-state lift shadow has
+     room to render instead of being sheared flat */
+  bottom: calc(var(--env-w) * 0.055);
   z-index: 2;
   width: calc(var(--env-w) * 0.917);
   transform: translateX(-50%); /* closed: tucked in the pocket */
@@ -218,8 +220,7 @@
 .envelopeOpen .rsvpCard {
   box-shadow:
     0 0 0 1px rgba(28, 26, 20, 0.1),
-    0 2px 4px rgba(28, 26, 20, 0.08),
-    0 26px 44px -22px rgba(28, 26, 20, 0.32);
+    var(--wedding-shadow-sm);
   /* opening: shadow grows in as the card slides out (waits for the flap) */
   transition: box-shadow 620ms var(--ease-card) 480ms;
 }
@@ -266,13 +267,16 @@
   inset: 0;
   z-index: 4;
   transform: translateY(0);
+  opacity: 1;
   pointer-events: none;
   will-change: transform;
   /* closing (exact reverse of open): slides back up WITH the envelope body
      first, same ease/duration as the open slide (z swaps back on top as it
-     rises, so the folding flap seals over the sleeve) */
+     rises, so the folding flap seals over the sleeve). opacity snaps back
+     instantly so the flap is solid for the physical slide up. */
   transition:
     transform 640ms var(--ease-card) 0ms,
+    opacity 1ms linear 0ms,
     z-index 0ms linear 840ms;
 }
 
@@ -309,11 +313,15 @@
 
 .envelopeOpen .envelopeFlap {
   /* opening: after the flap hinges open, the wrapper slides it straight down
-     out of view WITH the envelope body (no fade — it physically slides away) */
+     out of view WITH the envelope body. Its rotateX projection still pokes up
+     into the scene once slid, so once it's out of the way we fade it the last
+     bit — otherwise it shows in the strip below the lifted card. */
   transform: translateY(104%);
+  opacity: 0;
   z-index: 0;
   transition:
     transform 640ms var(--ease-card) 460ms,
+    opacity 200ms linear 940ms,
     z-index 0ms linear 260ms;
 }
 
@@ -457,6 +465,7 @@
 .primaryButton,
 .secondaryButton {
   appearance: none;
+  position: relative;
   min-height: 42px;
   white-space: nowrap;
   flex-shrink: 0;
@@ -467,8 +476,7 @@
     inset 0 2px 0 rgba(255, 255, 255, 0.9),
     inset 2px 0 0 rgba(255, 255, 255, 0.45),
     inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    0 1px 2px rgba(20, 20, 20, 0.05),
-    0 12px 28px -22px rgba(20, 20, 20, 0.45);
+    var(--wedding-shadow-sm);
   color: rgba(20, 20, 20, 0.72);
   cursor: pointer;
   font-family: var(--font-geist-mono), "Courier New", monospace;
@@ -497,8 +505,7 @@
     inset 0 2px 0 rgba(255, 255, 255, 0.9),
     inset 2px 0 0 rgba(255, 255, 255, 0.45),
     inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    0 2px 4px rgba(20, 20, 20, 0.06),
-    0 16px 34px -22px rgba(20, 20, 20, 0.5);
+    var(--wedding-shadow-card);
 }
 
 /* press in: bevel collapses to a shallow inset */
@@ -513,6 +520,37 @@
 .primaryButton:disabled {
   opacity: 0.48;
   cursor: not-allowed;
+}
+
+/* loading: keep the label in place (holding the button width so it doesn't
+   shift) but hidden, and spin a small wheel over it */
+.buttonLabelLoading {
+  opacity: 0;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid rgba(20, 20, 20, 0.22);
+  border-top-color: rgba(20, 20, 20, 0.7);
+  border-radius: 50%;
+  animation: rsvp-spin 0.7s linear infinite;
+}
+
+@keyframes rsvp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 1.4s;
+  }
 }
 
 .stepHeader {
@@ -574,8 +612,11 @@
 
 .optionsGroup {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xs);
+  /* size each option to its label and keep them together (not stretched to
+     half the row each) so the two choices sit close instead of spread apart */
+  grid-template-columns: repeat(2, max-content);
+  justify-content: end;
+  gap: var(--space-md);
 }
 
 .optionBox {
@@ -706,8 +747,18 @@
   }
 
   .lookupForm {
-    align-items: flex-start;
+    align-items: stretch;
     flex-direction: column;
+  }
+
+  /* full-width search field, then the button on the right beneath it — both
+     ending at the same right edge */
+  .lookupForm .field {
+    width: 100%;
+  }
+
+  .lookupForm .primaryButton {
+    align-self: flex-end;
   }
 }
 

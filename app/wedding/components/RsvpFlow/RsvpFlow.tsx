@@ -377,8 +377,9 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
                     >
                       Back
                     </button>
-                    <button className={styles.primaryButton} type="button" disabled={isLoading} onClick={handleSubmit}>
-                      {isLoading ? 'Submitting...' : 'Submit RSVP'}
+                    <button className={styles.primaryButton} type="button" disabled={isLoading} aria-busy={isLoading} onClick={handleSubmit}>
+                      <span className={isLoading ? styles.buttonLabelLoading : undefined}>Submit RSVP</span>
+                      {isLoading && <span className={styles.spinner} aria-hidden="true" />}
                     </button>
                   </div>
                 </div>
@@ -407,8 +408,9 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
                     required
                   />
                 </label>
-                <button className={styles.primaryButton} type="submit" disabled={isLoading}>
-                  {isLoading ? 'Looking up...' : 'Find Invite'}
+                <button className={styles.primaryButton} type="submit" disabled={isLoading} aria-busy={isLoading}>
+                  <span className={isLoading ? styles.buttonLabelLoading : undefined}>Find Invite</span>
+                  {isLoading && <span className={styles.spinner} aria-hidden="true" />}
                 </button>
               </form>
             )}

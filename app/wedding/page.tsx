@@ -128,7 +128,11 @@ export default function WeddingPage() {
         aria-label="Harley and Haylee wedding"
       >
         {view ? (
-          <div className={styles.detailsShell}>
+          <div
+            className={`${styles.detailsShell} ${
+              view === "rsvp" ? "" : styles.detailsShellInfo
+            }`}
+          >
             {view === "rsvp" ? (
               <div className={styles.rsvpFrame}>
                 <button

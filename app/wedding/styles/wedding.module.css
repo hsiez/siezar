@@ -131,9 +131,7 @@
     inset 0 2px 0 rgba(255, 255, 255, 0.9),
     inset 2px 0 0 rgba(255, 255, 255, 0.45),
     inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    0 1px 2px rgba(20, 20, 20, 0.05),
-    0 12px 28px -22px rgba(20, 20, 20, 0.45),
-    0 24px 48px -36px rgba(20, 20, 20, 0.32);
+    var(--wedding-shadow-card);
 }
 
 .polaroid:nth-of-type(1) {
@@ -225,7 +223,7 @@
 }
 
 /* "pressable paper" — same treatment as the RSVP flow buttons (ported from the
-   side-quest cards), keeping the taped-on tilt */
+   side-quest cards) */
 .actionLink {
   appearance: none;
   position: relative;
@@ -238,8 +236,7 @@
     inset 0 2px 0 rgba(255, 255, 255, 0.9),
     inset 2px 0 0 rgba(255, 255, 255, 0.45),
     inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    0 1px 2px rgba(20, 20, 20, 0.05),
-    0 12px 28px -22px rgba(20, 20, 20, 0.45);
+    var(--wedding-shadow-sm);
   color: rgba(20, 20, 20, 0.72);
   cursor: pointer;
   font-family: var(--font-geist-mono), "Courier New", monospace;
@@ -248,42 +245,28 @@
   line-height: 1;
   text-align: center;
   text-decoration: none;
-  transform: rotate(-1.1deg);
   transition:
     box-shadow var(--transition-fast),
     color var(--transition-fast),
     transform var(--transition-fast);
 }
 
-.actionLink:nth-child(2) {
-  transform: rotate(1.2deg);
-}
-
 .actionLink:hover {
   color: rgba(20, 20, 20, 0.88);
-  transform: translateY(-1px) rotate(-1.1deg);
+  transform: translateY(-1px);
   box-shadow:
     inset 0 2px 0 rgba(255, 255, 255, 0.9),
     inset 2px 0 0 rgba(255, 255, 255, 0.45),
     inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    0 2px 4px rgba(20, 20, 20, 0.06),
-    0 16px 34px -22px rgba(20, 20, 20, 0.5);
-}
-
-.actionLink:nth-child(2):hover {
-  transform: translateY(-1px) rotate(1.2deg);
+    var(--wedding-shadow-card);
 }
 
 /* press in: bevel collapses to a shallow inset */
 .actionLink:active {
-  transform: translateY(0) rotate(-1.1deg);
+  transform: translateY(0);
   box-shadow:
     inset 0 2px 4px rgba(20, 20, 20, 0.09),
     0 1px 1px rgba(20, 20, 20, 0.04);
-}
-
-.actionLink:nth-child(2):active {
-  transform: translateY(0) rotate(1.2deg);
 }
 
 .detailsShell {
@@ -301,6 +284,25 @@
 
 .detailsShell::-webkit-scrollbar {
   display: none;
+}
+
+/* Details (info) view on desktop: fill the height so the back button stays
+   pinned at the top instead of re-centering with each section's size, and
+   center the information sheet in the space below it. (On mobile the view is
+   already top-anchored via .stageDetails.) */
+@media (min-width: 721px) {
+  .detailsShellInfo {
+    box-sizing: border-box;
+    height: calc(100svh - (var(--space-xl) * 2));
+  }
+
+  .detailsShellInfo > section {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .backButton {
@@ -396,7 +398,7 @@
   }
 
   .polaroid {
-    width: min(61vw, 240px);
+    width: min(55vw, 216px);
   }
 
   .polaroid:nth-of-type(1) {

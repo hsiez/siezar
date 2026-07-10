@@ -27,18 +27,18 @@
   max-height: calc(100svh - 200px);
   padding: var(--wedding-space-2xl) var(--wedding-space-xl);
   overflow: hidden;
-  border: 1px solid rgba(20, 20, 20, 0.055);
-  border-radius: 2px 2px 6px 6px;
+  /* dark low-opacity edge (the border trick) */
+  border: 1px solid var(--wedding-edge);
+  border-radius: 8px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(247, 246, 238, 0.82)),
     #fffff7;
+  /* paper bevel highlights + the layered material drop shadow */
   box-shadow:
     inset 0 2px 0 rgba(255, 255, 255, 0.9),
     inset 2px 0 0 rgba(255, 255, 255, 0.45),
     inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    0 1px 2px rgba(20, 20, 20, 0.05),
-    0 14px 30px -22px rgba(20, 20, 20, 0.45),
-    0 26px 52px -38px rgba(20, 20, 20, 0.3);
+    var(--wedding-shadow-card);
   transform: rotate(-0.5deg);
 }
 
@@ -98,6 +98,9 @@
     align-items: center;
     gap: var(--wedding-space-2xl);
     box-sizing: border-box;
+    /* fill to max-width (don't shrink-wrap as a flex item) so the grid tracks —
+       and the right-hand nav — hold a stable position across sections */
+    width: 100%;
     max-width: 812px;
     margin: 0 auto;
     /* room for the paper's drop shadow so the scroll parent doesn't clip it */
@@ -202,9 +205,11 @@
 
 /* Location styles */
 .venueName {
-  font-size: var(--wedding-font-size-2xl);
+  /* same footprint as the parking title */
+  font-size: var(--wedding-font-size-sm);
   font-weight: 500;
-  margin: 0 0 var(--wedding-space-sm);
+  color: var(--wedding-text-muted);
+  margin: 0 0 var(--wedding-space-xs);
 }
 
 .addressLink {
@@ -240,12 +245,6 @@
 }
 
 /* Dress code styles */
-.dressTitle {
-  font-size: var(--wedding-font-size-2xl);
-  font-weight: 500;
-  margin: 0 0 var(--wedding-space-sm);
-}
-
 .dressDescription {
   color: var(--wedding-text-secondary);
   margin: 0;
@@ -336,51 +335,26 @@
   .accordionBody .travelSection:first-child {
     margin-top: var(--wedding-space-md);
   }
-
-  .venueName,
-  .dressTitle {
-    font-size: var(--wedding-font-size-xl);
-    line-height: 1.25;
-  }
-
 }
 
-/* FAQ styles */
+/* FAQ styles — flat, static Q&A with clear hierarchy (no nested accordion) */
 .faqList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wedding-space-lg);
   margin: 0;
 }
 
-.faqItem {
-}
-
-.question {
-  font-weight: 400;
-  margin: 0;
-  padding: var(--wedding-space-md) 0;
-  cursor: pointer;
-  color: var(--wedding-text-secondary);
-  transition: color 150ms ease-out;
-}
-
-.question:hover {
-  color: var(--wedding-text);
-}
-
-.questionActive {
+.faqQuestion {
+  margin: 0 0 var(--wedding-space-xs);
   font-weight: 500;
   color: var(--wedding-text);
+  line-height: 1.35;
 }
 
-.answer {
-  display: grid;
-  color: var(--wedding-text-muted);
+.faqAnswer {
   margin: 0;
-  padding-left: var(--wedding-space-md);
+  color: var(--wedding-text-muted);
   font-size: var(--wedding-font-size-sm);
   line-height: var(--wedding-leading-relaxed);
-}
-
-.answerInner {
-  overflow: hidden;
-  padding-bottom: var(--wedding-space-lg);
 }
