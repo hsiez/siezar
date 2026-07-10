@@ -1,0 +1,313 @@
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
+
+.page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-xl) var(--space-lg);
+  background:
+    radial-gradient(circle at 46% 38%, rgba(255, 255, 255, 0.9), transparent 28rem),
+    linear-gradient(180deg, #fffff7 0%, #fbfaf2 100%);
+  color: rgba(20, 20, 20, 0.78);
+}
+
+.stage {
+  position: relative;
+  width: min(88vw, 820px);
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  isolation: isolate;
+}
+
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: -2;
+  background-image: url("/paper-texture.svg");
+  background-size: 720px 450px;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.stage::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  z-index: -1;
+  width: 56%;
+  height: 18%;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.12);
+  filter: blur(36px);
+  transform: translate(-44%, -20%) rotate(-3deg);
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.polaroidRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 4vw, 48px);
+  width: 100%;
+}
+
+.heartDoodle {
+  position: absolute;
+  top: -22%;
+  left: 50%;
+  z-index: 3;
+  width: clamp(58px, 9vw, 92px);
+  height: auto;
+  color: rgba(20, 20, 20, 0.86);
+  transform: translateX(-50%) rotate(-7deg);
+  pointer-events: none;
+}
+
+.heartFrame {
+  opacity: 0;
+  animation: heart-boil 360ms steps(1, end) infinite;
+}
+
+.heartFrame path {
+  stroke: currentColor;
+  stroke-width: 5.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url("#heart-roughen");
+}
+
+@keyframes heart-boil {
+  0%,
+  24.99% {
+    opacity: 1;
+  }
+
+  25%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.polaroid {
+  --paper: #fffff7;
+  --paper-edge: rgba(20, 20, 20, 0.055);
+
+  position: relative;
+  width: clamp(184px, 25.6vw, 264px);
+  padding: 14px 14px 48px;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(100% - 48px),
+      rgba(245, 245, 237, 0.82) calc(100% - 48px),
+      rgba(250, 250, 244, 0.92) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(100% - 49px),
+      rgba(20, 20, 20, 0.045) calc(100% - 49px),
+      rgba(20, 20, 20, 0.045) calc(100% - 48px),
+      transparent calc(100% - 48px)
+    ),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(247, 246, 238, 0.76)),
+    var(--paper);
+  border: 1px solid var(--paper-edge);
+  border-radius: 2px 2px 7px 7px;
+  transform: translate(3%, -9%) rotate(0.5deg);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    inset 2px 0 0 rgba(255, 255, 255, 0.45),
+    inset -2px 0 0 rgba(255, 255, 255, 0.28),
+    0 1px 2px rgba(20, 20, 20, 0.05),
+    0 12px 28px -22px rgba(20, 20, 20, 0.45),
+    0 24px 48px -36px rgba(20, 20, 20, 0.32);
+}
+
+.polaroid:nth-of-type(1) {
+  transform: rotate(-1.3deg);
+}
+
+.polaroid:nth-of-type(2) {
+  transform: rotate(1.1deg);
+}
+
+.polaroid::before,
+.polaroid::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.polaroid::before {
+  left: 9%;
+  right: 10%;
+  bottom: 7px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.22);
+  filter: blur(18px);
+  transform: rotate(-1.5deg);
+  opacity: 0.22;
+}
+
+.polaroid::after {
+  inset: 0;
+  background-image:
+    linear-gradient(110deg, rgba(255, 255, 255, 0.3), transparent 42%),
+    url("/paper-texture-2.svg");
+  background-size: auto, 300px 400px;
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+}
+
+.photoSurface {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: #f5f5ed;
+  border: 1px solid rgba(20, 20, 20, 0.055);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    0 1px 2px rgba(20, 20, 20, 0.035);
+}
+
+.photoSurface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent 22%, transparent 78%, rgba(255, 255, 255, 0.2)),
+    radial-gradient(circle at 64% 20%, rgba(255, 255, 255, 0.24), transparent 28%),
+    url("/paper-texture.svg");
+  background-size: auto, auto, 520px 325px;
+  opacity: 0.26;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(0.82) brightness(1.2) saturate(0.24);
+  opacity: 0.84;
+}
+
+.announcement {
+  margin-top: 0;
+  color: rgba(20, 20, 20, 0.78);
+  font-family: "Cedarville Cursive", cursive;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.actionLink {
+  min-width: 96px;
+  padding: 10px 18px;
+  border: 1px solid rgba(20, 20, 20, 0.075);
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(245, 245, 237, 0.76)),
+    #fffff7;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1px 2px rgba(20, 20, 20, 0.04),
+    0 10px 22px -18px rgba(20, 20, 20, 0.36);
+  color: rgba(20, 20, 20, 0.72);
+  font-family: var(--font-geist-mono), "Courier New", monospace;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: center;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.actionLink:hover {
+  border-color: rgba(20, 20, 20, 0.13);
+  color: rgba(20, 20, 20, 0.88);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .stage {
+    width: min(100%, 420px);
+    min-height: auto;
+    gap: 24px;
+  }
+
+  .polaroidRow {
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .announcement {
+    margin-top: 0;
+  }
+
+  .actions {
+    gap: var(--space-sm);
+  }
+
+  .actionLink {
+    min-width: 86px;
+    padding: 9px 14px;
+  }
+
+  .heartDoodle {
+    top: 46%;
+    left: 82%;
+    width: 64px;
+  }
+
+  .polaroid {
+    width: min(61vw, 240px);
+  }
+
+  .polaroid:nth-of-type(1) {
+    transform: rotate(-1.3deg);
+  }
+
+  .polaroid:nth-of-type(2) {
+    transform: rotate(1.1deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heartFrame {
+    animation: none;
+    opacity: 0;
+  }
+
+  .heartFrame:first-child {
+    opacity: 1;
+  }
+}
