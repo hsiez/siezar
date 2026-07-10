@@ -1,0 +1,45 @@
+.arrow {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: rgba(20, 20, 20, 0.86);
+  overflow: visible;
+}
+
+/* "Boil" the arrow like the heart doodle — cycle the four jittered frames. */
+.arrowFrame {
+  opacity: 0;
+  animation: arrow-boil 360ms steps(1, end) infinite;
+}
+
+.arrowFrame path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url("#arrow-roughen");
+}
+
+@keyframes arrow-boil {
+  0%,
+  24.99% {
+    opacity: 1;
+  }
+
+  25%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrowFrame {
+    animation: none;
+    opacity: 0;
+  }
+
+  .arrowFrame:first-child {
+    opacity: 1;
+  }
+}

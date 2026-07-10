@@ -123,7 +123,10 @@ export default function WeddingPage() {
 
   return (
     <main className={styles.page}>
-      <section className={styles.stage} aria-label="Harley and Haylee wedding">
+      <section
+        className={`${styles.stage} ${view ? styles.stageDetails : ""}`}
+        aria-label="Harley and Haylee wedding"
+      >
         {view ? (
           <div className={styles.detailsShell}>
             {view === "rsvp" ? (

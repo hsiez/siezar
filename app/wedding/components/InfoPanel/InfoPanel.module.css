@@ -4,53 +4,84 @@
   border-top: none;
 }
 
-/* Desktop layout: hidden on mobile */
+/* Desktop layout: centered content with a right-hand tab column.
+   Hidden on mobile (the accordion below is used there instead). */
 .desktopLayout {
+  --nav-col: 150px;
+
   display: none;
-  max-width: 800px;
-  margin: 0 auto;
-  gap: var(--wedding-space-2xl);
 }
 
+/* The information sheet — a piece of paper in the collage. */
 .content {
-  flex: 1;
-  min-height: 0;
+  grid-column: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 240px;
+  /* keep the sheet within the viewport; tall sections (FAQ) scroll inside it
+     instead of pushing the whole page into an overflow scroll */
+  max-height: calc(100svh - 200px);
+  padding: var(--wedding-space-2xl) var(--wedding-space-xl);
+  overflow: hidden;
+  border: 1px solid rgba(20, 20, 20, 0.055);
+  border-radius: 2px 2px 6px 6px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(247, 246, 238, 0.82)),
+    #fffff7;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    inset 2px 0 0 rgba(255, 255, 255, 0.45),
+    inset -2px 0 0 rgba(255, 255, 255, 0.28),
+    0 1px 2px rgba(20, 20, 20, 0.05),
+    0 14px 30px -22px rgba(20, 20, 20, 0.45),
+    0 26px 52px -38px rgba(20, 20, 20, 0.3);
+  transform: rotate(-0.5deg);
+}
+
+/* Paper grain, kept faint and multiplied over the stock. */
+.content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background-image: url("/paper-texture-2.svg");
+  background-size: 300px 400px;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .contentInner {
-  padding-right: var(--wedding-space-xl);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  /* hidden scrollbar — the overflow is obvious enough without it */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.contentInner::-webkit-scrollbar {
+  display: none;
 }
 
 .nav {
-  flex-shrink: 0;
+  grid-column: 3;
+  width: var(--nav-col);
 }
 
-@media (min-width: 640px) {
-  .desktopLayout {
-    display: flex;
-  }
-
-  .mobileLayout {
-    display: none;
-  }
-
-  .title {
-    padding: 0 var(--wedding-space-xl);
-    margin-bottom: var(--wedding-space-sm);
-  }
-
-  .body {
-    margin-top: 0;
-    padding: var(--wedding-space-lg) var(--wedding-space-xl);
-  }
-
-  .body > :last-child {
-    margin-bottom: 0;
-  }
-}
-
-/* Mobile accordion */
+/* Mobile accordion (default — overridden on desktop below) */
 .mobileLayout {
+  /* left indent shared by the title text and its section content so they
+     line up at the same x (past the arrow slot) */
+  --tab-indent: 40px;
+
   max-width: 800px;
   margin: 0 auto;
   display: flex;
@@ -58,57 +89,96 @@
   gap: var(--space-sm);
 }
 
+@media (min-width: 640px) {
+  .desktopLayout {
+    display: grid;
+    /* mirrored side tracks keep the content column centered in the panel
+       while the tabs live in the right track */
+    grid-template-columns: var(--nav-col) minmax(0, 1fr) var(--nav-col);
+    align-items: center;
+    gap: var(--wedding-space-2xl);
+    box-sizing: border-box;
+    max-width: 812px;
+    margin: 0 auto;
+    /* room for the paper's drop shadow so the scroll parent doesn't clip it */
+    padding: var(--wedding-space-md) var(--wedding-space-md) var(--wedding-space-2xl);
+    text-align: left;
+  }
+
+  .mobileLayout {
+    display: none;
+  }
+
+  .body {
+    margin: 0;
+  }
+
+  .body > :last-child {
+    margin-bottom: 0;
+  }
+}
+
 .accordionItem {
   border-bottom: none;
 }
 
+/* Plain text title — no button chrome; a hand-drawn arrow (left side) marks
+   the open section, mirroring the desktop tab nav. */
 .accordionTrigger {
   appearance: none;
+  position: relative;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 13px 20px 11px;
-  border: 1px solid rgba(20, 20, 20, 0.06);
-  border-radius: 2px 2px 5px 5px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 245, 237, 0.88)),
-    url("/paper-texture.svg"),
-    #fffff7;
-  background-size: auto, 360px 225px, auto;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.82),
-    0 1px 2px rgba(20, 20, 20, 0.05),
-    0 12px 24px -20px rgba(20, 20, 20, 0.45);
-  color: rgba(20, 20, 20, 0.72);
+  display: block;
+  padding: 10px 0 10px var(--tab-indent);
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: rgba(20, 20, 20, 0.42);
   cursor: pointer;
   font-family: var(--font-geist-mono), "Courier New", monospace;
   font-size: var(--font-size-sm);
   letter-spacing: 0;
   line-height: 1;
-  transition:
-    border-color var(--transition-fast),
-    color var(--transition-fast),
-    transform var(--transition-fast);
+  text-align: left;
+  transition: color var(--transition-fast);
 }
 
 .accordionTrigger:hover {
-  border-color: rgba(20, 20, 20, 0.13);
-  color: rgba(20, 20, 20, 0.88);
-  transform: translateY(-1px);
+  color: rgba(20, 20, 20, 0.7);
 }
 
 .accordionTriggerActive {
-  border-color: rgba(20, 20, 20, 0.16);
-  color: rgba(20, 20, 20, 0.88);
+  color: rgba(20, 20, 20, 0.9);
 }
 
+/* Arrow slot on the left; framer-motion (layoutId) slides it to the open
+   section, so no CSS transform here. */
+.accordionArrow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* Collapse via grid-template-rows 0fr<->1fr (same smooth trick as the FAQ
+   answers) instead of animating height:auto, which stuttered on close. */
 .accordionContent {
-  overflow: hidden;
+  display: grid;
 }
 
+.accordionInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Open section content — plain, full-width text (no card) so the narrow mobile
+   width isn't reduced further. */
 .accordionBody {
-  padding: var(--wedding-space-lg) 0 var(--wedding-space-xl);
+  padding: var(--wedding-space-md) 0 var(--wedding-space-xl) var(--tab-indent);
   font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
   font-size: var(--wedding-font-size-base);
   line-height: var(--wedding-leading-relaxed);
@@ -117,10 +187,8 @@
 
 .title {
   font-family: var(--wedding-font-mono);
-  font-size: var(--wedding-font-size-xs);
-  font-weight: 400;
-  letter-spacing: var(--wedding-tracking-wider);
-  text-transform: uppercase;
+  font-size: var(--wedding-font-size-sm);
+  font-weight: 500;
   color: var(--wedding-text-muted);
   margin: 0 0 var(--wedding-space-xl);
 }
@@ -160,10 +228,8 @@
 }
 
 .parkingTitle {
-  font-size: var(--wedding-font-size-xs);
-  font-weight: 400;
-  letter-spacing: var(--wedding-tracking-wider);
-  text-transform: uppercase;
+  font-size: var(--wedding-font-size-sm);
+  font-weight: 500;
   color: var(--wedding-text-muted);
   margin: 0 0 var(--wedding-space-xs);
 }
@@ -227,10 +293,8 @@
 }
 
 .travelHeading {
-  font-size: var(--wedding-font-size-xs);
-  font-weight: 400;
-  letter-spacing: var(--wedding-tracking-wider);
-  text-transform: uppercase;
+  font-size: var(--wedding-font-size-sm);
+  font-weight: 500;
   color: var(--wedding-text-muted);
   margin: 0 0 var(--wedding-space-xs);
 }

@@ -12,8 +12,8 @@
   --wedding-border-light: #d8d4cb;
   --wedding-accent: #7a756d;
 
-  /* Typography - monospace typewriter */
-  --wedding-font-mono: 'Courier Prime', 'Courier New', monospace;
+  /* Typography - monospace (Geist Mono, matching the section titles/nav) */
+  --wedding-font-mono: var(--font-geist-mono), 'Courier New', monospace;
   --wedding-font-script: 'Pinyon Script', cursive;
   --wedding-font-size-xs: 1rem;
   --wedding-font-size-sm: 1rem;

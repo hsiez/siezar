@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconNav, type SectionId } from '../IconNav/IconNav';
+import { ArrowDoodle } from '../ArrowDoodle/ArrowDoodle';
 import styles from './InfoPanel.module.css';
 
 const VENUE_MAP_URL = 'https://maps.app.goo.gl/RCpy4sffawJxQWGC8';
@@ -226,19 +227,34 @@ export function InfoPanel({
                 }}
                 aria-expanded={isOpen}
               >
+                {isOpen && (
+                  <motion.span
+                    className={styles.accordionArrow}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                  >
+                    <ArrowDoodle direction="right" />
+                  </motion.span>
+                )}
                 {content[id].title}
               </button>
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2, ease: 'easeOut' }}
                     className={styles.accordionContent}
+                    initial={{ gridTemplateRows: '0fr', opacity: 0 }}
+                    animate={{ gridTemplateRows: '1fr', opacity: 1 }}
+                    exit={{ gridTemplateRows: '0fr', opacity: 0 }}
+                    transition={{
+                      gridTemplateRows: { duration: 0.25, ease: [0.4, 0, 0.2, 1] },
+                      opacity: { duration: 0.15 },
+                    }}
                   >
-                    <div className={styles.accordionBody}>
-                      {content[id].body}
+                    <div className={styles.accordionInner}>
+                      <div className={styles.accordionBody}>
+                        {content[id].body}
+                      </div>
                     </div>
                   </motion.div>
                 )}

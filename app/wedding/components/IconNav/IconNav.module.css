@@ -1,69 +1,52 @@
 .nav {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-md);
 }
 
-.button {
+/* Plain text title — no button chrome; a hand-drawn arrow marks the active one. */
+.item {
   appearance: none;
   position: relative;
   display: block;
-  min-width: 96px;
-  padding: 13px 20px 11px;
-  border: 1px solid rgba(20, 20, 20, 0.06);
-  border-radius: 2px 2px 5px 5px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 245, 237, 0.88)),
-    url("/paper-texture.svg"),
-    #fffff7;
-  background-size: auto, 360px 225px, auto;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.82),
-    0 1px 2px rgba(20, 20, 20, 0.05),
-    0 12px 24px -20px rgba(20, 20, 20, 0.45);
-  color: rgba(20, 20, 20, 0.72);
+  padding: 4px 40px 4px 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: rgba(20, 20, 20, 0.42);
   cursor: pointer;
   font-family: var(--font-geist-mono), "Courier New", monospace;
   font-size: var(--font-size-sm);
   letter-spacing: 0;
   line-height: 1;
-  text-align: center;
-  transition:
-    border-color var(--transition-fast),
-    color var(--transition-fast),
-    transform var(--transition-fast);
+  text-align: right;
   white-space: nowrap;
+  transition: color var(--transition-fast);
 }
 
-.button:hover {
-  border-color: rgba(20, 20, 20, 0.13);
-  color: rgba(20, 20, 20, 0.88);
-  transform: translateY(-1px);
+.item:hover {
+  color: rgba(20, 20, 20, 0.7);
 }
 
-.button:focus-visible {
+.item:focus-visible {
   outline: 2px solid rgba(20, 20, 20, 0.2);
   outline-offset: 3px;
 }
 
-.button.active {
-  border-color: rgba(20, 20, 20, 0.16);
-  color: rgba(20, 20, 20, 0.88);
+.item.active {
+  color: rgba(20, 20, 20, 0.92);
 }
 
-.indicator {
-  display: none;
-}
-
-/* Desktop: vertical tabs on right */
-@media (min-width: 640px) {
-  .nav {
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-
-  .button {
-    text-align: center;
-  }
+/* Slot the arrow lives in; framer-motion (layoutId) drives its transform to
+   slide it to the active title, so no CSS transform here. */
+.arrowSlot {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
 }

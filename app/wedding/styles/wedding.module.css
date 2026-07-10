@@ -294,6 +294,13 @@
   gap: var(--space-lg);
   overflow: auto;
   padding: var(--space-xs);
+  /* hidden scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.detailsShell::-webkit-scrollbar {
+  display: none;
 }
 
 .backButton {
@@ -347,6 +354,12 @@
     width: min(100%, 420px);
     min-height: calc(100svh - (var(--space-xl) * 2));
     gap: 24px;
+  }
+
+  /* Anchor the details view to the top so opening/closing accordions grows
+     downward instead of re-centering (and shifting) the whole component. */
+  .stageDetails {
+    justify-content: flex-start;
   }
 
   .polaroidRow {
