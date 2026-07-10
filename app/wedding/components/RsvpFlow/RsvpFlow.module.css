@@ -77,17 +77,17 @@
   --ease-card: cubic-bezier(0.22, 1, 0.36, 1); /* ~ease-out-quint */
   --ease-flap: cubic-bezier(0.42, 0.9, 0.32, 1); /* ease-out, gentle settle */
   /* Cap by width AND height so the whole scene fits without a scrollbar. The
-     scene is ~1.19x env-w tall (0.48 headroom + 0.71 envelope), and it sits
-     inside more chrome on /wedding (back button, padding), so the svh cap is
-     deliberately low — on tall screens the px/vw caps win instead. */
-  --env-w: min(560px, 88vw, 50svh);
+     scene is ~1.17x env-w tall (0.46 headroom + 0.71 envelope). The /wedding
+     frame trims its own vertical padding to give this envelope room, so the
+     svh cap can stay generous; on tall screens the px/vw caps win instead. */
+  --env-w: min(560px, 88vw, 58svh);
 
   position: relative;
   width: var(--env-w);
   margin-inline: auto;
   /* headroom above the envelope for the card to slide up out of the sleeve —
-     just enough for the card's exposed top */
-  padding-top: calc(var(--env-w) * 0.48);
+     just enough for the card's exposed top (measured ~0.44 of env-w) */
+  padding-top: calc(var(--env-w) * 0.46);
   display: flex;
   justify-content: center;
 }
