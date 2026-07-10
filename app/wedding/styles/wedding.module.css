@@ -102,25 +102,28 @@
 .polaroid {
   --paper: #fffff7;
   --paper-edge: rgba(20, 20, 20, 0.055);
+  --frame-side: 14px;
+  --frame-top: 14px;
+  --frame-bottom: 48px;
 
   position: relative;
   width: clamp(184px, 25.6vw, 264px);
-  padding: 14px 14px 48px;
+  padding: var(--frame-top) var(--frame-side) var(--frame-bottom);
   background:
     linear-gradient(
       to bottom,
       transparent 0,
-      transparent calc(100% - 48px),
-      rgba(245, 245, 237, 0.82) calc(100% - 48px),
+      transparent calc(100% - var(--frame-bottom)),
+      rgba(245, 245, 237, 0.82) calc(100% - var(--frame-bottom)),
       rgba(250, 250, 244, 0.92) 100%
     ),
     linear-gradient(
       to bottom,
       transparent 0,
-      transparent calc(100% - 49px),
-      rgba(20, 20, 20, 0.045) calc(100% - 49px),
-      rgba(20, 20, 20, 0.045) calc(100% - 48px),
-      transparent calc(100% - 48px)
+      transparent calc(100% - var(--frame-bottom) - 1px),
+      rgba(20, 20, 20, 0.045) calc(100% - var(--frame-bottom) - 1px),
+      rgba(20, 20, 20, 0.045) calc(100% - var(--frame-bottom)),
+      transparent calc(100% - var(--frame-bottom))
     ),
     linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(247, 246, 238, 0.76)),
     var(--paper);
@@ -365,8 +368,7 @@
   }
 
   .polaroidRow {
-    flex-direction: column;
-    gap: var(--space-xl);
+    gap: clamp(12px, 4vw, 24px);
   }
 
   .announcement {
@@ -392,13 +394,15 @@
   }
 
   .heartDoodle {
-    top: 46%;
-    left: 82%;
-    width: 64px;
+    top: -18%;
+    width: 56px;
   }
 
   .polaroid {
-    width: min(55vw, 216px);
+    width: min(42vw, 168px);
+    --frame-side: 8px;
+    --frame-top: 8px;
+    --frame-bottom: 28px;
   }
 
   .polaroid:nth-of-type(1) {
