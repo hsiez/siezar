@@ -214,10 +214,11 @@
      bottom (the card is taller than the content — no empty gap below buttons) */
   display: flex;
   flex-direction: column;
-  min-height: calc(var(--env-w) * 0.6);
-  /* the card fills the pocket: its ceiling is the envelope's own height (which
-     is taller on mobile via --env-ratio), so typical households don't scroll */
-  max-height: calc(var(--env-w) / var(--env-ratio, 1.408) - var(--env-w) * 0.03);
+  /* FIXED height (not min/max) so the card stays the same size on every step —
+     the note step's short content no longer shrinks it. Sized to the envelope's
+     own height (taller on mobile via --env-ratio); larger households scroll
+     inside the card rather than growing it. */
+  height: calc(var(--env-w) / var(--env-ratio, 1.408) - var(--env-w) * 0.03);
   overflow: auto;
   padding: var(--wedding-space-lg) var(--wedding-space-xl);
   border-radius: 3px 3px 4px 4px;
@@ -754,7 +755,12 @@
        card fits inside it. Typical (1–2 person) households fit cleanly; larger
        ones scroll inside the card. */
     --env-ratio: 1.1;
-    padding-top: calc(var(--env-w) * 0.24);
+    /* Deeper headroom than desktop: the open flap hinges up by ~0.34 of the
+       envelope's height, and the taller mobile envelope (ratio 1.1) pushes that
+       point to ~0.31·env-w above the top — more than the desktop 0.24 headroom,
+       so its tip was being clipped by the scene's `overflow: clip`. 0.34 clears
+       the point with a small buffer. */
+    padding-top: calc(var(--env-w) * 0.34);
   }
 
   .rsvpCard {
