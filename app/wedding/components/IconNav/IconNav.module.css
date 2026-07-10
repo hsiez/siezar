@@ -1,68 +1,52 @@
 .nav {
   display: flex;
-  flex-direction: row;
-  gap: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-md);
 }
 
-.button {
+/* Plain text title — no button chrome; a hand-drawn arrow marks the active one. */
+.item {
+  appearance: none;
   position: relative;
   display: block;
-  padding: var(--wedding-space-sm) var(--wedding-space-md);
-  border: none;
-  border-bottom: 1px solid var(--wedding-border-light, #d8d4cb);
-  background: transparent;
-  font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
-  font-size: var(--wedding-font-size-sm, 1rem);
-  text-transform: uppercase;
-  letter-spacing: var(--wedding-tracking-wider, 0.1em);
-  color: var(--wedding-text-muted, #8a857d);
+  padding: 4px 40px 4px 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: rgba(20, 20, 20, 0.42);
   cursor: pointer;
-  transition: color 150ms ease-out;
-  text-align: center;
+  font-family: var(--font-geist-mono), "Courier New", monospace;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: right;
   white-space: nowrap;
+  transition: color var(--transition-fast);
 }
 
-.button:hover {
-  color: var(--wedding-text-secondary, #6b665f);
+.item:hover {
+  color: rgba(20, 20, 20, 0.7);
 }
 
-.button:focus-visible {
-  outline: 1px solid var(--wedding-border, #c9c4ba);
-  outline-offset: -1px;
+.item:focus-visible {
+  outline: 2px solid rgba(20, 20, 20, 0.2);
+  outline-offset: 3px;
 }
 
-.button.active {
-  color: var(--wedding-text, #4a4540);
+.item.active {
+  color: rgba(20, 20, 20, 0.92);
 }
 
-.indicator {
+/* Slot the arrow lives in; framer-motion (layoutId) drives its transform to
+   slide it to the active title, so no CSS transform here. */
+.arrowSlot {
   position: absolute;
-  left: 0;
   right: 0;
-  bottom: -1px;
-  height: 2px;
-  background-color: var(--wedding-text, #4a4540);
-}
-
-/* Desktop: vertical tabs on right */
-@media (min-width: 640px) {
-  .nav {
-    flex-direction: column;
-  }
-
-  .button {
-    padding: var(--wedding-space-md) var(--wedding-space-lg);
-    border-bottom: none;
-    border-left: 1px solid var(--wedding-border-light, #d8d4cb);
-    text-align: left;
-  }
-
-  .indicator {
-    left: -1px;
-    right: auto;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    height: auto;
-  }
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
 }

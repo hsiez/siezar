@@ -12,8 +12,26 @@
   --wedding-border-light: #d8d4cb;
   --wedding-accent: #7a756d;
 
-  /* Typography - monospace typewriter */
-  --wedding-font-mono: 'Courier Prime', 'Courier New', monospace;
+  /* Layered "material" drop shadow — many faint, cool-tinted layers (Y & blur
+     double each step, spread = -blur/2) instead of one heavy layer, so it reads
+     soft rather than muddy. The guide's 1px edge-ring layer is intentionally
+     omitted: pair this with a dark low-opacity border stroke for the edge. */
+  --wedding-edge: rgba(20, 20, 20, 0.06);
+  --wedding-shadow-card:
+    0 1px 1px -0.5px rgba(42, 51, 69, 0.04),
+    0 3px 3px -1.5px rgba(42, 51, 70, 0.04),
+    0 6px 6px -3px rgba(42, 51, 70, 0.04),
+    0 12px 12px -6px rgba(14, 63, 126, 0.04),
+    0 24px 24px -12px rgba(14, 63, 126, 0.04);
+  /* trimmed variant (no outer 24px layer) for smaller surfaces or ones inside
+     an overflow-clip ancestor (e.g. the RSVP card in the envelope scene) */
+  --wedding-shadow-sm:
+    0 1px 1px -0.5px rgba(42, 51, 70, 0.04),
+    0 3px 3px -1.5px rgba(42, 51, 70, 0.04),
+    0 6px 6px -3px rgba(42, 51, 70, 0.05);
+
+  /* Typography - monospace (Geist Mono, matching the section titles/nav) */
+  --wedding-font-mono: var(--font-geist-mono), 'Courier New', monospace;
   --wedding-font-script: 'Pinyon Script', cursive;
   --wedding-font-size-xs: 1rem;
   --wedding-font-size-sm: 1rem;

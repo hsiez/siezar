@@ -80,6 +80,7 @@ export default async function WeddingRsvpAdminPage() {
                     />
                     <MetaItem label="Phone" value={reservation.phoneNumbers.join(', ') || 'None'} />
                     <MetaItem label="Notes" value={reservation.adminNotes || reservation.deliveryNotes || 'None'} />
+                    <MetaItem label="Message" value={reservation.note || 'None'} />
                   </div>
 
                   <div className={styles.guestGrid}>

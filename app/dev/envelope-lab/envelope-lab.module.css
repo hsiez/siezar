@@ -1,0 +1,248 @@
+.stage {
+  /* warm near-white paper, sampled from the photo (~#eeede7), nearly uniform */
+  --paper: linear-gradient(180deg, #f8f7f2 0%, #f6f4ef 46%, #f2f1ea 100%);
+
+  /* easing tokens — ease-out for elements entering/exiting (card slide, flap) */
+  --ease-card: cubic-bezier(0.22, 1, 0.36, 1); /* ~ease-out-quint */
+  --ease-flap: cubic-bezier(0.42, 0.9, 0.32, 1); /* ease-out, gentle settle */
+
+  min-height: 100vh;
+  margin: 0;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  align-items: center;
+  background: #ffffff;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.row {
+  display: flex;
+  gap: 56px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.caption {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #b7b7b2;
+}
+
+.ref {
+  width: 480px;
+  height: 341px; /* 480 / 1.408 */
+  display: block;
+  object-fit: fill;
+}
+
+/* faint paper grain, matching the photo's texture */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("/paper-texture.svg");
+  background-size: 280px 175px;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* ---------- LAYER 0 : the paper square ---------- */
+.paper {
+  position: relative;
+  width: 480px;
+  height: 341px; /* aspect 1.408, matching the photo */
+  border-radius: 3px;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 1px rgba(28, 26, 20, 0.05),
+    0 1px 2px rgba(28, 26, 20, 0.05);
+}
+
+/* ---------- LAYER 1 : sleeve / pocket on top of the paper ---------- */
+/* frame leaves headroom above the pocket for the card to slide up into */
+.stackFrame {
+  height: 600px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.stack {
+  position: relative;
+  width: 480px;
+  height: 341px;
+  cursor: pointer;
+  perspective: 1300px;
+}
+
+/* ---------- LAYER 2 : the card, tucked inside the pocket ---------- */
+.card {
+  position: absolute;
+  left: 50%;
+  bottom: 4px; /* tucked fully inside — never reaches the envelope's bottom edge */
+  width: 440px; /* a touch narrower than the sleeve, so it sits inside */
+  height: 320px;
+  z-index: 2; /* behind the sleeve (z3), in front of base + recess */
+  transform: translateX(-50%);
+  border-radius: 3px 3px 4px 4px;
+  /* a clean near-white card, clearly brighter than the envelope for contrast */
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfa 100%);
+  /* inserted: no cast shadow — it's hidden inside the pocket. dark low-opacity
+     stroke defines the edge against the envelope behind it */
+  box-shadow: 0 0 0 1px rgba(28, 26, 20, 0.09);
+  will-change: transform;
+  /* closing: card slides back in immediately (flap follows) */
+  transition:
+    transform 620ms var(--ease-card) 0ms,
+    box-shadow 620ms var(--ease-card) 0ms;
+}
+
+/* slid out — ~80% exposed above the pocket, bottom still tucked behind sleeve.
+   now the card is lifted, so it casts a soft shadow. */
+.cardOpen {
+  transform: translateX(-50%) translateY(-260px);
+  box-shadow:
+    0 0 0 1px rgba(28, 26, 20, 0.1),
+    0 2px 4px rgba(28, 26, 20, 0.08),
+    0 26px 44px -22px rgba(28, 26, 20, 0.32);
+  /* opening: card waits for the flap to open first, then slides out */
+  transition:
+    transform 620ms var(--ease-card) 480ms,
+    box-shadow 620ms var(--ease-card) 480ms;
+}
+
+/* ---------- LAYER 3 : the top flap ---------- */
+/* same downward triangle as the cutout, apex meeting the backdrop's top edge
+   (the cutout apex). closed it folds over the sleeve; open it drops to the
+   backdrop's z-level and swings up, letting the card slide out over it. */
+/* wrapper carries the transform + cast shadow. it is NOT clipped, so the
+   drop-shadow can spill below the fold edge onto the sleeve (clip-path on the
+   same element would clip the shadow away). */
+.flap {
+  position: absolute;
+  inset: 0;
+  z-index: 4; /* closed: above the sleeve (z3), folded over it */
+  transform-origin: 50% 0%;
+  transform: rotateX(0deg);
+  /* the flap reads as layered on top of the sleeve purely via the shadow it
+     casts down onto the sleeve along its fold edges (tightest near the apex) */
+  filter:
+    drop-shadow(0 1px 1.5px rgba(28, 26, 20, 0.1))
+    drop-shadow(0 2px 4px rgba(28, 26, 20, 0.07));
+  pointer-events: none;
+  will-change: transform;
+  /* closing: flap waits for the card to slide back in, then folds down */
+  transition:
+    transform 520ms var(--ease-flap) 420ms,
+    z-index 0ms linear 665ms, /* swap while the flap is edge-on (~90°) so it's invisible */
+    filter 520ms var(--ease-flap) 420ms;
+}
+
+/* the actual flap paper — deeper than the cutout (apex 20%) so it laps over
+   the sleeve and rests on top rather than fusing edge-to-edge with it. */
+.flapFace {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 34%);
+  background: var(--paper);
+}
+
+/* stroke along the flap's pointed (diagonal) edges, matching the body's
+   outline so the flap's silhouette is defined the same way */
+.flapFace::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* thin band (~1px perpendicular) so the flap's edge stroke matches the 1px
+     inset outline on the sleeve */
+  clip-path: polygon(0% 0%, 50% 34%, 100% 0%, 99.5% 0%, 50% 33.7%, 0.5% 0%);
+  background: rgba(28, 26, 20, 0.06);
+}
+
+.flapOpen {
+  transform: rotateX(172deg); /* swings up and back, unsealing the pocket */
+  z-index: 0; /* drops to the backdrop's level, behind the card (z2) */
+  /* drop the cast shadow when open — an open flap shouldn't throw a shadow
+     onto the inside of the envelope */
+  filter: none;
+  /* opening: flap moves first, immediately; shadow fades out as it lifts */
+  transition:
+    transform 520ms var(--ease-flap) 0ms,
+    z-index 0ms linear 270ms,
+    filter 240ms var(--ease-flap) 0ms;
+}
+
+/* the base square (layer 0) sitting underneath */
+.base {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* square top corners so the flap's sharp clip-path edges meet the body at a
+     clean point; only the bottom corners are rounded */
+  border-radius: 0 0 3px 3px;
+  background: var(--paper);
+  /* soft grounding only — the outline stroke lives on the sleeve (inset) so it
+     shares the flap stroke's reference and they meet cleanly at the corners */
+  box-shadow: 0 1px 2px rgba(28, 26, 20, 0.05);
+}
+
+/* very faint, even recess so the base reads as just barely set back */
+.cutoutShade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: polygon(0% 0%, 50% 20%, 100% 0%);
+  background: rgba(28, 26, 20, 0.028);
+}
+
+/* the sleeve: same size + colour, with a downward-triangle cutout in the
+   top 20% so the card shows through. its lit cut edge (highlight below) is
+   what reads as the sleeve sitting on top of the card. */
+.sleeve {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  clip-path: polygon(0% 0%, 50% 20%, 100% 0%, 100% 100%, 0% 100%);
+  border-radius: 0 0 3px 3px;
+  background: var(--paper);
+  /* the envelope's outline stroke — inset so it sits at the same reference as
+     the flap's inset edge stroke and the two meet cleanly at the top corners */
+  box-shadow: inset 0 0 0 1px rgba(28, 26, 20, 0.06);
+}
+
+/* highlight LINE along the cutout's top borders — the lit top edge of the
+   sleeve where it laps over the card, so the sleeve reads as on top. */
+.sleeve::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0% 0%, 50% 20%, 100% 0%, 100% 0.7%, 50% 20.7%, 0% 0.7%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.14) 15%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.36) 88%
+  );
+}
+
+/* respect reduced-motion: snap between open/closed, no slide or fold */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .cardOpen,
+  .flap,
+  .flapOpen {
+    transition: none;
+  }
+}

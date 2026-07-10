@@ -19,6 +19,7 @@ export type RsvpReservation = {
   householdName: string;
   rsvpStatus: 'pending' | 'submitted';
   submittedAt: string | null;
+  note: string | null;
   people: ReservationPerson[];
 };
 
@@ -67,7 +68,7 @@ export async function findReservationByPhone(phone: string): Promise<RsvpReserva
 
   const db = getRsvpDb();
   const reservationResult = await db.execute({
-    sql: `SELECT r.id, r.household_name, r.rsvp_status, r.submitted_at
+    sql: `SELECT r.id, r.household_name, r.rsvp_status, r.submitted_at, r.guest_note
       FROM reservations r
       INNER JOIN reservation_phones p ON p.reservation_id = r.id
       WHERE p.phone_e164 = ?
@@ -186,9 +187,10 @@ export async function submitReservationRsvp(input: SubmitRequest): Promise<RsvpR
       sql: `UPDATE reservations
         SET rsvp_status = 'submitted',
           submitted_at = COALESCE(submitted_at, ?),
+          guest_note = ?,
           updated_at = ?
         WHERE id = ?`,
-      args: [now, now, input.reservationId],
+      args: [now, nullIfBlank(input.note), now, input.reservationId],
     },
     {
       sql: `INSERT INTO rsvp_events (
@@ -204,6 +206,7 @@ export async function submitReservationRsvp(input: SubmitRequest): Promise<RsvpR
         normalizedPhone,
         now,
         JSON.stringify({
+          note: nullIfBlank(input.note),
           people: input.people,
         }),
       ],
@@ -232,7 +235,8 @@ export async function listRsvpReservationsForAdmin(): Promise<AdminRsvpReservati
         delivery_notes,
         rsvp_status,
         submitted_at,
-        admin_notes
+        admin_notes,
+        guest_note
       FROM reservations
       ORDER BY
         CASE WHEN submitted_at IS NULL THEN 1 ELSE 0 END ASC,
@@ -289,6 +293,7 @@ function mapReservation(reservationRow: Row, peopleRows: Row[]): RsvpReservation
     householdName: String(reservationRow.household_name),
     rsvpStatus: reservationRow.rsvp_status === 'submitted' ? 'submitted' : 'pending',
     submittedAt: stringOrNull(reservationRow.submitted_at),
+    note: stringOrNull(reservationRow.guest_note),
     people: peopleRows.map((row) => ({
       id: String(row.id),
       displayName: String(row.display_name),

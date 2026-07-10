@@ -19,6 +19,7 @@ export const submitPersonSchema = z.object({
 export const submitRequestSchema = z.object({
   phone: z.string().min(7),
   reservationId: z.string().min(1),
+  note: z.string().trim().max(200).optional(),
   people: z.array(submitPersonSchema).min(1),
 });
 

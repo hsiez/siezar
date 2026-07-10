@@ -3,44 +3,62 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconNav, type SectionId } from '../IconNav/IconNav';
-import { RsvpFlow } from '../RsvpFlow/RsvpFlow';
+import { ArrowDoodle } from '../ArrowDoodle/ArrowDoodle';
 import styles from './InfoPanel.module.css';
 
 const VENUE_MAP_URL = 'https://maps.app.goo.gl/RCpy4sffawJxQWGC8';
 const PARKING_MAP_URL = 'https://www.google.com/maps/search/?api=1&query=157+N+Grand+St%2C+Orange%2C+CA+92866';
 
-const sections: SectionId[] = ['location', 'dresscode', 'itinerary', 'travelers', 'rsvp', 'faq'];
+const sections: SectionId[] = ['location', 'dresscode', 'itinerary', 'travelers', 'faq'];
 
 const faqItems = [
-  { q: 'Can I bring a date/plus-one?', a: 'All invited guests will have their names included on our formal invitations. Additional guests will not be allowed in. Thank you in advance!' },
-  { q: 'Can I bring my children?', a: 'No, we\u2019ve decided to have an adults-only celebration. Thank you for making arrangements!' },
-  { q: 'Will the wedding be indoors or outdoors?', a: 'Ceremony and cocktail hour will be outdoors, followed by an indoor reception.' },
-  { q: 'Are the ceremony and reception locations accessible?', a: 'Yes, both spaces are wheelchair accessible.' },
-  { q: 'What time should I plan to arrive for the ceremony?', a: 'Please plan to arrive at 5:00 PM, as the ceremony will begin promptly at 5:30 PM.' },
-  { q: 'Will there be an open bar?', a: 'Yes, drink responsibly.' },
-  { q: 'Do you have a registry?', a: 'We do not! Our home is already full of love, laughter, and furniture. If you\u2019d still like to gift us a wedding present, we\u2019d greatly appreciate a contribution towards our honeymoon or house fund. More details will be included with our formal invitation.' },
+  { q: 'Can I bring a plus-one?', a: 'Only the guests named on your invitation, please. Thank you for understanding!' },
+  { q: 'Can I bring my kids?', a: 'It\u2019s an adults-only celebration \u2014 thanks for arranging care.' },
+  { q: 'Indoors or outdoors?', a: 'Outdoor ceremony and cocktail hour, then an indoor reception.' },
+  { q: 'Is the venue accessible?', a: 'Yes \u2014 both spaces are wheelchair accessible.' },
+  { q: 'When should I arrive?', a: 'By 5:00 PM. The ceremony begins promptly at 5:30 PM.' },
+  { q: 'Will there be an open bar?', a: 'Yes \u2014 please drink responsibly.' },
+  {
+    q: 'Do you have a registry?',
+    a: (
+      <>
+        Rather than gifts, we&apos;ve set up cash funds toward our honeymoon.{' '}
+        <a
+          href="https://www.zola.com/registry/thesiezars"
+          className={styles.faqLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View our registry
+        </a>
+        .
+      </>
+    ),
+  },
 ];
 
-export function InfoPanel() {
-  const [activeSection, setActiveSection] = useState<SectionId>('location');
-  const [openAccordion, setOpenAccordion] = useState<SectionId | null>('location');
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+type InfoPanelProps = {
+  initialSection?: SectionId;
+  onSectionChange?: (section: SectionId) => void;
+};
+
+export function InfoPanel({
+  initialSection = 'location',
+  onSectionChange,
+}: InfoPanelProps) {
+  const [activeSection, setActiveSection] = useState<SectionId>(initialSection);
+  const [openAccordion, setOpenAccordion] = useState<SectionId | null>(initialSection);
+
+  function changeSection(section: SectionId) {
+    setActiveSection(section);
+    setOpenAccordion(section);
+    onSectionChange?.(section);
+  }
 
   useEffect(() => {
-    const openHashSection = () => {
-      const hash = window.location.hash.slice(1);
-      if (sections.includes(hash as SectionId)) {
-        const section = hash as SectionId;
-        setActiveSection(section);
-        setOpenAccordion(section);
-      }
-    };
-
-    openHashSection();
-    window.addEventListener('hashchange', openHashSection);
-
-    return () => window.removeEventListener('hashchange', openHashSection);
-  }, []);
+    setActiveSection(initialSection);
+    setOpenAccordion(initialSection);
+  }, [initialSection]);
 
   const content: Record<SectionId, { title: string; body: React.ReactNode }> = {
     location: {
@@ -75,12 +93,9 @@ export function InfoPanel() {
     dresscode: {
       title: 'Dress Code',
       body: (
-        <>
-          <p className={styles.dressTitle}>Formal Attire</p>
-          <p className={styles.dressDescription}>
-            A well-tailored suit, tuxedo, ankle to floor length dress. Please avoid wearing dress colors similar to white.
-          </p>
-        </>
+        <p className={styles.dressDescription}>
+          Wear formal attire. Think suits, tux, and floor length dresses. Avoid white dresses.
+        </p>
       ),
     },
     itinerary: {
@@ -140,52 +155,23 @@ export function InfoPanel() {
         </>
       ),
     },
-    rsvp: {
-      title: 'RSVP',
-      body: <RsvpFlow />,
-    },
     faq: {
       title: 'FAQ',
       body: (
         <dl className={styles.faqList}>
-          {faqItems.map((item, i) => {
-            const isOpen = openFaq === i;
-            return (
-              <div key={i} className={styles.faqItem}>
-                <dt
-                  className={`${styles.question} ${isOpen ? styles.questionActive : ''}`}
-                  onClick={() => setOpenFaq(isOpen ? null : i)}
-                  role="button"
-                  aria-expanded={isOpen}
-                >
-                  {item.q}
-                </dt>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.dd
-                      className={styles.answer}
-                      initial={{ gridTemplateRows: '0fr', opacity: 0 }}
-                      animate={{ gridTemplateRows: '1fr', opacity: 1 }}
-                      exit={{ gridTemplateRows: '0fr', opacity: 0 }}
-                      transition={{
-                        gridTemplateRows: { duration: 0.25, ease: [0.4, 0, 0.2, 1] },
-                        opacity: { duration: 0.15, delay: 0.05 },
-                      }}
-                    >
-                      <span className={styles.answerInner}>{item.a}</span>
-                    </motion.dd>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+          {faqItems.map((item, i) => (
+            <div key={i} className={styles.faqItem}>
+              <dt className={styles.faqQuestion}>{item.q}</dt>
+              <dd className={styles.faqAnswer}>{item.a}</dd>
+            </div>
+          ))}
         </dl>
       ),
     },
   };
 
   return (
-    <section id="rsvp" className={styles.panel}>
+    <section id="details" className={styles.panel}>
       {/* Desktop: tabs + content */}
       <div className={styles.desktopLayout}>
         <div className={styles.content}>
@@ -205,7 +191,7 @@ export function InfoPanel() {
         <div className={styles.nav}>
           <IconNav
             activeSection={activeSection}
-            onSectionChange={setActiveSection}
+            onSectionChange={changeSection}
           />
         </div>
       </div>
@@ -218,22 +204,44 @@ export function InfoPanel() {
             <div key={id} className={styles.accordionItem}>
               <button
                 className={`${styles.accordionTrigger} ${isOpen ? styles.accordionTriggerActive : ''}`}
-                onClick={() => setOpenAccordion(isOpen ? null : id)}
+                onClick={() => {
+                  if (isOpen) {
+                    setOpenAccordion(null);
+                    return;
+                  }
+
+                  changeSection(id);
+                }}
                 aria-expanded={isOpen}
               >
+                {isOpen && (
+                  <motion.span
+                    className={styles.accordionArrow}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                  >
+                    <ArrowDoodle direction="right" />
+                  </motion.span>
+                )}
                 {content[id].title}
               </button>
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2, ease: 'easeOut' }}
                     className={styles.accordionContent}
+                    initial={{ gridTemplateRows: '0fr', opacity: 0 }}
+                    animate={{ gridTemplateRows: '1fr', opacity: 1 }}
+                    exit={{ gridTemplateRows: '0fr', opacity: 0 }}
+                    transition={{
+                      gridTemplateRows: { duration: 0.25, ease: [0.4, 0, 0.2, 1] },
+                      opacity: { duration: 0.15 },
+                    }}
                   >
-                    <div className={styles.accordionBody}>
-                      {content[id].body}
+                    <div className={styles.accordionInner}>
+                      <div className={styles.accordionBody}>
+                        {content[id].body}
+                      </div>
                     </div>
                   </motion.div>
                 )}

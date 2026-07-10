@@ -2,11 +2,9 @@
 
 .page {
   min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-items: center;
   padding: var(--space-xl) var(--space-lg);
-  overflow: hidden;
   background:
     radial-gradient(circle at 46% 38%, rgba(255, 255, 255, 0.9), transparent 28rem),
     linear-gradient(180deg, #fffff7 0%, #fbfaf2 100%);
@@ -16,7 +14,7 @@
 .stage {
   position: relative;
   width: min(88vw, 820px);
-  min-height: calc(100svh - (var(--space-xl) * 2));
+  min-height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,7 +129,9 @@
     inset 0 2px 0 rgba(255, 255, 255, 0.9),
     inset 2px 0 0 rgba(255, 255, 255, 0.45),
     inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    var(--wedding-shadow-card);
+    0 1px 2px rgba(20, 20, 20, 0.05),
+    0 12px 28px -22px rgba(20, 20, 20, 0.45),
+    0 24px 48px -36px rgba(20, 20, 20, 0.32);
 }
 
 .polaroid:nth-of-type(1) {
@@ -219,132 +219,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
-/* "pressable paper" — same treatment as the RSVP flow buttons (ported from the
-   side-quest cards) */
 .actionLink {
-  appearance: none;
-  position: relative;
   min-width: 96px;
-  padding: 13px 20px 11px;
-  border: 1px solid rgba(20, 20, 20, 0.055);
-  border-radius: 8px;
-  background: #f5f5f1;
+  padding: 10px 18px;
+  border: 1px solid rgba(20, 20, 20, 0.075);
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(245, 245, 237, 0.76)),
+    #fffff7;
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.9),
-    inset 2px 0 0 rgba(255, 255, 255, 0.45),
-    inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    var(--wedding-shadow-sm);
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1px 2px rgba(20, 20, 20, 0.04),
+    0 10px 22px -18px rgba(20, 20, 20, 0.36);
   color: rgba(20, 20, 20, 0.72);
-  cursor: pointer;
   font-family: var(--font-geist-mono), "Courier New", monospace;
   font-size: var(--font-size-sm);
   letter-spacing: 0;
   line-height: 1;
   text-align: center;
-  text-decoration: none;
   transition:
-    box-shadow var(--transition-fast),
-    color var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.actionLink:hover {
-  color: rgba(20, 20, 20, 0.88);
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.9),
-    inset 2px 0 0 rgba(255, 255, 255, 0.45),
-    inset -2px 0 0 rgba(255, 255, 255, 0.28),
-    var(--wedding-shadow-card);
-}
-
-/* press in: bevel collapses to a shallow inset */
-.actionLink:active {
-  transform: translateY(0);
-  box-shadow:
-    inset 0 2px 4px rgba(20, 20, 20, 0.09),
-    0 1px 1px rgba(20, 20, 20, 0.04);
-}
-
-.detailsShell {
-  width: min(100%, 820px);
-  max-height: calc(100svh - (var(--space-xl) * 2));
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  overflow: auto;
-  padding: var(--space-xs);
-  /* hidden scrollbar */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.detailsShell::-webkit-scrollbar {
-  display: none;
-}
-
-/* Details (info) view on desktop: fill the height so the back button stays
-   pinned at the top instead of re-centering with each section's size, and
-   center the information sheet in the space below it. (On mobile the view is
-   already top-anchored via .stageDetails.) */
-@media (min-width: 721px) {
-  .detailsShellInfo {
-    box-sizing: border-box;
-    height: calc(100svh - (var(--space-xl) * 2));
-  }
-
-  .detailsShellInfo > section {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.backButton {
-  appearance: none;
-  align-self: flex-start;
-  width: 34px;
-  height: 34px;
-  display: inline-grid;
-  place-items: center;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: rgba(20, 20, 20, 0.72);
-  cursor: pointer;
-  transform: none;
-  transition:
+    background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
     transform var(--transition-fast);
 }
 
-.backButton:hover {
+.actionLink:hover {
+  border-color: rgba(20, 20, 20, 0.13);
   color: rgba(20, 20, 20, 0.88);
   transform: translateY(-1px);
-}
-
-.rsvpFrame {
-  width: min(100%, 700px);
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.rsvpShell {
-  width: 100%;
-  /* No padding: the envelope scene carries its own headroom, and its width is
-     capped to fit the frame — horizontal padding here would shrink the frame
-     below the envelope's width and force a horizontal scroll on mobile. */
-  padding: 0;
-  color: var(--wedding-text);
-  font-family: var(--wedding-font-mono);
 }
 
 @media (max-width: 720px) {
@@ -354,14 +260,8 @@
 
   .stage {
     width: min(100%, 420px);
-    min-height: calc(100svh - (var(--space-xl) * 2));
+    min-height: auto;
     gap: 24px;
-  }
-
-  /* Anchor the details view to the top so opening/closing accordions grows
-     downward instead of re-centering (and shifting) the whole component. */
-  .stageDetails {
-    justify-content: flex-start;
   }
 
   .polaroidRow {
@@ -374,21 +274,12 @@
   }
 
   .actions {
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .actionLink {
     min-width: 86px;
     padding: 9px 14px;
-  }
-
-  .detailsShell {
-    width: min(100%, 420px);
-    max-height: calc(100svh - (var(--space-xl) * 2));
-  }
-
-  .rsvpShell {
-    padding: var(--wedding-space-md);
   }
 
   .heartDoodle {
@@ -398,7 +289,7 @@
   }
 
   .polaroid {
-    width: min(55vw, 216px);
+    width: min(61vw, 240px);
   }
 
   .polaroid:nth-of-type(1) {
