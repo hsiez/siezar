@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styles from './IconNav.module.css';
 
-export type SectionId = 'location' | 'dresscode' | 'itinerary' | 'travelers' | 'rsvp' | 'faq';
+export type SectionId = 'location' | 'dresscode' | 'itinerary' | 'travelers' | 'faq';
 
 interface IconNavProps {
   activeSection: SectionId;
@@ -15,7 +15,6 @@ const sections: { id: SectionId; label: string }[] = [
   { id: 'dresscode', label: 'Dress Code' },
   { id: 'itinerary', label: 'Itinerary' },
   { id: 'travelers', label: 'Travelers' },
-  { id: 'rsvp', label: 'RSVP' },
   { id: 'faq', label: 'FAQ' },
 ];
 

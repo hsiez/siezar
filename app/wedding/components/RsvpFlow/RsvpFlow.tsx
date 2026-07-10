@@ -4,7 +4,11 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './RsvpFlow.module.css';
 
 type RsvpStatus = 'pending' | 'attending' | 'declined';
-export type FlowStep = 'lookup' | 'attendance' | 'dietary' | 'closing' | 'success';
+export type FlowStep = 'lookup' | 'attendance' | 'dietary' | 'note' | 'closing' | 'success';
+
+// Time for the envelope to seal — card slides in (~620ms) then the flap folds
+// (~420ms after). Keep in sync with the transitions in RsvpFlow.module.css.
+const SEAL_MS = 1000;
 
 export type ReservationPerson = {
   id: string;
@@ -22,6 +26,7 @@ export type Reservation = {
   householdName: string;
   rsvpStatus: 'pending' | 'submitted';
   submittedAt: string | null;
+  note?: string | null;
   people: ReservationPerson[];
 };
 
@@ -50,19 +55,21 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
   const [people, setPeople] = useState<PersonDraft[]>(
     initialReservation ? initialReservation.people.map(personToDraft) : [],
   );
+  const [note, setNote] = useState(initialReservation?.note ?? '');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   // Transient "rsvp submitted" toast — decoupled from `step` so its fade-out
-  // timer isn't torn down when we hand the envelope back to the lookup form.
+  // timer isn't torn down as the flow moves on.
   const [showToast, setShowToast] = useState(false);
   const toastTimer = useRef<number | undefined>(undefined);
-
-  function flashSuccess() {
-    setShowToast(true);
+  const resetTimer = useRef<number | undefined>(undefined);
+  // Remembers the last error text so the error toast keeps its message while it
+  // fades out (after `error` is cleared) instead of blanking mid-transition.
+  const lastError = useRef('');
+  useEffect(() => () => {
     window.clearTimeout(toastTimer.current);
-    toastTimer.current = window.setTimeout(() => setShowToast(false), 2600);
-  }
-  useEffect(() => () => window.clearTimeout(toastTimer.current), []);
+    window.clearTimeout(resetTimer.current);
+  }, []);
 
   const attendingPeople = useMemo(
     () => people.filter((person) => person.rsvpStatus === 'attending'),
@@ -71,33 +78,39 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
   const hasAnsweredEveryone = people.length > 0 && people.every((person) => person.rsvpStatus !== 'pending');
   // `closing` is a CLOSED state so the envelope seals (card slides in, flap
   // folds) before landing on `success`.
-  const isOpen = step === 'attendance' || step === 'dietary';
+  const isOpen = step === 'attendance' || step === 'dietary' || step === 'note';
   const envelopeState = isOpen ? styles.envelopeOpen : styles.envelopeClosed;
 
   // Once a reservation loads, the card stays mounted (it just hides in the
   // pocket when closed) so it slides in/out instead of unmounting mid-animation.
   // `panelStep` remembers the last panel so the content never disappears while
   // the envelope is sealing.
-  const [panelStep, setPanelStep] = useState<'attendance' | 'dietary'>('attendance');
+  const [panelStep, setPanelStep] = useState<'attendance' | 'dietary' | 'note'>('attendance');
   useEffect(() => {
-    if (step === 'attendance' || step === 'dietary') {
+    if (step === 'attendance' || step === 'dietary' || step === 'note') {
       setPanelStep(step);
     }
   }, [step]);
 
-  // Once the envelope has sealed on `success`, don't dwell in a dead-end panel:
-  // flash a temporary confirmation and hand the sealed envelope back to a fresh
-  // lookup form so another invitation can be found right away.
+  // We only reach `success` once the seal animation has finished AND the submit
+  // is confirmed. Hold the sealed envelope, float the confirmation above it,
+  // then hand back a fresh lookup form so another invitation can be found.
   useEffect(() => {
     if (step !== 'success') {
       return;
     }
-    setStep('lookup');
-    setPhone('');
-    setReservation(null);
-    setPeople([]);
-    setError('');
-    flashSuccess();
+    setShowToast(true);
+    window.clearTimeout(toastTimer.current);
+    window.clearTimeout(resetTimer.current);
+    toastTimer.current = window.setTimeout(() => setShowToast(false), 2600);
+    resetTimer.current = window.setTimeout(() => {
+      setStep('lookup');
+      setPhone('');
+      setReservation(null);
+      setPeople([]);
+      setNote('');
+      setError('');
+    }, 3000);
   }, [step]);
 
   async function handleLookup(event: FormEvent<HTMLFormElement>) {
@@ -128,6 +141,7 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
       const nextReservation = payload.reservation as Reservation;
       setReservation(nextReservation);
       setPeople(nextReservation.people.map(personToDraft));
+      setNote(nextReservation.note ?? '');
       setStep('attendance');
     } catch {
       setError('Something went wrong looking up your invitation.');
@@ -143,22 +157,30 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
 
     setError('');
 
+    // Seal the envelope right away and run the submit in parallel — the
+    // confirmation only appears once the animation has finished AND the submit
+    // is confirmed (whichever lands last).
+    const openPanel = panelStep;
+    setStep('closing');
+    const sealed = new Promise<void>((resolve) => window.setTimeout(resolve, SEAL_MS));
+
     if (devMode) {
-      // skip the network submit — just play the seal animation into success
-      setStep('closing');
-      window.setTimeout(() => setStep('success'), 1000);
+      // no network — land on success as soon as the seal animation settles
+      await sealed;
+      setStep('success');
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/wedding/rsvp/submit', {
+      const confirmed = fetch('/api/wedding/rsvp/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           phone,
           reservationId: reservation.id,
+          note: note.trim() || undefined,
           people: people.map((person) => ({
             id: person.id,
             displayName: person.nameEditable ? person.displayName : undefined,
@@ -167,23 +189,25 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
             nutAllergy: person.nutAllergy,
           })),
         }),
+      }).then(async (response) => {
+        const payload = await response.json();
+        if (!response.ok || !payload.reservation) {
+          throw new Error(payload.error ?? 'Unable to submit your RSVP.');
+        }
       });
-      const payload = await response.json();
 
-      if (!response.ok || !payload.reservation) {
-        setError(payload.error ?? 'Unable to submit your RSVP.');
-        return;
-      }
-
-      const nextReservation = payload.reservation as Reservation;
-      setReservation(nextReservation);
-      setPeople(nextReservation.people.map(personToDraft));
-      setStep('closing');
-      // hold on `closing` while the envelope seals (card slides in ~620ms, then
-      // the flap folds ~420ms later), then reveal the success state
-      window.setTimeout(() => setStep('success'), 1000);
-    } catch {
-      setError('Something went wrong submitting your RSVP.');
+      // wait for BOTH the seal animation and the submit confirmation
+      await Promise.all([confirmed, sealed]);
+      setStep('success');
+    } catch (submitError) {
+      // let the seal settle, then reopen the panel so the RSVP can be retried
+      await sealed;
+      setStep(openPanel);
+      setError(
+        submitError instanceof Error && submitError.message
+          ? submitError.message
+          : 'Something went wrong submitting your RSVP.',
+      );
     } finally {
       setIsLoading(false);
     }
@@ -212,6 +236,10 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
     // vanishing; a fresh lookup simply replaces them.
     setStep('lookup');
     setError('');
+  }
+
+  if (error) {
+    lastError.current = error;
   }
 
   return (
@@ -274,10 +302,10 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
                     <button
                       className={styles.primaryButton}
                       type="button"
-                      disabled={!hasAnsweredEveryone || isLoading}
-                      onClick={() => attendingPeople.length > 0 ? setStep('dietary') : handleSubmit()}
+                      disabled={!hasAnsweredEveryone}
+                      onClick={() => setStep(attendingPeople.length > 0 ? 'dietary' : 'note')}
                     >
-                      {attendingPeople.length > 0 ? 'Next' : 'Submit RSVP'}
+                      Next
                     </button>
                   </div>
                 </div>
@@ -317,6 +345,33 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
 
                   <div className={styles.actions}>
                     <button className={styles.secondaryButton} type="button" onClick={() => setStep('attendance')}>
+                      Back
+                    </button>
+                    <button className={styles.primaryButton} type="button" onClick={() => setStep('note')}>
+                      Next
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {panelStep === 'note' && (
+                <div className={styles.stepPanel}>
+                  <textarea
+                    className={styles.textarea}
+                    value={note}
+                    onChange={(event) => setNote(event.target.value)}
+                    rows={4}
+                    maxLength={200}
+                    placeholder="A note for the couple (optional)"
+                    aria-label="A note for the couple"
+                  />
+
+                  <div className={styles.actions}>
+                    <button
+                      className={styles.secondaryButton}
+                      type="button"
+                      onClick={() => setStep(attendingPeople.length > 0 ? 'dietary' : 'attendance')}
+                    >
                       Back
                     </button>
                     <button className={styles.primaryButton} type="button" disabled={isLoading} onClick={handleSubmit}>
@@ -370,7 +425,13 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
         <span>rsvp submitted</span>
       </div>
 
-      {error && <p className={styles.error}>{error}</p>}
+      <div
+        className={`${styles.toast} ${styles.toastError} ${error ? styles.toastShow : ''}`}
+        role="alert"
+        aria-live="assertive"
+      >
+        <span>{error || lastError.current}</span>
+      </div>
     </div>
   );
 }

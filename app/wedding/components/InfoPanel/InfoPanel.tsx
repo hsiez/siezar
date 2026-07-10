@@ -3,13 +3,12 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconNav, type SectionId } from '../IconNav/IconNav';
-import { RsvpFlow } from '../RsvpFlow/RsvpFlow';
 import styles from './InfoPanel.module.css';
 
 const VENUE_MAP_URL = 'https://maps.app.goo.gl/RCpy4sffawJxQWGC8';
 const PARKING_MAP_URL = 'https://www.google.com/maps/search/?api=1&query=157+N+Grand+St%2C+Orange%2C+CA+92866';
 
-const sections: SectionId[] = ['location', 'dresscode', 'itinerary', 'travelers', 'rsvp', 'faq'];
+const sections: SectionId[] = ['location', 'dresscode', 'itinerary', 'travelers', 'faq'];
 
 const faqItems = [
   { q: 'Can I bring a date/plus-one?', a: 'All invited guests will have their names included on our formal invitations. Additional guests will not be allowed in. Thank you in advance!' },
@@ -21,26 +20,29 @@ const faqItems = [
   { q: 'Do you have a registry?', a: 'We do not! Our home is already full of love, laughter, and furniture. If you\u2019d still like to gift us a wedding present, we\u2019d greatly appreciate a contribution towards our honeymoon or house fund. More details will be included with our formal invitation.' },
 ];
 
-export function InfoPanel() {
-  const [activeSection, setActiveSection] = useState<SectionId>('location');
-  const [openAccordion, setOpenAccordion] = useState<SectionId | null>('location');
+type InfoPanelProps = {
+  initialSection?: SectionId;
+  onSectionChange?: (section: SectionId) => void;
+};
+
+export function InfoPanel({
+  initialSection = 'location',
+  onSectionChange,
+}: InfoPanelProps) {
+  const [activeSection, setActiveSection] = useState<SectionId>(initialSection);
+  const [openAccordion, setOpenAccordion] = useState<SectionId | null>(initialSection);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  function changeSection(section: SectionId) {
+    setActiveSection(section);
+    setOpenAccordion(section);
+    onSectionChange?.(section);
+  }
+
   useEffect(() => {
-    const openHashSection = () => {
-      const hash = window.location.hash.slice(1);
-      if (sections.includes(hash as SectionId)) {
-        const section = hash as SectionId;
-        setActiveSection(section);
-        setOpenAccordion(section);
-      }
-    };
-
-    openHashSection();
-    window.addEventListener('hashchange', openHashSection);
-
-    return () => window.removeEventListener('hashchange', openHashSection);
-  }, []);
+    setActiveSection(initialSection);
+    setOpenAccordion(initialSection);
+  }, [initialSection]);
 
   const content: Record<SectionId, { title: string; body: React.ReactNode }> = {
     location: {
@@ -140,10 +142,6 @@ export function InfoPanel() {
         </>
       ),
     },
-    rsvp: {
-      title: 'RSVP',
-      body: <RsvpFlow />,
-    },
     faq: {
       title: 'FAQ',
       body: (
@@ -185,7 +183,7 @@ export function InfoPanel() {
   };
 
   return (
-    <section id="rsvp" className={styles.panel}>
+    <section id="details" className={styles.panel}>
       {/* Desktop: tabs + content */}
       <div className={styles.desktopLayout}>
         <div className={styles.content}>
@@ -205,7 +203,7 @@ export function InfoPanel() {
         <div className={styles.nav}>
           <IconNav
             activeSection={activeSection}
-            onSectionChange={setActiveSection}
+            onSectionChange={changeSection}
           />
         </div>
       </div>
@@ -218,7 +216,14 @@ export function InfoPanel() {
             <div key={id} className={styles.accordionItem}>
               <button
                 className={`${styles.accordionTrigger} ${isOpen ? styles.accordionTriggerActive : ''}`}
-                onClick={() => setOpenAccordion(isOpen ? null : id)}
+                onClick={() => {
+                  if (isOpen) {
+                    setOpenAccordion(null);
+                    return;
+                  }
+
+                  changeSection(id);
+                }}
                 aria-expanded={isOpen}
               >
                 {content[id].title}

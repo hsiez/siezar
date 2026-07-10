@@ -1,6 +1,7 @@
 .panel {
-  padding: var(--wedding-space-4xl) var(--wedding-space-xl);
-  border-top: 1px solid var(--wedding-border-light);
+  width: 100%;
+  padding: 0;
+  border-top: none;
 }
 
 /* Desktop layout: hidden on mobile */
@@ -8,12 +9,12 @@
   display: none;
   max-width: 800px;
   margin: 0 auto;
-  gap: var(--wedding-space-3xl);
+  gap: var(--wedding-space-2xl);
 }
 
 .content {
   flex: 1;
-  min-height: 300px;
+  min-height: 0;
 }
 
 .contentInner {
@@ -41,8 +42,6 @@
   .body {
     margin-top: 0;
     padding: var(--wedding-space-lg) var(--wedding-space-xl);
-    background: rgba(214, 207, 193, 0.7);
-    border-radius: 30px;
   }
 
   .body > :last-child {
@@ -54,35 +53,54 @@
 .mobileLayout {
   max-width: 800px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
 .accordionItem {
-  border-bottom: 1px solid var(--wedding-border-light, #d8d4cb);
+  border-bottom: none;
 }
 
 .accordionTrigger {
+  appearance: none;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--wedding-space-lg) 0;
-  border: none;
-  background: transparent;
-  font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
-  font-size: var(--wedding-font-size-sm, 1rem);
-  text-transform: uppercase;
-  letter-spacing: var(--wedding-tracking-wider, 0.1em);
-  color: var(--wedding-text-muted, #8a857d);
+  padding: 13px 20px 11px;
+  border: 1px solid rgba(20, 20, 20, 0.06);
+  border-radius: 2px 2px 5px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 245, 237, 0.88)),
+    url("/paper-texture.svg"),
+    #fffff7;
+  background-size: auto, 360px 225px, auto;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 1px 2px rgba(20, 20, 20, 0.05),
+    0 12px 24px -20px rgba(20, 20, 20, 0.45);
+  color: rgba(20, 20, 20, 0.72);
   cursor: pointer;
-  transition: color 150ms ease-out;
+  font-family: var(--font-geist-mono), "Courier New", monospace;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0;
+  line-height: 1;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .accordionTrigger:hover {
-  color: var(--wedding-text-secondary, #6b665f);
+  border-color: rgba(20, 20, 20, 0.13);
+  color: rgba(20, 20, 20, 0.88);
+  transform: translateY(-1px);
 }
 
 .accordionTriggerActive {
-  color: var(--wedding-text, #4a4540);
+  border-color: rgba(20, 20, 20, 0.16);
+  color: rgba(20, 20, 20, 0.88);
 }
 
 .accordionContent {
@@ -90,7 +108,7 @@
 }
 
 .accordionBody {
-  padding: 0 0 var(--wedding-space-xl);
+  padding: var(--wedding-space-lg) 0 var(--wedding-space-xl);
   font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
   font-size: var(--wedding-font-size-base);
   line-height: var(--wedding-leading-relaxed);
@@ -261,35 +279,6 @@
     line-height: 1.25;
   }
 
-  .comingSoon {
-    font-size: var(--wedding-font-size-base);
-    line-height: var(--wedding-leading-relaxed);
-    font-weight: 400;
-  }
-}
-
-/* RSVP styles */
-.comingSoon {
-  font-size: var(--wedding-font-size-base);
-  font-weight: 400;
-  color: var(--wedding-text);
-  font-style: italic;
-  margin: 0;
-}
-
-.rsvpDetails {
-  margin-top: var(--wedding-space-lg);
-}
-
-.rsvpDetail {
-  color: var(--wedding-text-secondary);
-  margin: 0 0 var(--wedding-space-md);
-}
-
-.rsvpDeadline {
-  font-weight: 500;
-  color: var(--wedding-text);
-  margin: 0 0 var(--wedding-space-md);
 }
 
 /* FAQ styles */

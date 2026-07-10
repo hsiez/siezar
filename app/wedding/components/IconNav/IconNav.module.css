@@ -1,68 +1,69 @@
 .nav {
   display: flex;
   flex-direction: row;
-  gap: 0;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
 }
 
 .button {
+  appearance: none;
   position: relative;
   display: block;
-  padding: var(--wedding-space-sm) var(--wedding-space-md);
-  border: none;
-  border-bottom: 1px solid var(--wedding-border-light, #d8d4cb);
-  background: transparent;
-  font-family: var(--wedding-font-mono, 'Courier Prime', 'Courier New', monospace);
-  font-size: var(--wedding-font-size-sm, 1rem);
-  text-transform: uppercase;
-  letter-spacing: var(--wedding-tracking-wider, 0.1em);
-  color: var(--wedding-text-muted, #8a857d);
+  min-width: 96px;
+  padding: 13px 20px 11px;
+  border: 1px solid rgba(20, 20, 20, 0.06);
+  border-radius: 2px 2px 5px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 245, 237, 0.88)),
+    url("/paper-texture.svg"),
+    #fffff7;
+  background-size: auto, 360px 225px, auto;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 1px 2px rgba(20, 20, 20, 0.05),
+    0 12px 24px -20px rgba(20, 20, 20, 0.45);
+  color: rgba(20, 20, 20, 0.72);
   cursor: pointer;
-  transition: color 150ms ease-out;
+  font-family: var(--font-geist-mono), "Courier New", monospace;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0;
+  line-height: 1;
   text-align: center;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
   white-space: nowrap;
 }
 
 .button:hover {
-  color: var(--wedding-text-secondary, #6b665f);
+  border-color: rgba(20, 20, 20, 0.13);
+  color: rgba(20, 20, 20, 0.88);
+  transform: translateY(-1px);
 }
 
 .button:focus-visible {
-  outline: 1px solid var(--wedding-border, #c9c4ba);
-  outline-offset: -1px;
+  outline: 2px solid rgba(20, 20, 20, 0.2);
+  outline-offset: 3px;
 }
 
 .button.active {
-  color: var(--wedding-text, #4a4540);
+  border-color: rgba(20, 20, 20, 0.16);
+  color: rgba(20, 20, 20, 0.88);
 }
 
 .indicator {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 2px;
-  background-color: var(--wedding-text, #4a4540);
+  display: none;
 }
 
 /* Desktop: vertical tabs on right */
 @media (min-width: 640px) {
   .nav {
     flex-direction: column;
+    gap: var(--space-md);
   }
 
   .button {
-    padding: var(--wedding-space-md) var(--wedding-space-lg);
-    border-bottom: none;
-    border-left: 1px solid var(--wedding-border-light, #d8d4cb);
-    text-align: left;
-  }
-
-  .indicator {
-    left: -1px;
-    right: auto;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    height: auto;
+    text-align: center;
   }
 }

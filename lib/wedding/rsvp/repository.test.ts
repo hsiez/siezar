@@ -131,6 +131,41 @@ describe('RSVP repository', () => {
     expect(eventCount.rows[0].count).toBe(1);
   });
 
+  it('persists an optional household note and returns it on every read', async () => {
+    const submitted = await repository.submitReservationRsvp({
+      phone: '9095185980',
+      reservationId: 'INV-001',
+      note: '  Excited to celebrate with you both!  ',
+      people: [
+        { id: 'PERSON-001', rsvpStatus: 'attending' },
+        { id: 'PERSON-002', rsvpStatus: 'declined' },
+      ],
+    });
+
+    // stored trimmed, surfaced on submit, lookup, and the admin listing
+    expect(submitted.note).toBe('Excited to celebrate with you both!');
+    const relooked = await repository.findReservationByPhone('9093422583');
+    expect(relooked?.note).toBe('Excited to celebrate with you both!');
+    const admin = await repository.listRsvpReservationsForAdmin();
+    expect(admin.find((reservation) => reservation.id === 'INV-001')?.note).toBe(
+      'Excited to celebrate with you both!',
+    );
+  });
+
+  it('clears the household note when resubmitted blank', async () => {
+    const submitted = await repository.submitReservationRsvp({
+      phone: '9095185980',
+      reservationId: 'INV-001',
+      note: '   ',
+      people: [
+        { id: 'PERSON-001', rsvpStatus: 'attending' },
+        { id: 'PERSON-002', rsvpStatus: 'declined' },
+      ],
+    });
+
+    expect(submitted.note).toBeNull();
+  });
+
   it('rejects partial submissions so stale clients cannot update only some people', async () => {
     await expect(
       repository.submitReservationRsvp({

@@ -17,17 +17,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--wedding-space-sm);
-  padding: 10px 16px 8px;
-  border: 1px solid rgba(20, 20, 20, 0.1);
-  border-radius: 2px 2px 5px 5px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 245, 237, 0.96)),
-    url("/paper-texture.svg"),
-    #fffff7;
-  background-size: auto, 360px 225px, auto;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.82),
-    0 10px 26px -14px rgba(20, 20, 20, 0.5);
+  padding: 12px 18px;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px -12px rgba(20, 20, 20, 0.28);
   color: rgba(20, 20, 20, 0.82);
   font-family: var(--font-geist-mono), "Courier New", monospace;
   font-size: var(--font-size-sm);
@@ -43,6 +36,11 @@
 .toastShow {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+/* error variant of the toast — same white component + slot, error-red text */
+.toastError {
+  color: #7a332d;
 }
 
 .toastCheck {
@@ -78,9 +76,11 @@
   --paper: linear-gradient(180deg, #f8f7f2 0%, #f6f4ef 46%, #f2f1ea 100%);
   --ease-card: cubic-bezier(0.22, 1, 0.36, 1); /* ~ease-out-quint */
   --ease-flap: cubic-bezier(0.42, 0.9, 0.32, 1); /* ease-out, gentle settle */
-  /* cap by width AND height so the envelope + slide headroom never outgrows the
-     viewport (which was forcing a scrollbar) */
-  --env-w: min(560px, 88vw, 62svh);
+  /* Cap by width AND height so the whole scene fits without a scrollbar. The
+     scene is ~1.19x env-w tall (0.48 headroom + 0.71 envelope), and it sits
+     inside more chrome on /wedding (back button, padding), so the svh cap is
+     deliberately low — on tall screens the px/vw caps win instead. */
+  --env-w: min(560px, 88vw, 50svh);
 
   position: relative;
   width: var(--env-w);
@@ -306,6 +306,34 @@
   gap: var(--wedding-space-xs);
 }
 
+.textarea {
+  width: 100%;
+  min-height: 96px;
+  /* no resize handle — it grows the card past the envelope and forces a page
+     scroll; the field scrolls internally instead if the text runs long */
+  resize: none;
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  border-radius: 2px 2px 5px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(245, 245, 237, 0.72)),
+    url("/paper-texture.svg"),
+    #fffff7;
+  background-size: auto, 360px 225px, auto;
+  color: var(--wedding-text);
+  font: inherit;
+  line-height: 1.4;
+  padding: var(--wedding-space-sm) var(--wedding-space-md);
+}
+
+.textarea:focus {
+  outline: 2px solid rgba(74, 69, 64, 0.25);
+  outline-offset: 2px;
+}
+
+.textarea::placeholder {
+  color: rgba(20, 20, 20, 0.28);
+}
+
 .lookupForm .field {
   width: min(100%, 17rem);
 }
@@ -353,21 +381,21 @@
   color: rgba(20, 20, 20, 0.28);
 }
 
+/* "pressable paper" — ported from the side-quest cards: flat warm paper with
+   inset white bevels (top + sides) over a soft lift shadow */
 .primaryButton,
 .secondaryButton {
   appearance: none;
   min-height: 42px;
-  border: 1px solid rgba(20, 20, 20, 0.06);
-  border-radius: 2px 2px 5px 5px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 245, 237, 0.88)),
-    url("/paper-texture.svg"),
-    #fffff7;
-  background-size: auto, 360px 225px, auto;
+  border: 1px solid rgba(20, 20, 20, 0.055);
+  border-radius: 8px;
+  background: #f5f5f1;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    inset 2px 0 0 rgba(255, 255, 255, 0.45),
+    inset -2px 0 0 rgba(255, 255, 255, 0.28),
     0 1px 2px rgba(20, 20, 20, 0.05),
-    0 12px 24px -20px rgba(20, 20, 20, 0.45);
+    0 12px 28px -22px rgba(20, 20, 20, 0.45);
   color: rgba(20, 20, 20, 0.72);
   cursor: pointer;
   font-family: var(--font-geist-mono), "Courier New", monospace;
@@ -378,29 +406,35 @@
   padding: 13px 20px 11px;
   width: fit-content;
   transition:
-    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
     color var(--transition-fast),
     opacity var(--transition-fast),
     transform var(--transition-fast);
 }
 
 .primaryButton {
-  border-color: rgba(20, 20, 20, 0.14);
   color: rgba(20, 20, 20, 0.86);
 }
 
 .primaryButton:hover:not(:disabled),
 .secondaryButton:hover {
-  border-color: rgba(20, 20, 20, 0.13);
+  transform: translateY(-1px);
   color: rgba(20, 20, 20, 0.88);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    inset 2px 0 0 rgba(255, 255, 255, 0.45),
+    inset -2px 0 0 rgba(255, 255, 255, 0.28),
+    0 2px 4px rgba(20, 20, 20, 0.06),
+    0 16px 34px -22px rgba(20, 20, 20, 0.5);
 }
 
-.primaryButton:hover:not(:disabled) {
-  transform: translateY(-1px);
-}
-
-.secondaryButton:hover {
-  transform: translateY(-1px);
+/* press in: bevel collapses to a shallow inset */
+.primaryButton:active:not(:disabled),
+.secondaryButton:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 2px 4px rgba(20, 20, 20, 0.09),
+    0 1px 1px rgba(20, 20, 20, 0.04);
 }
 
 .primaryButton:disabled {
@@ -546,12 +580,6 @@
   display: flex;
   justify-content: space-between;
   gap: var(--wedding-space-md);
-}
-
-.error {
-  margin: 0;
-  color: #7a332d;
-  line-height: var(--wedding-leading-normal);
 }
 
 @media (max-width: 720px) {
