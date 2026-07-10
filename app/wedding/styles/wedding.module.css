@@ -330,9 +330,10 @@
 
 .rsvpShell {
   width: 100%;
-  /* no vertical padding — the envelope scene carries its own headroom, and
-     this reclaimed space lets the envelope stay wide without a page scroll */
-  padding: 0 var(--wedding-space-xl);
+  /* No padding: the envelope scene carries its own headroom, and its width is
+     capped to fit the frame — horizontal padding here would shrink the frame
+     below the envelope's width and force a horizontal scroll on mobile. */
+  padding: 0;
   color: var(--wedding-text);
   font-family: var(--wedding-font-mono);
 }

@@ -231,11 +231,14 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
   }
 
   function resetLookup() {
-    // Close the envelope (the card slides back into the pocket and hides). We
-    // keep the reservation/people mounted so the card animates instead of
-    // vanishing; a fresh lookup simply replaces them.
-    setStep('lookup');
+    // Close the envelope first, THEN reveal the lookup form: hold on `closing`
+    // (envelope sealed, no form) while it slides back up and the flap folds,
+    // then switch to `lookup` so the search only appears once the envelope is
+    // back in position. Reservation/people stay mounted meanwhile.
     setError('');
+    setStep('closing');
+    window.clearTimeout(resetTimer.current);
+    resetTimer.current = window.setTimeout(() => setStep('lookup'), 1150);
   }
 
   if (error) {
@@ -268,7 +271,7 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
                               />
                             </label>
                           ) : (
-                            <p className={styles.personName}>{person.displayName}</p>
+                            <p className={styles.personName}>{firstName(person.displayName)}</p>
                           )}
                         </div>
                         <div className={styles.optionsGroup} aria-label={`${person.displayName} RSVP status`}>
@@ -317,7 +320,7 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
                     {attendingPeople.map((person) => (
                       <div key={person.id} className={styles.dietaryRow}>
                         <div className={styles.personInfo}>
-                          <p className={styles.personName}>{person.displayName}</p>
+                          <p className={styles.personName}>{firstName(person.displayName)}</p>
                         </div>
                         <div className={styles.optionsGroup} aria-label={`${person.displayName} meal details`}>
                           <button
@@ -447,6 +450,11 @@ function CheckMark() {
       <path d="M4.25 9.15 L7.35 12.2 L13.9 5.8" />
     </svg>
   );
+}
+
+// Display just the first name to save horizontal space in the card rows.
+function firstName(fullName: string): string {
+  return fullName.trim().split(/\s+/)[0] || fullName;
 }
 
 function personToDraft(person: ReservationPerson): PersonDraft {

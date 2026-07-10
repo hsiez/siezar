@@ -17,6 +17,12 @@
   display: inline-flex;
   align-items: center;
   gap: var(--wedding-space-sm);
+  /* size to the text (one line) up to a cap, then wrap — without an explicit
+     width an absolutely-positioned box shrink-to-fits to ~half its container
+     (because of left:50%), which over-wraps. Cap keeps it inside narrow
+     viewports. */
+  width: max-content;
+  max-width: min(88vw, 30rem);
   padding: 12px 18px;
   border-radius: 6px;
   background: #ffffff;
@@ -24,7 +30,8 @@
   color: rgba(20, 20, 20, 0.82);
   font-family: var(--font-geist-mono), "Courier New", monospace;
   font-size: var(--font-size-sm);
-  line-height: 1;
+  line-height: 1.35;
+  text-align: center;
   transform: translate(-50%, -8px);
   opacity: 0;
   pointer-events: none;
@@ -71,25 +78,45 @@
   gap: var(--wedding-space-lg);
 }
 
+/* fill the card so the actions can sit at the bottom */
+.stepPanel {
+  flex: 1;
+}
+
 .envelopeScene {
   /* light warm paper + easing tokens, ported from the envelope lab */
   --paper: linear-gradient(180deg, #f8f7f2 0%, #f6f4ef 46%, #f2f1ea 100%);
   --ease-card: cubic-bezier(0.22, 1, 0.36, 1); /* ~ease-out-quint */
   --ease-flap: cubic-bezier(0.42, 0.9, 0.32, 1); /* ease-out, gentle settle */
   /* Cap by width AND height so the whole scene fits without a scrollbar. The
-     scene is ~1.17x env-w tall (0.46 headroom + 0.71 envelope). The /wedding
-     frame trims its own vertical padding to give this envelope room, so the
-     svh cap can stay generous; on tall screens the px/vw caps win instead. */
-  --env-w: min(560px, 88vw, 58svh);
+     scene is ~1.17x env-w tall (0.46 headroom + 0.71 envelope). The width term
+     is `88vw - 10px`, not plain 88vw: the envelope's shell now carries no
+     horizontal padding, so only the details-shell's small padding is left to
+     subtract — plain 88vw overflowed it and caused a phantom horizontal scroll
+     on mobile. Uses vw/px (NOT %) because --env-w also feeds translateY(),
+     where % would resolve against height. On tall/wide screens the px cap
+     wins instead. */
+  --env-w: min(560px, calc(88vw - 10px), 58svh);
 
   position: relative;
   width: var(--env-w);
   margin-inline: auto;
-  /* headroom above the envelope for the card to slide up out of the sleeve —
-     just enough for the card's exposed top (measured ~0.44 of env-w) */
-  padding-top: calc(var(--env-w) * 0.46);
+  /* headroom for the flap to hinge open into (it no longer needs room for the
+     card to slide up — the envelope slides down to reveal the fixed card) */
+  padding-top: calc(var(--env-w) * 0.24);
   display: flex;
   justify-content: center;
+  /* Contain the open/close animation: the flap's 3D rotateX projects past the
+     scene and the envelope surfaces sink below it — that transient overflow
+     would otherwise reach the scroll ancestor (/wedding's detailsShell) and
+     flash a scrollbar / shift the layout. `clip` stops the propagation.
+     clip-margin is 0 (no extended clip region): a non-zero margin gets counted
+     as scrollable overflow by some engines — a horizontal scroll on iOS, and a
+     vertical one on desktop as the envelope sinks into the margin. The card
+     stays within the box, and the flap fades out on open, so clipping its
+     projecting tip is invisible. */
+  overflow: clip;
+  overflow-clip-margin: 0px;
 }
 
 .envelopeClosed,
@@ -100,7 +127,9 @@
 .envelope {
   position: relative;
   width: var(--env-w);
-  height: calc(var(--env-w) / 1.408);
+  /* Aspect ratio is a variable so mobile can make the envelope taller (a deeper
+     pocket) — the card carries more height there and was poking out the top. */
+  height: calc(var(--env-w) / var(--env-ratio, 1.408));
   /* no perspective/3d context here — the flap carries perspective in its own
      transform, so the card & sleeve layer purely by z-index (avoids a compositing
      quirk where the will-change'd card paints over the sleeve) */
@@ -150,21 +179,29 @@
   width: calc(var(--env-w) * 0.917);
   transform: translateX(-50%); /* closed: tucked in the pocket */
   will-change: transform;
-  /* closing: the card slides back in first (the flap waits for it) */
-  transition: transform 620ms var(--ease-card) 0ms;
+  /* closing (reverse of open): the envelope rises back first, THEN the card
+     slides in, THEN the flap folds — so the card waits ~320ms */
+  transition: transform 620ms var(--ease-card) 320ms;
 }
 
+/* The card no longer slides up — it stays put and the envelope slides down to
+   reveal it, so the card's buttons keep a fixed on-screen position. (Rule kept
+   as a no-op anchor in case the reveal choreography needs the card later.) */
 .envelopeOpen .cardSlot {
-  transform: translateX(-50%) translateY(calc(var(--env-w) * -0.541));
-  /* opening: the card waits for the flap to lift first, then slides out */
-  transition: transform 620ms var(--ease-card) 480ms;
+  transform: translateX(-50%);
 }
 
 .rsvpCard {
   position: relative;
   width: 100%;
+  /* flex column so the active panel fills the card and pins its actions to the
+     bottom (the card is taller than the content — no empty gap below buttons) */
+  display: flex;
+  flex-direction: column;
   min-height: calc(var(--env-w) * 0.6);
-  max-height: calc(var(--env-w) * 0.82);
+  /* the card fills the pocket: its ceiling is the envelope's own height (which
+     is taller on mobile via --env-ratio), so typical households don't scroll */
+  max-height: calc(var(--env-w) / var(--env-ratio, 1.408) - var(--env-w) * 0.03);
   overflow: auto;
   padding: var(--wedding-space-lg) var(--wedding-space-xl);
   border-radius: 3px 3px 4px 4px;
@@ -173,8 +210,8 @@
   /* inserted: just the edge stroke — NO cast shadow (it's tucked in the pocket,
      and a downward shadow would poke out below the envelope) */
   box-shadow: 0 0 0 1px rgba(28, 26, 20, 0.1);
-  /* closing: shadow fades out as the card slides in (matches the card slide) */
-  transition: box-shadow 620ms var(--ease-card) 0ms;
+  /* closing: shadow settles as the card slides in (matches the card slide) */
+  transition: box-shadow 620ms var(--ease-card) 320ms;
 }
 
 /* raised out of the pocket — now it casts a soft lift shadow */
@@ -221,31 +258,44 @@
 /* ---- top flap: folds over the sleeve, hinges open. the wrapper carries the
    transform + cast shadow (unclipped, so the shadow can spill onto the sleeve;
    a clip-path on the same element would clip the shadow away) ---- */
+/* wrapper carries the vertical slide; the inner .flapFace carries the hinge, so
+   the flap can hinge AND be slid with the body (a filter here would flatten the
+   child's 3D, so the drop-shadow lives on the paper instead) */
 .envelopeFlap {
   position: absolute;
   inset: 0;
   z-index: 4;
-  transform-origin: 50% 0%;
-  /* perspective baked into the flap's own transform (not the parent) */
-  transform: perspective(1300px) rotateX(0deg);
-  filter:
-    drop-shadow(0 1px 1.5px rgba(28, 26, 20, 0.1))
-    drop-shadow(0 2px 4px rgba(28, 26, 20, 0.07));
+  transform: translateY(0);
   pointer-events: none;
   will-change: transform;
-  /* closing: the flap waits for the card to slide in first, then folds down */
+  /* closing (exact reverse of open): slides back up WITH the envelope body
+     first, same ease/duration as the open slide (z swaps back on top as it
+     rises, so the folding flap seals over the sleeve) */
   transition:
-    transform 520ms var(--ease-flap) 420ms,
-    z-index 0ms linear 680ms, /* swap while edge-on, mid the delayed fold */
-    filter 520ms var(--ease-flap) 420ms;
+    transform 640ms var(--ease-card) 0ms,
+    z-index 0ms linear 840ms;
 }
 
-/* the flap paper — deeper than the cutout (apex 20%) so it laps over the sleeve */
+/* the flap paper — deeper than the cutout (apex 20%) so it laps over the sleeve.
+   It carries the hinge (rotateX) so the wrapper can slide the open flap down. */
 .flapFace {
   position: absolute;
   inset: 0;
   clip-path: polygon(0% 0%, 100% 0%, 50% 34%);
   background: var(--paper);
+  transform-origin: 50% 0%;
+  transform: perspective(1300px) rotateX(0deg);
+  filter: drop-shadow(0 2px 3px rgba(28, 26, 20, 0.08));
+  will-change: transform;
+  /* closing: the flap hinges shut LAST, after the envelope has slid back up —
+     mirror of the open hinge (same ease/duration, delayed by the slide) */
+  transition: transform 520ms var(--ease-flap) 580ms;
+}
+
+.envelopeOpen .flapFace {
+  /* opening: the flap hinges open FIRST, before the envelope slides down */
+  transform: perspective(1300px) rotateX(172deg);
+  transition: transform 520ms var(--ease-flap) 0ms;
 }
 
 /* thin stroke along the flap's pointed edges, matching the sleeve outline */
@@ -258,18 +308,37 @@
 }
 
 .envelopeOpen .envelopeFlap {
-  transform: perspective(1300px) rotateX(172deg);
+  /* opening: after the flap hinges open, the wrapper slides it straight down
+     out of view WITH the envelope body (no fade — it physically slides away) */
+  transform: translateY(104%);
   z-index: 0;
-  /* zero (transparent) shadows rather than `none`, so the filter interpolates
-     smoothly instead of popping — the shadow fades out as the flap lifts */
-  filter:
-    drop-shadow(0 0 0 rgba(28, 26, 20, 0))
-    drop-shadow(0 0 0 rgba(28, 26, 20, 0));
-  /* opening: the flap lifts first, immediately */
   transition:
-    transform 520ms var(--ease-flap) 0ms,
-    z-index 0ms linear 260ms,
-    filter 520ms var(--ease-flap) 0ms;
+    transform 640ms var(--ease-card) 460ms,
+    z-index 0ms linear 260ms;
+}
+
+/* ---- after the flap hinges open, the envelope body (back + recess + sleeve)
+   slides straight DOWN out of view, uncovering the fixed card — a physical
+   slide, not a fade. It slides back UP first on close (then the flap folds
+   shut). The card never moves, so its buttons keep a fixed position. ---- */
+.envelopeBack,
+.cutoutShade,
+.envelopeFront {
+  /* closing (exact reverse of open): slides back up FIRST, same ease/duration
+     as the open slide so the two directions match */
+  transition: transform 640ms var(--ease-card) 0ms;
+}
+
+.envelopeOpen .envelopeBack,
+.envelopeOpen .cutoutShade {
+  transform: translateY(104%);
+  transition: transform 640ms var(--ease-card) 460ms;
+}
+
+.envelopeOpen .envelopeFront {
+  /* keep the compositing hint while sliding */
+  transform: translateY(104%) translateZ(0);
+  transition: transform 640ms var(--ease-card) 460ms;
 }
 
 .envelopeBody {
@@ -313,7 +382,7 @@
      scroll; the field scrolls internally instead if the text runs long */
   resize: none;
   border: 1px solid rgba(20, 20, 20, 0.08);
-  border-radius: 2px 2px 5px 5px;
+  border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(245, 245, 237, 0.72)),
     url("/paper-texture.svg"),
@@ -335,7 +404,9 @@
 }
 
 .lookupForm .field {
-  width: min(100%, 17rem);
+  /* narrower so the "Find Invite" button keeps its width and stays on one line */
+  width: min(100%, 13rem);
+  min-width: 0;
 }
 
 .srOnly {
@@ -360,7 +431,7 @@
   width: 100%;
   min-height: 42px;
   border: 1px solid rgba(20, 20, 20, 0.08);
-  border-radius: 2px 2px 5px 5px;
+  border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(245, 245, 237, 0.72)),
     url("/paper-texture.svg"),
@@ -387,6 +458,8 @@
 .secondaryButton {
   appearance: none;
   min-height: 42px;
+  white-space: nowrap;
+  flex-shrink: 0;
   border: 1px solid rgba(20, 20, 20, 0.055);
   border-radius: 8px;
   background: #f5f5f1;
@@ -519,15 +592,13 @@
   font-family: var(--font-geist-mono), "Courier New", monospace;
   font-size: var(--font-size-sm);
   line-height: 1;
+  white-space: nowrap;
   padding: 12px 10px 10px;
-  transition:
-    color var(--transition-fast),
-    transform var(--transition-fast);
+  transition: color var(--transition-fast);
 }
 
 .optionBox:hover {
   color: rgba(20, 20, 20, 0.78);
-  transform: translateY(-1px);
 }
 
 .optionActive {
@@ -540,7 +611,7 @@
   flex: 0 0 auto;
   padding: 2px;
   border: 1px solid rgba(20, 20, 20, 0.08);
-  border-radius: 2px 2px 5px 5px;
+  border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(245, 245, 237, 0.68)),
     url("/paper-texture.svg"),
@@ -578,23 +649,60 @@
 
 .actions {
   display: flex;
-  justify-content: space-between;
+  /* both actions grouped at the bottom-right of the card */
+  justify-content: flex-end;
   gap: var(--wedding-space-md);
+  /* pinned to the bottom of the (taller) card */
+  margin-top: auto;
 }
 
 @media (max-width: 720px) {
   .personRow,
   .dietaryRow {
     grid-template-columns: 1fr;
+    gap: var(--wedding-space-sm);
   }
 
   .optionsGroup {
+    /* size each option to its label (not a forced 50%) so "Can't make it"
+       never wraps, and keep them on one left-aligned row */
+    grid-template-columns: repeat(2, max-content);
+    justify-content: start;
+    gap: var(--wedding-space-sm);
     width: 100%;
   }
 
+  /* compact the options on mobile so the wider dietary labels ("Vegetarian",
+     "Nut allergy") still fit side by side without a horizontal scroll */
+  .optionBox {
+    gap: var(--wedding-space-xs);
+    padding: 12px 4px 10px;
+  }
+
   .actions {
-    align-items: flex-start;
-    flex-direction: column-reverse;
+    /* keep Back/Next on one row — stacking them pushed the card's content down
+       behind the envelope sleeve */
+    flex-direction: row;
+    align-items: center;
+  }
+
+  /* Mobile has plenty of vertical room but a narrow (so short) envelope, which
+     hid the card's lower content behind the sleeve. Spend that vertical space:
+     deeper headroom + a longer slide lift the whole card clear of the sleeve,
+     and a taller card ceiling fits bigger households before it needs to
+     scroll. Envelope pushing down matching the extra slide keeps the card's top
+     inside the scene. */
+  .envelopeScene {
+    /* Mobile makes the envelope taller (deeper pocket) so the taller mobile
+       card fits inside it. Typical (1–2 person) households fit cleanly; larger
+       ones scroll inside the card. */
+    --env-ratio: 1.1;
+    padding-top: calc(var(--env-w) * 0.24);
+  }
+
+  .rsvpCard {
+    /* narrower side padding buys the option row breathing room on small phones */
+    padding-inline: var(--wedding-space-md);
   }
 
   .lookupForm {
@@ -604,7 +712,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .envelopeBack,
+  .cutoutShade,
+  .envelopeFront,
   .envelopeFlap,
+  .envelopeOpen .envelopeBack,
+  .envelopeOpen .cutoutShade,
+  .envelopeOpen .envelopeFront,
   .envelopeOpen .envelopeFlap,
   .cardSlot,
   .envelopeOpen .cardSlot,
