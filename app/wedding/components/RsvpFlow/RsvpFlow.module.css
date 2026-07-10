@@ -1,7 +1,68 @@
 .flow {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--wedding-space-lg);
+  align-items: center;
+  width: 100%;
+}
+
+/* transient confirmation that floats above the sealed envelope, then fades on
+   its own — the lookup form is already back underneath it */
+.toast {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wedding-space-sm);
+  padding: 10px 16px 8px;
+  border: 1px solid rgba(20, 20, 20, 0.1);
+  border-radius: 2px 2px 5px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 245, 237, 0.96)),
+    url("/paper-texture.svg"),
+    #fffff7;
+  background-size: auto, 360px 225px, auto;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 10px 26px -14px rgba(20, 20, 20, 0.5);
+  color: rgba(20, 20, 20, 0.82);
+  font-family: var(--font-geist-mono), "Courier New", monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1;
+  transform: translate(-50%, -8px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-normal) ease-out,
+    transform var(--transition-normal) ease-out;
+}
+
+.toastShow {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.toastCheck {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: rgba(20, 20, 20, 0.7);
+}
+
+.toastCheck path {
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+}
+
+.toastShow .toastCheck path {
+  animation: draw-check 220ms cubic-bezier(0.23, 1, 0.32, 1) 120ms forwards;
 }
 
 .lookupForm,
@@ -12,11 +73,251 @@
   gap: var(--wedding-space-lg);
 }
 
+.envelopeScene {
+  /* light warm paper + easing tokens, ported from the envelope lab */
+  --paper: linear-gradient(180deg, #f8f7f2 0%, #f6f4ef 46%, #f2f1ea 100%);
+  --ease-card: cubic-bezier(0.22, 1, 0.36, 1); /* ~ease-out-quint */
+  --ease-flap: cubic-bezier(0.42, 0.9, 0.32, 1); /* ease-out, gentle settle */
+  /* cap by width AND height so the envelope + slide headroom never outgrows the
+     viewport (which was forcing a scrollbar) */
+  --env-w: min(560px, 88vw, 62svh);
+
+  position: relative;
+  width: var(--env-w);
+  margin-inline: auto;
+  /* headroom above the envelope for the card to slide up out of the sleeve —
+     just enough for the card's exposed top */
+  padding-top: calc(var(--env-w) * 0.48);
+  display: flex;
+  justify-content: center;
+}
+
+.envelopeClosed,
+.envelopeOpen {
+  /* state markers — layer rules key off these */
+}
+
+.envelope {
+  position: relative;
+  width: var(--env-w);
+  height: calc(var(--env-w) / 1.408);
+  /* no perspective/3d context here — the flap carries perspective in its own
+     transform, so the card & sleeve layer purely by z-index (avoids a compositing
+     quirk where the will-change'd card paints over the sleeve) */
+}
+
+/* faint paper grain shared by the envelope surfaces (clipped to each shape) */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("/paper-texture.svg");
+  background-size: 280px 175px;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* ---- base: flat back panel sitting behind the card ---- */
+.envelopeBack {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* square top so the flap's sharp edges meet the body cleanly; rounded bottom */
+  border-radius: 0 0 3px 3px;
+  background: var(--paper);
+  box-shadow: 0 1px 2px rgba(28, 26, 20, 0.05);
+}
+
+/* faint recess so the card reads as set back inside the cutout */
+.cutoutShade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: polygon(0% 0%, 50% 20%, 100% 0%);
+  background: rgba(28, 26, 20, 0.028);
+}
+
+/* ---- card that slides up out of the sleeve ---- */
+/* transition-based + always mounted, so it slides both ways (open AND close is
+   the exact reverse) rather than popping in/out */
+.cardSlot {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--env-w) * 0.008);
+  z-index: 2;
+  width: calc(var(--env-w) * 0.917);
+  transform: translateX(-50%); /* closed: tucked in the pocket */
+  will-change: transform;
+  /* closing: the card slides back in first (the flap waits for it) */
+  transition: transform 620ms var(--ease-card) 0ms;
+}
+
+.envelopeOpen .cardSlot {
+  transform: translateX(-50%) translateY(calc(var(--env-w) * -0.541));
+  /* opening: the card waits for the flap to lift first, then slides out */
+  transition: transform 620ms var(--ease-card) 480ms;
+}
+
+.rsvpCard {
+  position: relative;
+  width: 100%;
+  min-height: calc(var(--env-w) * 0.6);
+  max-height: calc(var(--env-w) * 0.82);
+  overflow: auto;
+  padding: var(--wedding-space-lg) var(--wedding-space-xl);
+  border-radius: 3px 3px 4px 4px;
+  /* near-white card, clearly brighter than the envelope for contrast */
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfa 100%);
+  /* inserted: just the edge stroke — NO cast shadow (it's tucked in the pocket,
+     and a downward shadow would poke out below the envelope) */
+  box-shadow: 0 0 0 1px rgba(28, 26, 20, 0.1);
+  /* closing: shadow fades out as the card slides in (matches the card slide) */
+  transition: box-shadow 620ms var(--ease-card) 0ms;
+}
+
+/* raised out of the pocket — now it casts a soft lift shadow */
+.envelopeOpen .rsvpCard {
+  box-shadow:
+    0 0 0 1px rgba(28, 26, 20, 0.1),
+    0 2px 4px rgba(28, 26, 20, 0.08),
+    0 26px 44px -22px rgba(28, 26, 20, 0.32);
+  /* opening: shadow grows in as the card slides out (waits for the flap) */
+  transition: box-shadow 620ms var(--ease-card) 480ms;
+}
+
+/* ---- sleeve: pocket front with a downward-triangle cutout ---- */
+.envelopeFront {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  clip-path: polygon(0% 0%, 50% 20%, 100% 0%, 100% 100%, 0% 100%);
+  border-radius: 0 0 3px 3px;
+  background: var(--paper);
+  /* inset outline stroke — shares the flap stroke's reference so they meet
+     cleanly at the top corners */
+  box-shadow: inset 0 0 0 1px rgba(28, 26, 20, 0.06);
+  /* promote to its own compositing layer so it reliably paints above the
+     composited card (z3 > z2) — without this, Chrome can paint the whole
+     non-composited layer, sleeve included, beneath the composited card */
+  transform: translateZ(0);
+}
+
+/* lit highlight along the cutout's top edge (sleeve reads as on top of card) */
+.envelopeFront::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0% 0%, 50% 20%, 100% 0%, 100% 0.7%, 50% 20.7%, 0% 0.7%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.14) 15%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.36) 88%
+  );
+}
+
+/* ---- top flap: folds over the sleeve, hinges open. the wrapper carries the
+   transform + cast shadow (unclipped, so the shadow can spill onto the sleeve;
+   a clip-path on the same element would clip the shadow away) ---- */
+.envelopeFlap {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  transform-origin: 50% 0%;
+  /* perspective baked into the flap's own transform (not the parent) */
+  transform: perspective(1300px) rotateX(0deg);
+  filter:
+    drop-shadow(0 1px 1.5px rgba(28, 26, 20, 0.1))
+    drop-shadow(0 2px 4px rgba(28, 26, 20, 0.07));
+  pointer-events: none;
+  will-change: transform;
+  /* closing: the flap waits for the card to slide in first, then folds down */
+  transition:
+    transform 520ms var(--ease-flap) 420ms,
+    z-index 0ms linear 680ms, /* swap while edge-on, mid the delayed fold */
+    filter 520ms var(--ease-flap) 420ms;
+}
+
+/* the flap paper — deeper than the cutout (apex 20%) so it laps over the sleeve */
+.flapFace {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 34%);
+  background: var(--paper);
+}
+
+/* thin stroke along the flap's pointed edges, matching the sleeve outline */
+.flapFace::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0% 0%, 50% 34%, 100% 0%, 99.5% 0%, 50% 33.7%, 0.5% 0%);
+  background: rgba(28, 26, 20, 0.06);
+}
+
+.envelopeOpen .envelopeFlap {
+  transform: perspective(1300px) rotateX(172deg);
+  z-index: 0;
+  /* zero (transparent) shadows rather than `none`, so the filter interpolates
+     smoothly instead of popping — the shadow fades out as the flap lifts */
+  filter:
+    drop-shadow(0 0 0 rgba(28, 26, 20, 0))
+    drop-shadow(0 0 0 rgba(28, 26, 20, 0));
+  /* opening: the flap lifts first, immediately */
+  transition:
+    transform 520ms var(--ease-flap) 0ms,
+    z-index 0ms linear 260ms,
+    filter 520ms var(--ease-flap) 0ms;
+}
+
+.envelopeBody {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--env-w) * 0.3) clamp(24px, 5vw, 40px) calc(var(--env-w) * 0.1);
+  pointer-events: none;
+  /* composited so the form reliably paints above the composited flap */
+  transform: translateZ(0);
+}
+
+.envelopeBody > * {
+  pointer-events: auto;
+}
+
+.lookupForm {
+  align-items: center;
+  flex-direction: row;
+  gap: var(--space-md);
+  justify-content: center;
+  position: relative;
+  z-index: 6;
+  width: 100%;
+}
+
 .field,
 .editableName {
   display: flex;
   flex-direction: column;
   gap: var(--wedding-space-xs);
+}
+
+.lookupForm .field {
+  width: min(100%, 17rem);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .label,
@@ -30,9 +331,13 @@
 .input {
   width: 100%;
   min-height: 42px;
-  border: 1px solid var(--wedding-border);
-  border-radius: 6px;
-  background: rgba(232, 228, 220, 0.72);
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  border-radius: 2px 2px 5px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(245, 245, 237, 0.72)),
+    url("/paper-texture.svg"),
+    #fffff7;
+  background-size: auto, 360px 225px, auto;
   color: var(--wedding-text);
   font: inherit;
   line-height: 1.2;
@@ -44,48 +349,63 @@
   outline-offset: 2px;
 }
 
+.input::placeholder {
+  color: rgba(20, 20, 20, 0.28);
+}
+
 .primaryButton,
 .secondaryButton {
+  appearance: none;
   min-height: 42px;
-  border-radius: 999px;
-  font-family: var(--wedding-font-mono);
-  font-size: var(--wedding-font-size-sm);
-  font-weight: 700;
-  letter-spacing: var(--wedding-tracking-wider);
-  line-height: 1.2;
-  padding: var(--wedding-space-sm) var(--wedding-space-lg);
-  text-transform: uppercase;
+  border: 1px solid rgba(20, 20, 20, 0.06);
+  border-radius: 2px 2px 5px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 245, 237, 0.88)),
+    url("/paper-texture.svg"),
+    #fffff7;
+  background-size: auto, 360px 225px, auto;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 1px 2px rgba(20, 20, 20, 0.05),
+    0 12px 24px -20px rgba(20, 20, 20, 0.45);
+  color: rgba(20, 20, 20, 0.72);
   cursor: pointer;
-  transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+  font-family: var(--font-geist-mono), "Courier New", monospace;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  padding: 13px 20px 11px;
+  width: fit-content;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .primaryButton {
-  border: 1px solid var(--wedding-text);
-  background: var(--wedding-text);
-  color: var(--wedding-bg);
+  border-color: rgba(20, 20, 20, 0.14);
+  color: rgba(20, 20, 20, 0.86);
+}
+
+.primaryButton:hover:not(:disabled),
+.secondaryButton:hover {
+  border-color: rgba(20, 20, 20, 0.13);
+  color: rgba(20, 20, 20, 0.88);
 }
 
 .primaryButton:hover:not(:disabled) {
-  background: transparent;
-  color: var(--wedding-text);
-}
-
-.primaryButton:disabled {
-  border-color: var(--wedding-border);
-  background: var(--wedding-border);
-  color: var(--wedding-text-muted);
-  cursor: not-allowed;
-}
-
-.secondaryButton {
-  border: 1px solid var(--wedding-border);
-  background: transparent;
-  color: var(--wedding-text-secondary);
+  transform: translateY(-1px);
 }
 
 .secondaryButton:hover {
-  border-color: var(--wedding-text);
-  color: var(--wedding-text);
+  transform: translateY(-1px);
+}
+
+.primaryButton:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
 }
 
 .stepHeader {
@@ -102,27 +422,36 @@
   color: var(--wedding-text);
 }
 
+.success {
+  position: relative;
+  z-index: 6;
+  align-items: center;
+  text-align: center;
+}
+
+.successCard {
+  min-height: 132px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .peopleList {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--wedding-border-light);
+  gap: var(--space-md);
 }
 
 .personRow,
 .dietaryRow {
   display: grid;
   gap: var(--wedding-space-md);
-  padding: var(--wedding-space-md) 0;
-  border-bottom: 1px solid var(--wedding-border-light);
+  padding: 0;
 }
 
-.personRow {
-  grid-template-columns: minmax(0, 1fr) minmax(230px, auto);
-  align-items: center;
-}
-
+.personRow,
 .dietaryRow {
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) minmax(230px, auto);
   align-items: center;
 }
 
@@ -136,49 +465,81 @@
   line-height: 1.3;
 }
 
-.segmentedControl {
+.optionsGroup {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--wedding-border);
-  border-radius: 999px;
-  overflow: hidden;
+  gap: var(--space-xs);
 }
 
-.segmentButton {
-  min-height: 36px;
-  border: none;
-  background: transparent;
-  color: var(--wedding-text-secondary);
-  font: inherit;
-  font-size: var(--wedding-font-size-sm);
-  line-height: 1.2;
-  padding: var(--wedding-space-xs) var(--wedding-space-md);
-  cursor: pointer;
-  transition: background-color 150ms ease-out, color 150ms ease-out;
-}
-
-.segmentButton + .segmentButton {
-  border-left: 1px solid var(--wedding-border);
-}
-
-.segmentActive {
-  background: var(--wedding-text);
-  color: var(--wedding-bg);
-}
-
-.checkboxLabel {
+.optionBox {
+  appearance: none;
+  min-height: 42px;
   display: inline-flex;
   align-items: center;
-  gap: var(--wedding-space-sm);
-  color: var(--wedding-text-secondary);
-  font-size: var(--wedding-font-size-sm);
-  white-space: nowrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  border: 0;
+  background: transparent;
+  color: rgba(20, 20, 20, 0.58);
+  cursor: pointer;
+  font-family: var(--font-geist-mono), "Courier New", monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1;
+  padding: 12px 10px 10px;
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
-.checkboxLabel input {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--wedding-text);
+.optionBox:hover {
+  color: rgba(20, 20, 20, 0.78);
+  transform: translateY(-1px);
+}
+
+.optionActive {
+  color: rgba(20, 20, 20, 0.88);
+}
+
+.checkMark {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  padding: 2px;
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  border-radius: 2px 2px 5px 5px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(245, 245, 237, 0.68)),
+    url("/paper-texture.svg"),
+    #fffff7;
+  background-size: auto, 360px 225px, auto;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.optionBox:hover .checkMark {
+  border-color: rgba(20, 20, 20, 0.14);
+}
+
+.optionActive .checkMark {
+  border-color: rgba(20, 20, 20, 0.18);
+}
+
+.checkMark path {
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+}
+
+.optionActive .checkMark path {
+  animation: draw-check 180ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes draw-check {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .actions {
@@ -193,30 +554,49 @@
   line-height: var(--wedding-leading-normal);
 }
 
-.deadline {
-  margin: 0;
-  color: var(--wedding-text-muted);
-  font-size: var(--wedding-font-size-sm);
-  line-height: var(--wedding-leading-normal);
-}
-
 @media (max-width: 720px) {
   .personRow,
   .dietaryRow {
     grid-template-columns: 1fr;
   }
 
-  .segmentedControl {
+  .optionsGroup {
     width: 100%;
   }
 
   .actions {
+    align-items: flex-start;
     flex-direction: column-reverse;
   }
 
-  .primaryButton,
-  .secondaryButton {
-    width: 100%;
+  .lookupForm {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .envelopeFlap,
+  .envelopeOpen .envelopeFlap,
+  .cardSlot,
+  .envelopeOpen .cardSlot,
+  .rsvpCard,
+  .envelopeOpen .rsvpCard {
+    transition: none;
+  }
+
+  .optionActive .checkMark path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .toast {
+    transition: opacity var(--transition-normal) ease-out;
+    transform: translate(-50%, 0);
+  }
+
+  .toastShow .toastCheck path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
