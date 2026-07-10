@@ -7,6 +7,20 @@
   width: 100%;
 }
 
+/* shown only on the lookup step (before a search is fired): pinned to the
+   bottom of the envelope, centered on desktop / right-aligned on mobile */
+.deadline {
+  position: absolute;
+  left: clamp(24px, 5vw, 40px);
+  right: clamp(24px, 5vw, 40px);
+  bottom: calc(var(--env-w) * 0.055);
+  margin: 0;
+  text-align: center;
+  color: rgba(20, 20, 20, 0.32);
+  font-family: var(--font-geist-mono), "Courier New", monospace;
+  font-size: var(--font-size-sm);
+}
+
 /* transient confirmation that floats above the sealed envelope, then fades on
    its own — the lookup form is already back underneath it */
 .toast {
@@ -270,14 +284,14 @@
   opacity: 1;
   pointer-events: none;
   will-change: transform;
-  /* closing (exact reverse of open): slides back up WITH the envelope body
-     first, same ease/duration as the open slide (z swaps back on top as it
-     rises, so the folding flap seals over the sleeve). opacity snaps back
-     instantly so the flap is solid for the physical slide up. */
+  /* closing: slides back up WITH the envelope body, and comes to the front
+     BEFORE the fold begins (at 260ms) so the whole fold is visible on top —
+     flipping z mid-fold made the half-folded flap pop into view. opacity snaps
+     back instantly so the flap is solid for the physical slide up. */
   transition:
     transform 640ms var(--ease-card) 0ms,
     opacity 1ms linear 0ms,
-    z-index 0ms linear 840ms;
+    z-index 0ms linear 260ms;
 }
 
 /* the flap paper — deeper than the cutout (apex 20%) so it laps over the sleeve.
@@ -289,11 +303,13 @@
   background: var(--paper);
   transform-origin: 50% 0%;
   transform: perspective(1300px) rotateX(0deg);
-  filter: drop-shadow(0 2px 3px rgba(28, 26, 20, 0.08));
   will-change: transform;
-  /* closing: the flap hinges shut LAST, after the envelope has slid back up —
-     mirror of the open hinge (same ease/duration, delayed by the slide) */
-  transition: transform 520ms var(--ease-flap) 580ms;
+  /* NO drop-shadow filter here: rasterizing a filter every frame of the 3D
+     rotateX hinge is what made the close fold stutter. The ::before edge stroke
+     defines the flap instead. */
+  /* closing: the flap folds shut while the envelope slides back up (overlapping
+     it, not trailing after) so the reseal feels as quick as the open */
+  transition: transform 520ms var(--ease-flap) 240ms;
 }
 
 .envelopeOpen .flapFace {
@@ -746,19 +762,26 @@
     padding-inline: var(--wedding-space-md);
   }
 
+  /* input + button on one row; the input flexes to take the width and the
+     button stays compact (tighter horizontal padding) */
   .lookupForm {
-    align-items: stretch;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wedding-space-sm);
   }
 
-  /* full-width search field, then the button on the right beneath it — both
-     ending at the same right edge */
   .lookupForm .field {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
   }
 
   .lookupForm .primaryButton {
-    align-self: flex-end;
+    padding: 13px 12px 11px;
+  }
+
+  /* align the deadline right, matching the row above it */
+  .deadline {
+    text-align: right;
   }
 }
 

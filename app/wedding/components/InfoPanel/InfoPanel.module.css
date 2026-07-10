@@ -293,13 +293,13 @@
 
 .travelHeading {
   font-size: var(--wedding-font-size-sm);
-  font-weight: 500;
+  font-weight: 400;
   color: var(--wedding-text-muted);
   margin: 0 0 var(--wedding-space-xs);
 }
 
 .travelName {
-  font-weight: 500;
+  font-weight: 400;
   color: var(--wedding-text);
   margin: 0;
 }
@@ -311,7 +311,7 @@
 
 .travelLink {
   display: block;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--wedding-text);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -357,4 +357,16 @@
   color: var(--wedding-text-muted);
   font-size: var(--wedding-font-size-sm);
   line-height: var(--wedding-leading-relaxed);
+}
+
+.faqLink {
+  color: var(--wedding-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--wedding-border-light);
+  transition: text-decoration-color 150ms ease-out;
+}
+
+.faqLink:hover {
+  text-decoration-color: var(--wedding-text);
 }

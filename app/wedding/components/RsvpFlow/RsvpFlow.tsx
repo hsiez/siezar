@@ -238,7 +238,8 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
     setError('');
     setStep('closing');
     window.clearTimeout(resetTimer.current);
-    resetTimer.current = window.setTimeout(() => setStep('lookup'), 1150);
+    // reveal the search once the (now-faster) reseal finishes (~760ms fold end)
+    resetTimer.current = window.setTimeout(() => setStep('lookup'), 800);
   }
 
   if (error) {
@@ -395,26 +396,30 @@ export function RsvpFlow({ initialStep, initialReservation, devMode = false }: R
 
           <div className={styles.envelopeBody}>
             {step === 'lookup' && (
-              <form className={styles.lookupForm} onSubmit={handleLookup}>
-                <label className={styles.field}>
-                  <span className={styles.srOnly}>Phone number</span>
-                  <input
-                    className={styles.input}
-                    inputMode="tel"
-                    autoComplete="tel"
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    placeholder="(555) 123-4567"
-                    required
-                  />
-                </label>
-                <button className={styles.primaryButton} type="submit" disabled={isLoading} aria-busy={isLoading}>
-                  <span className={isLoading ? styles.buttonLabelLoading : undefined}>Find Invite</span>
-                  {isLoading && <span className={styles.spinner} aria-hidden="true" />}
-                </button>
-              </form>
+              <>
+                <form className={styles.lookupForm} onSubmit={handleLookup}>
+                  <label className={styles.field}>
+                    <span className={styles.srOnly}>Phone number</span>
+                    <input
+                      className={styles.input}
+                      inputMode="tel"
+                      autoComplete="tel"
+                      value={phone}
+                      onChange={(event) => setPhone(event.target.value)}
+                      placeholder="(555)123-4567"
+                      required
+                    />
+                  </label>
+                  <button className={styles.primaryButton} type="submit" disabled={isLoading} aria-busy={isLoading}>
+                    <span className={isLoading ? styles.buttonLabelLoading : undefined}>Find Invite</span>
+                    {isLoading && <span className={styles.spinner} aria-hidden="true" />}
+                  </button>
+                </form>
+                {!isLoading && (
+                  <p className={styles.deadline}>Reply by September 2, 2026</p>
+                )}
+              </>
             )}
-
           </div>
         </div>
       </div>

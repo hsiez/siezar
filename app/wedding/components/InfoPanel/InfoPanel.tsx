@@ -18,7 +18,23 @@ const faqItems = [
   { q: 'Is the venue accessible?', a: 'Yes \u2014 both spaces are wheelchair accessible.' },
   { q: 'When should I arrive?', a: 'By 5:00 PM. The ceremony begins promptly at 5:30 PM.' },
   { q: 'Will there be an open bar?', a: 'Yes \u2014 please drink responsibly.' },
-  { q: 'Do you have a registry?', a: 'No registry. If you\u2019d like to give, a contribution to our honeymoon or house fund is appreciated \u2014 details to follow with the invitation.' },
+  {
+    q: 'Do you have a registry?',
+    a: (
+      <>
+        Rather than gifts, we&apos;ve set up cash funds toward our honeymoon.{' '}
+        <a
+          href="https://www.zola.com/registry/thesiezars"
+          className={styles.faqLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View our registry
+        </a>
+        .
+      </>
+    ),
+  },
 ];
 
 type InfoPanelProps = {
