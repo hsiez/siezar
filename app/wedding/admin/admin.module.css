@@ -1,8 +1,7 @@
 .page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100svh;
   padding: var(--wedding-space-2xl) var(--wedding-space-xl);
   background: var(--wedding-bg, #e8e4dc);
   color: var(--wedding-text, #4a4540);
@@ -153,10 +152,18 @@
 }
 
 .householdName {
+  display: block;
   margin: 0;
   color: var(--wedding-text, #4a4540);
   font-size: var(--wedding-font-size-xl, 1.25rem);
   line-height: var(--wedding-leading-tight, 1.2);
+}
+
+.summaryMeta {
+  display: block;
+  margin-top: var(--wedding-space-xs);
+  color: var(--wedding-text-muted, #8a857d);
+  font-size: var(--wedding-font-size-xs, 1rem);
 }
 
 .primaryText,
@@ -238,6 +245,148 @@
   text-transform: uppercase;
 }
 
+.editorIntro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--wedding-space-md);
+  margin: var(--wedding-space-lg) 0 var(--wedding-space-md);
+}
+
+.editorTitle {
+  margin: 0;
+  font-size: var(--wedding-font-size-lg, 1.125rem);
+}
+
+.editorDescription {
+  margin: var(--wedding-space-xs) 0 0;
+  color: var(--wedding-text-secondary, #6b665f);
+  font-size: var(--wedding-font-size-sm, 1rem);
+}
+
+.editorList {
+  display: grid;
+  gap: var(--wedding-space-md);
+}
+
+.personEditor {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.8fr) minmax(140px, 0.75fr) minmax(160px, 1fr) minmax(180px, 1.2fr) minmax(160px, 1fr);
+  gap: var(--wedding-space-md);
+  margin: 0;
+  padding: var(--wedding-space-md);
+  border: 1px solid var(--wedding-border-light, #d8d4cb);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.personName {
+  grid-column: 1 / -1;
+  padding: 0;
+  color: var(--wedding-text, #4a4540);
+  font-size: var(--wedding-font-size-lg, 1.125rem);
+  font-weight: 700;
+}
+
+.field {
+  display: grid;
+  gap: var(--wedding-space-xs);
+  min-width: 0;
+  color: var(--wedding-text-muted, #8a857d);
+  font-size: var(--wedding-font-size-xs, 1rem);
+  letter-spacing: var(--wedding-tracking-wide, 0.05em);
+  text-transform: uppercase;
+}
+
+.field input,
+.field select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 42px;
+  padding: var(--wedding-space-sm);
+  border: 1px solid var(--wedding-border, #c9c4ba);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.42);
+  color: var(--wedding-text, #4a4540);
+  font: inherit;
+  font-size: var(--wedding-font-size-sm, 1rem);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.field input:disabled {
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--wedding-text-muted, #8a857d);
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.saveButton:focus-visible {
+  outline: 2px solid var(--wedding-text, #4a4540);
+  outline-offset: 2px;
+}
+
+.checkboxes {
+  align-content: start;
+}
+
+.checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: var(--wedding-space-sm);
+  min-height: 20px;
+  color: var(--wedding-text-secondary, #6b665f);
+  font-size: var(--wedding-font-size-sm, 1rem);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.checkboxes input {
+  width: 18px;
+  min-height: 18px;
+  margin: 0;
+  accent-color: var(--wedding-text, #4a4540);
+}
+
+.saveRow {
+  display: flex;
+  align-items: center;
+  gap: var(--wedding-space-md);
+  margin-top: var(--wedding-space-lg);
+}
+
+.saveButton {
+  min-height: 44px;
+  padding: var(--wedding-space-sm) var(--wedding-space-lg);
+  border: 1px solid var(--wedding-text, #4a4540);
+  border-radius: 0;
+  background: var(--wedding-text, #4a4540);
+  color: var(--wedding-bg, #e8e4dc);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--wedding-font-size-sm, 1rem);
+  font-weight: 700;
+}
+
+.saveButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.successMessage,
+.errorMessage {
+  margin: 0;
+  font-size: var(--wedding-font-size-sm, 1rem);
+}
+
+.successMessage {
+  color: #3f6f56;
+}
+
+.errorMessage {
+  color: #8a514a;
+}
+
 .submitted,
 .attending {
   color: #3f6f56;
@@ -274,10 +423,15 @@
   .stats {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .personEditor {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
   .page {
+    display: block;
     padding: var(--wedding-space-xl) var(--wedding-space-md);
   }
 
@@ -300,8 +454,8 @@
   }
 
   .householdSummary {
-    flex-direction: column;
-    gap: var(--wedding-space-md);
+    align-items: flex-start;
+    gap: var(--wedding-space-sm);
     padding: var(--wedding-space-md);
   }
 
@@ -310,8 +464,37 @@
   }
 
   .householdMeta,
-  .guestGrid {
+  .guestGrid,
+  .personEditor {
     grid-template-columns: 1fr;
+  }
+
+  .householdScroll {
+    overflow: visible;
+  }
+
+  .personEditor {
+    gap: var(--wedding-space-md);
+    padding: var(--wedding-space-md);
+  }
+
+  .personName {
+    font-size: var(--wedding-font-size-base, 1.0625rem);
+  }
+
+  .field input,
+  .field select {
+    min-height: 46px;
+  }
+
+  .saveRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .saveButton {
+    width: 100%;
+    min-height: 48px;
   }
 
   .guestGridHeader {

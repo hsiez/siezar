@@ -1,7 +1,7 @@
 import type { InStatement, Row } from '@libsql/client';
 import { randomUUID } from 'crypto';
 import { getRsvpDb } from './db';
-import type { SubmitRequest } from './schema';
+import type { AdminUpdateRequest, SubmitRequest } from './schema';
 
 export type ReservationPerson = {
   id: string;
@@ -218,6 +218,105 @@ export async function submitReservationRsvp(input: SubmitRequest): Promise<RsvpR
   const reservation = await findReservationByPhone(normalizedPhone);
   if (!reservation) {
     throw new RsvpError('Reservation could not be loaded after submission.', 500);
+  }
+
+  return reservation;
+}
+
+export async function updateReservationRsvpFromAdmin(
+  reservationId: string,
+  input: AdminUpdateRequest,
+): Promise<AdminRsvpReservation> {
+  const db = getRsvpDb();
+  const existingPeopleResult = await db.execute({
+    sql: `SELECT id, display_name, name_editable
+      FROM reservation_people
+      WHERE reservation_id = ?`,
+    args: [reservationId],
+  });
+
+  const existingPeople = new Map(
+    existingPeopleResult.rows.map((row) => [
+      String(row.id),
+      { displayName: String(row.display_name), nameEditable: Number(row.name_editable) === 1 },
+    ]),
+  );
+
+  if (existingPeople.size === 0) {
+    throw new RsvpError('Reservation was not found.', 404);
+  }
+
+  const submittedIds = new Set(input.people.map((person) => person.id));
+  if (submittedIds.size !== input.people.length || submittedIds.size !== existingPeople.size) {
+    throw new RsvpError('Save one RSVP answer for every person on the reservation.', 400);
+  }
+
+  for (const person of input.people) {
+    if (!existingPeople.has(person.id)) {
+      throw new RsvpError('A saved guest does not belong to this reservation.', 400);
+    }
+  }
+
+  const now = new Date().toISOString();
+  const hasResponse = input.people.some((person) => person.rsvpStatus !== 'pending');
+  const statements: InStatement[] = input.people.map((person) => {
+    const existingPerson = existingPeople.get(person.id);
+    const displayName = existingPerson?.nameEditable
+      ? person.displayName?.trim() || existingPerson.displayName
+      : existingPerson?.displayName;
+
+    return {
+      sql: `UPDATE reservation_people
+        SET display_name = ?,
+          rsvp_status = ?,
+          meal_choice = ?,
+          vegetarian_meal = ?,
+          nut_allergy = ?,
+          dietary_notes = ?,
+          updated_at = ?
+        WHERE id = ? AND reservation_id = ?`,
+      args: [
+        displayName ?? person.id,
+        person.rsvpStatus,
+        person.rsvpStatus === 'attending' ? nullIfBlank(person.mealChoice) : null,
+        person.rsvpStatus === 'attending' && person.vegetarianMeal ? 1 : 0,
+        person.rsvpStatus === 'attending' && person.nutAllergy ? 1 : 0,
+        person.rsvpStatus === 'attending' ? nullIfBlank(person.dietaryNotes) : null,
+        now,
+        person.id,
+        reservationId,
+      ],
+    };
+  });
+
+  statements.push(
+    {
+      sql: `UPDATE reservations
+        SET rsvp_status = ?,
+          submitted_at = CASE WHEN ? THEN COALESCE(submitted_at, ?) ELSE NULL END,
+          updated_at = ?
+        WHERE id = ?`,
+      args: [hasResponse ? 'submitted' : 'pending', hasResponse ? 1 : 0, now, now, reservationId],
+    },
+    {
+      sql: `INSERT INTO rsvp_events (
+          id, reservation_id, submitted_by_phone_e164, submitted_at, payload_json
+        ) VALUES (?, ?, ?, ?, ?)`,
+      args: [
+        randomUUID(),
+        reservationId,
+        null,
+        now,
+        JSON.stringify({ source: 'admin', people: input.people }),
+      ],
+    },
+  );
+
+  await db.batch(statements, 'write');
+
+  const reservation = (await listRsvpReservationsForAdmin()).find((item) => item.id === reservationId);
+  if (!reservation) {
+    throw new RsvpError('Reservation could not be loaded after saving.', 500);
   }
 
   return reservation;
