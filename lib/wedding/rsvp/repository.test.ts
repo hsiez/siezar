@@ -178,6 +178,56 @@ describe('RSVP repository', () => {
       status: 400,
     });
   });
+
+  it('lets an admin update every guest RSVP and dietary preference without a phone lookup', async () => {
+    const reservation = await repository.updateReservationRsvpFromAdmin('INV-002', {
+      people: [
+        {
+          id: 'PERSON-003',
+          rsvpStatus: 'attending',
+          mealChoice: 'Chicken',
+          vegetarianMeal: false,
+          nutAllergy: true,
+          dietaryNotes: 'No sesame',
+        },
+        {
+          id: 'PERSON-004',
+          displayName: 'Taylor Guest',
+          rsvpStatus: 'declined',
+          vegetarianMeal: true,
+          nutAllergy: true,
+          dietaryNotes: 'Should be cleared',
+        },
+      ],
+    });
+
+    expect(reservation.rsvpStatus).toBe('submitted');
+    expect(reservation.people).toMatchObject([
+      {
+        id: 'PERSON-003',
+        rsvpStatus: 'attending',
+        mealChoice: 'Chicken',
+        nutAllergy: true,
+        dietaryNotes: 'No sesame',
+      },
+      {
+        id: 'PERSON-004',
+        displayName: 'Taylor Guest',
+        rsvpStatus: 'declined',
+        vegetarianMeal: false,
+        nutAllergy: false,
+        dietaryNotes: null,
+      },
+    ]);
+
+    const events = await db.execute({
+      sql: 'SELECT submitted_by_phone_e164, payload_json FROM rsvp_events WHERE reservation_id = ? ORDER BY submitted_at DESC',
+      args: ['INV-002'],
+    });
+
+    const adminEvent = events.rows.find((event) => String(event.payload_json).includes('"source":"admin"'));
+    expect(adminEvent?.submitted_by_phone_e164).toBeNull();
+  });
 });
 
 async function seedTestData(testDb: Client) {
